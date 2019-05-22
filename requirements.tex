@@ -1,21 +1,119 @@
 
 
-\title{requirement document}
+\title{Requirements Document - Employee in building locator for small disasters}
 \author{
-	Jeffrey
-	Jerry
-	Ryne
-	Scott Checko
+	Jeffrey Yeung\\ % the double backslash adds a newline
+	Jerry Liu\\
+	Keith Leung\\
+	Ryne Watterson\\
+	Scott Checko 301231153
 }
 \date{\today}
 
 \documentclass[12pt]{article}
 
-
 \begin{document}
 
 \maketitle
 
-Hello world
+\begin{abstract}
+	Hello abstract
+
+\end{abstract}
+
+\section{Introduction}
+The beacon system should be quick and simple to deploy. Occupants carry the device around them in the building. Disaster strikes and the device turns on to transmit signal. Emergency personnel should have access to the location of the individuals.
+
+\section{Goals}
+	Our system should be:
+	\begin{itemize}
+		\item Reliable - physical conditions do not affect it
+		\item Robust - human factors do not affect the success rate
+		\item Simple - easy for a person to use or navigate
+		\item Human beings must carry this device on themselves (Biggest Issue)
+		\item System should work regardless of human factor (ie. people not wearing the device)
+	\end{itemize}
+
+\section{General Requirements}
+	\begin{enumerate}
+		\item Employees must be tracked in real time
+			\begin{enumerate}
+				\item The tracking must work be within the confines of the building
+				\item The tracking must also work in a small radius outside of the building
+			\end{enumerate}
+		\item First responders must find the system intuitive and simple to use
+	\end{enumerate}
+
+\section{Requirements}
+
+
+\subsection{Software Requirements}
+
+\subsection{Hardware Requirements}
+
+	\begin{enumerate}
+		\item Have base transmitter/receiver beacons around or inside a building
+		\item How do we place the base beacons around the area?
+		\item Keycards/bracelets must
+		\item Have low power consumption
+		\item Battery life > 1 year
+		\item How can a keycard transmit a strong signal if the battery is so small? Power requirements
+		\item Device can reflect high powered signals from the transmitter base (Possible)
+		\item Signal power is proportional to the inverse of distance squared. (1)
+		\item The issue is that increasing the amount of signal strength does not correspond with a linear increase in
+		\item power. The power requirements is proportional to +3dB = 50\% more power or -3dB = 50\% less power. (2). Might need to reconsider power requirements
+	\end{enumerate}
+
+	\begin{enumerate}
+		\item The tracking device
+			\begin{enumerate}
+				\item must not interfere with employee work, or impede movement
+				\item Must be about the size of a phone or smaller
+				\item Must detect if a human is wearing it
+				\item Ie if somebody left a tracker on their desk,
+					fire and rescue shouldnt go find out the hard way that the tracker is not being used
+				\item Should work along with an access control ID card
+				\item Ie as a mod or addition, to reduce the number of objects the employees need to keep track of
+				\item Must be reliable for x number of years
+				\item Must have a battery or power supply that lasts at least 2 weeks or passively charge
+			\end{enumerate}
+
+
+		\item Emergency services
+			\begin{enumerate}
+				\item Must have access to a UI to give out employee locations
+				\item Must only collect information for buildings in a disaster
+			\end{enumerate}
+
+
+		\item The devices must work for the following disasters
+			\begin{enumerate}
+				\item Floods
+				\item Fires
+				\item Lockdowns
+			\end{enumerate}
+		\item The device does not need to work for the following disasters:
+			\begin{enumerate}
+				\item Earthquakes - magnitude 4 and above
+				\item Comets
+				\item Other disasters that cause the building to collapse.
+			\end{enumerate}
+	\end{enumerate}
+
+\subsubsection{ID Card Requirements}
+	\begin{enumerate}
+		\item Must be a low power mode until activated
+	\end{enumerate}
+\subsubsection{Hub Requirements}
+	\begin{enumerate}
+		\item Must be installable into a building after the building is finished construction
+		\item Must be deployable by emergency services if desired
+	\end{enumerate}
+\subsubsection{Server Requirements}
+	\begin{enumerate}
+		\item Must work on
+	\end{enumerate}
+
+\section{Conclusion}
 
 \end{document}
