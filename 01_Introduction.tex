@@ -1,30 +1,146 @@
+%\documentclass[11pt]{article}
+%\usepackage[document]{ragged2e}
+%\usepackage[a4paper, total={6in, 9in}]{geometry}
+%\usepackage{graphicx}
+%\usepackage{float}
+%\usepackage{multirow}
+%\usepackage{array}
+%\begin{document}
+
+
+
 
 \setcounter{section}{0}
-	\section{Introduction}
-	\bigskip
-	
-	\subsection{Background}
-	The beacon system should be quick and simple to deploy. 
-	Occupants carry the device around them in the building. 
-	Disaster strikes and the device turns on to transmit signal.
-	Emergency personnel should have access to the location of the individuals.
+\section{Introduction}
+\bigskip
+\subsection{Background}
+\break
 
 
-	
-	
-	\break
-	\subsection{Project Scope}
-	The location system should be:
-	\begin{itemize}
-		\item Reliable - physical conditions do not affect it
-		\item Robust - human factors do not affect the success rate
-		\item Simple - easy for a person to use or navigate
-		\item Human beings must carry this device on themselves (Biggest Issue)
-		\item System should work regardless of human factor (ie. people not wearing the device)
-	\end{itemize}
 
+\subsection{Scope}
+This requirement specification document outlines functional and non-functional requirements expected of the Akrivia Beacon product through three different phases of development including: the proof-of-concept phase, prototype phase, and final product phase as shown in Figure 1.1. 
+\medskip
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.4]{./images/dev-path.png}
+    \caption{Development Cycle}
+\end{figure}
+
+A high level design of the hardware and software system is also presented to demonstrate the overall architect and functionality of the system. The requirement section of the document is divided into 5 main categories shown below. These requirements will indicate the constraints, demands, necessities, needs, or parameters that must be met or satisfied, within a project time frame.
+
+\begin{enumerate}
+	\item General requirement 
+	\item Hardware requirement 
+	\item Electrical requirement 
+	\item Software requirement 
+	\item Performance requirement 
+\end{enumerate}
+\medskip
+
+Furthermore, relevant engineering standards, and safety and sustainability practices are included as well to illustrate how they will be implemented and utilized by TRIWAVE engineers.
+\medskip
+\medskip
+\subsection{Intended Audience}
+This document is presented by engineers at TRIWAVE as a guide for the functional and nonfunctional requirements of the Akrivia Beacon product. The intended audience of this document includes but not limited to, potential clients and/or partners, the supervising professors Dr. Craig Scratchley and Dr. Andrew Rawicz, associated teaching assistants and fellow TRIWAVE members. The hardware and software engineers of the project can reference this document during the development and/or testing stages of the project.
+\break
+
+
+
+\subsection{Requirement Classification}
+\bigskip
+For consistency purposes, the following requirement classification code convention is used to describe and organize requirements listed throughout this document. 
+\begin{center}
+\bigskip
+	\textbf{[ REQ. SE.SSE.\# - X ]} 
+\end{center}
+
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | m{1cm} | m{13cm}| } 
+\hline
+\textbf{Code} & \textbf{Definition} \\ 
+\hline
+ \textbf{REQ} & Requirement abbreviation.  \\ 
+\hline
+ \textbf{SE} & Requirement Domain Abbreviation Code correspond with hierarchical of the requirements. (see Table 2)\\ 
+\hline
+ \textbf{SSE} & Requirement Domain Abbreviation Code for subsection of the requirements. (see Table 2) \\  
+\hline
+ \textbf{\#} & Requirement number ID \\ 
+\hline
+ \textbf{X} & Development Stage Encoding (see Table 3)\\ 
+\hline
+\end{tabular}
+\caption{Requirement Encoding}
+\end{table}
+
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | m{7cm} | m{7cm}| } 
+\hline
+\textbf{Requirement Domain} & \textbf{Abbreviation Code} \\ 
+\hline
+General & GE\\ 
+\hline
+Hardware & HW\\ 
+\hline
+ Electrical & EC\\  
+\hline
+ Software & SW\\ 
+\hline
+ Software - UI & UI\\ 
+\hline
+ Performance & PE\\ 
+\hline
+Performance - Signal & SG\\ 
+\hline
+\end{tabular}
+\caption{Requirement Domain Abbreviation Code}
+\end{table}
+
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | m{7cm} | m{7cm}| } 
+\hline
+\textbf{Development Stage} & \textbf{Encoding} \\ 
+\hline
+Proof of Concept & C\\ 
+\hline
+Prototype & P\\ 
+\hline
+Final Product & F\\  
+\hline
+\end{tabular}
+\caption{Development Stage Encoding}
+\end{table}	
 	
 	
-	\break
-	\subsection{Requirement Classification}
-	Section Text
+	
+%\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
