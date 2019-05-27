@@ -4,18 +4,32 @@
 %\usepackage{graphicx}
 %\usepackage{float}
 %\usepackage{multirow}
+%\usepackage[table, svgnames]{xcolor} 
 %\usepackage{array}
+%\usepackage{cellspace}
+%\usepackage{etoolbox}
 %\begin{document}
-
-
 
 
 \setcounter{section}{0}
 \section{Introduction}
 \bigskip
 \subsection{Background}
-\break
+Over the last couple of decades urban centers around the world has faced substantial population growth, as a result the number of larger and more complex buildings in major urban centre around the world are steadily increasing. Buildings are becoming a major subject for disasters resulting in high amounts of damage and casualty. Due to increased urbanization and complexity of urban structures, search and Rescue operation in indoor urban environments face various complications and uncertainties. According to Statistics Canada an average of 135 fire related deaths occur each year from 2010 to 2014 [1].
 
+\bigskip
+In current practices, emergency management know little about the building until they arrive at the scene where they have to quickly evaluate the given intel and take actions appropriate to the situation [2]. Once responders are on scene, assessments of the structure are conducted with readily available blueprints of buildings. Situational data are created dynamically during this process and the actual rescue process heavily depends on the situational awareness of the first line of emergency response operators [3]. 
+
+\bigskip
+An important issue that must be considered is how emergency first responders should be dispatched inside the building in the event of a disaster in order to minimize search and rescue time. Inorder to pinpoint locations of trapped victims quickly and accurately it is critical to have precise data. Proper emergency planning and organization takes substantial amount of time, and having additional information on the locations of trapper personnels would improve first responders’ situational awareness which in terms would improve their own safety and possibly reduce fatality rates.
+
+\bigskip
+As such, the need for a distinct indoor positioning rescue system is crucial in getting fast and reliable intel that can allow the first responder crew to find the most optimal route during the search and rescue operations. The Akrivia Beacon by TRIWAVE SYSTEMS focuses on improving the locating and rescue process of personnels trapped in buildings during or after small scale disasters such as fires and low magnitude earthquakes. This is done through a system of Ultra WideBand (UWB) Beacons and ID tag system for accurate near real time location of personnels. 
+
+\bigskip
+Ultra-Wideband Beacons are small transcervers communicating with one another over the ultra-wide band radio spectrum. Each ID tag will use a UWB transceivers chip to communicate with the beacon systems. Given the time between sending and receiving, the distance can then be estimated with RSSI. The Beacons will then forward these distance estimation to the central server for data processing, where it will use trilateration to calculate the near real time location of each individual ID tags. This system design allows for multiple ID tags as well as more than three anchor beacons to provide more accuracy through redundancy, making it modular and extendable.
+
+\break
 
 
 \subsection{Scope}
@@ -40,8 +54,8 @@ A high level design of the system hardware and software is also presented to dem
 \medskip
 
 Furthermore, any relevant engineering standards, safety and sustainability practices are illustrated to demonstrate how the engineers at TRIWAVE will ensure that the final product is both economically and environmentally safe and sustainable. By following strict engineering standards and proper engineering practices TRIWAVE can guarantee that the final product will use materials, processes and services fit for their intended purposes.
-\medskip
-\medskip
+
+\bigskip
 \subsection{Intended Audience}
 This document is presented by engineers at TRIWAVE as a guide for the functional and nonfunctional requirements of the Akrivia Beacon product. The intended audience of this document includes but not limited to, potential clients and/or partners, the supervising professors Dr. Craig Scratchley and Dr. Andrew Rawicz, associated teaching assistants and fellow TRIWAVE members. The hardware and software engineers of the project can reference this document during the development and/or testing stages of the project for clarification.
 \break
@@ -62,7 +76,7 @@ For consistency purposes, the following requirement classification code conventi
 \centering
 \begin{tabular}{ | m{1cm} | m{13cm}| } 
 \hline
-\textbf{Code} & \textbf{Definition} \\ 
+\rowcolor{lightgray} \textbf{Code} & \textbf{Definition} \\ 
 \hline
  \textbf{REQ} & Requirement abbreviation.  \\ 
 \hline
@@ -84,7 +98,7 @@ For consistency purposes, the following requirement classification code conventi
 \centering
 \begin{tabular}{ | m{7cm} | m{7cm}| } 
 \hline
-\textbf{Requirement Domain} & \textbf{Abbreviation Code} \\ 
+\rowcolor{lightgray} \textbf{Requirement Domain} & \textbf{Abbreviation Code} \\ 
 \hline
 General & GE\\ 
 \hline
@@ -110,7 +124,7 @@ Performance - Signal & SG\\
 \centering
 \begin{tabular}{ | m{7cm} | m{7cm}| } 
 \hline
-\textbf{Development Stage} & \textbf{Encoding} \\ 
+\rowcolor{lightgray} \textbf{Development Stage} & \textbf{Encoding} \\ 
 \hline
 Proof of Concept & C\\ 
 \hline
@@ -121,7 +135,6 @@ Final Product & F\\
 \end{tabular}
 \caption{Development Stage Encoding}
 \end{table}	
-	
 	
 	
 %\end{document}

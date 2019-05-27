@@ -1,33 +1,33 @@
- 
-
-\title{Requirements Document\\
-Disaster Victim Location System}
-\author{
-	Jeffrey Yeung\\
-	Jerry Liu 301255583\\
-	Keith Leung\\
-	Ryne Watterson\\
-	Scott Checko 301231153
-}
-\date{June 09, 2019}
-
 \documentclass[11pt]{article}
 \usepackage[a4paper, total={6in, 9in}]{geometry}
 \usepackage[document]{ragged2e}
-\usepackage{fancyhdr}
 \usepackage{lipsum}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{multirow}
 \usepackage{array}
-\fancyfoot[R]{\thepage}
+\usepackage{cellspace}
+\usepackage{etoolbox}
+\usepackage{scrpage2}
+\usepackage[table, svgnames]{xcolor} 
+
+\ifoot[]{}
+\cfoot[]{}
+\ofoot[\pagemark]{\pagemark}
+\pagestyle{scrplain}
 
 \begin{document}
 
-%\include{\$\$_Letter_of_transmittal}
+%\include{\$_Letter_of_transmittal.tex}
 \input{00_Abstract.tex}
 \pagebreak
+%\input{00_Glossary.tex}
+%\pagebreak
 \tableofcontents
+\pagebreak
+\listoffigures
+\pagebreak
+\listoftables
 \pagebreak
 \input{01_Introduction.tex}
 \pagebreak
