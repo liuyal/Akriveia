@@ -15,7 +15,7 @@
 \section{Introduction}
 \bigskip
 \subsection{Background}
-Over the last couple of decades urban centers around the world has faced substantial population growth, as a result the number of larger and more complex buildings in major urban centre around the world are steadily increasing. Buildings are becoming a major subject for disasters resulting in high amounts of damage and casualty. Due to increased urbanization and complexity of urban structures, search and Rescue operation in indoor urban environments face various complications and uncertainties. According to Statistics Canada an average of 135 fire related deaths occur each year from 2010 to 2014 [1].
+Over the last couple of decades urban centers around the world has faced substantial population growth. As a result the number of larger and more complex buildings in major urban centre around the world are steadily increasing. Buildings are becoming a major subject for disasters resulting in high amounts of damage and casualty. Due to increased urbanization and complexity of urban structures, search and Rescue operation in indoor urban environments face various complications and uncertainties. According to Statistics Canada an average of 135 fire related deaths occur each year from 2010 to 2014 [1].
 
 \bigskip
 In current practices, emergency management know little about the building until they arrive at the scene where they have to quickly evaluate the given intel and take actions appropriate to the situation [2]. Once responders are on scene, assessments of the structure are conducted with readily available blueprints of buildings. Situational data are created dynamically during this process and the actual rescue process heavily depends on the situational awareness of the first line of emergency response operators [3]. 
@@ -30,7 +30,6 @@ As such, the need for a distinct indoor positioning rescue system is crucial in 
 Ultra-Wideband Beacons are small transcervers communicating with one another over the ultra-wide band radio spectrum. Each ID tag will use a UWB transceivers chip to communicate with the beacon systems. Given the time between sending and receiving, the distance can then be estimated with RSSI. The Beacons will then forward these distance estimation to the central server for data processing, where it will use trilateration to calculate the near real time location of each individual ID tags. This system design allows for multiple ID tags as well as more than three anchor beacons to provide more accuracy through redundancy, making it modular and extendable.
 
 \break
-
 
 \subsection{Scope}
 This requirement specification document outlines functional and non-functional requirements expected of the Akrivia Beacon product through three different phases of development as shown in Figure 1. The three different phases  including: the proof-of-concept phase, prototype phase, and final product phase.
@@ -59,12 +58,13 @@ Furthermore, any relevant engineering standards, safety and sustainability pract
 This document is presented by engineers at TRIWAVE as a guide for the functional and nonfunctional requirements of the Akrivia Beacon product. The intended audience of this document includes but not limited to, potential clients and/or partners, the supervising professors Dr. Craig Scratchley and Dr. Andrew Rawicz, associated teaching assistants and fellow TRIWAVE members. The hardware and software engineers of the project can reference this document during the development and/or testing stages of the project for clarification.
 
 \break
+
 \subsection{Requirement Classification}
 \bigskip
 For consistency purposes, the following requirement classification code convention is used to describe and organize requirements listed throughout this document. 
 \begin{center}
 \bigskip
-	\textbf{[ REQ. SE.SSE.\# - X ]} 
+	\textbf{[ REQ. SE.\# - X ]} 
 \end{center}
 
 \bgroup
@@ -77,9 +77,7 @@ For consistency purposes, the following requirement classification code conventi
 \hline
  \textbf{REQ} & Requirement abbreviation.  \\ 
 \hline
- \textbf{SE} & Requirement Domain Abbreviation Code correspond with each requirements. (see Table 2))\\ 
-\hline
- \textbf{SSE} & Requirement Domain Abbreviation Code for subsection of requirements. (see Table 2) \\  
+ \textbf{SE} & Requirement Domain Abbreviation Code correspond with each requirements. (see Table 2)\\   
 \hline
  \textbf{\#} & Requirement number ID \\ 
 \hline
@@ -105,11 +103,7 @@ For consistency purposes, the following requirement classification code conventi
 \hline
  Software & SW\\ 
 \hline
- Software - UI & UI\\ 
-\hline
  Performance & PE\\ 
-\hline
- Performance - Signal & SG\\ 
 \hline
  Safety & SF\\ 
 \hline
