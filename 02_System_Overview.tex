@@ -10,7 +10,7 @@
 %\usepackage{etoolbox}
 %\usepackage{scrpage2}
 %\usepackage{longtable}
-%\usepackage[table, svgnames]{xcolor} 
+%\usepackage[table, svgnames]{xcolor}
 %\usepackage{titlesec}
 %\setcounter{secnumdepth}{4}
 %\titleformat{\paragraph}
@@ -28,10 +28,13 @@
 \bigskip
 \subsection{System Layout}
 \bigskip
-The Akriveia Beacon indoor locating rescue system combines electrical, hardware and software systems to detect and locate multiple occupants within a building during an emergency disaster situation. Each individual component of the system is developed separately in the PoC (Proof of Concept) phase; then partially integrated in the Prototype phase and fully integrated in the Final Product phase.   
+The Akriveia Beacon indoor locating rescue system combines electrical, hardware and software systems to detect and locate multiple occupants within a building during an emergency disaster situation. Each individual component of the system is developed separately in the PoC (Proof of Concept) phase; then partially integrated in the Prototype phase and fully integrated in the Final Product phase.
 
 \bigskip
-A high-level system overview displays  three Locator Beacons, an ID tag a Server and a user interface (Figure \ref{fig:system_layout}). The Locator Beacons transmits wireless signals to the Access Card to acquire a response. With the beacons receive a response back, the received signal data will be forward to the data processing server to calculate the distance and location of the ID tag through trilateration algorithms. Afterwards, the location results are displayed on a \Gls{GUI} for operators.
+A high-level system overview displays three Locator Beacons, an ID tag, a Server and a user interface (Figure \ref{fig:system_layout}).
+The Locator Beacons transmits wireless signals to the Access Card to acquire a response.
+When the beacons receive a response back, the received signal data will be forwarded to the data processing server to calculate the distance and location of the ID tag through trilateration algorithms.
+Afterwards, the location results are displayed on a \Gls{GUI} for operators.
 
 
 \begin{figure}[h!]
@@ -79,20 +82,20 @@ The Prototype demonstrates the same objectives from the PoC except the transceiv
 \end{figure}
 \bigskip
 
-The objectives of the Prototype remains largely the same with the PoC besides using UWB 
+The objectives of the Prototype remains largely the same with the PoC besides using UWB
 chips and developing RF harvester circuit. Prototype phase objectives are stated below:
 
 \begin{enumerate}
-    \item Utilizing UWB RF module chips in the UWB frequencies of 3.5 to 6.5 GHz as 
+    \item Utilizing UWB RF module chips in the UWB frequencies of 3.5 to 6.5 GHz as
     signal receivers and transmitters
-    \item Establishing functioning RF data communication between the four UWB modules 
+    \item Establishing functioning RF data communication between the four UWB modules
     with one as the Access Card and three as the Locator Beacons
-    \item Using signal fingerprinting to determine transmitter properties such as ToF, 
+    \item Using signal fingerprinting to determine transmitter properties such as ToF,
     RSSI and unique identifier
     \item Implement manual off/on activation switch to RF module circuit on ID tags
-    \item Apply trilateration algorithms on data processing server to determine 
+    \item Apply trilateration algorithms on data processing server to determine
     ID card location
-    \item Implementation of software stack on server and initial development of GUI  
+    \item Implementation of software stack on server and initial development of GUI
     \item Prototype and early implementation of  RF harvesting circuit or device charging
 \end{enumerate}
 
@@ -113,7 +116,7 @@ There will be a demonstrable RF harvester circuit similar to Figure \ref{fig:rfh
 \break
 \subsubsection{Final Product}
 \bigskip
-The final product will demonstrate the final fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. All the components of the systems will be fully integrated as a close-to-production product. Component circuit and \Gls{PCB} footprint will be minimized and proper casing will be made to house all electronics. The data processing server will provide the user with a full GUI to interact with the system along with the fully implemented features such as importable blueprints and multi-floor tacking. 
+The final product will demonstrate the final fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. All the components of the systems will be fully integrated as a close-to-production product. Component circuit and \Gls{PCB} footprint will be minimized and proper casing will be made to house all electronics. The data processing server will provide the user with a full GUI to interact with the system along with the fully implemented features such as importable blueprints and multi-floor tacking.
 
 \begin{figure}[h!]
     \centering
@@ -126,12 +129,12 @@ The final product will demonstrate the final fully functional indoor rescue syst
 The final product should satisfy these objectives below:
 
 \begin{enumerate}
-    \item Establishing functioning RF data communication between the four UWB modules with 
+    \item Establishing functioning RF data communication between the four UWB modules with
     one imitating the Access Card and three imitating the Locator Beacons
-    \item Using signal fingerprinting to determine transmitter properties such as ToF, RSSI 
+    \item Using signal fingerprinting to determine transmitter properties such as ToF, RSSI
     and unique identifier
     \item Utilizing UWB RF module chips in the frequencies of 3.5 to 6.5 GHz as signal receivers/transmitters
-    \item Develop an ID tag with manual (ON) RF module activation, one RF harvesting circuit 
+    \item Develop an ID tag with manual (ON) RF module activation, one RF harvesting circuit
     for charging and one RF harvester as a RF Trigger switch
     \item Send the data to the server to be processed
     \item Have the data processing server apply trilateration algorithms to determine ID card location
@@ -142,10 +145,10 @@ The final product should satisfy these objectives below:
 \break
 \paragraph{RF Harvester Final Design}
 \bigskip
-Once RF harvester test circuit produces adequate results in the prototype phase, there will be two RF harvester circuits implemented on the ID tags in the final design. The primary RF harvester will act as a RF trigger switch to activating the RF module in case of an emergency, the second RF harvester will be for for charging the ID tags using ambient RF signals. 
+Once RF harvester test circuit produces adequate results in the prototype phase, there will be two RF harvester circuits implemented on the ID tags in the final design. The primary RF harvester will act as a RF trigger switch to activating the RF module in case of an emergency, the second RF harvester will be for for charging the ID tags using ambient RF signals.
 
 \bigskip
-The first RF harvester circuit will activate the ID tag RF module circuit, this harvester will operate 
+The first RF harvester circuit will activate the ID tag RF module circuit, this harvester will operate
 on a different frequency and power level, making it distinguishable from UWB or other ambient radio frequencies. The second RF harvester circuit designed for charging the ID tags will be operating at the standard 2.4 GHz band  as ambient RF signal is most comment at this frequency (i.e. Wi-Fi, Cellular). The charging RF harvester would have been implemented and tested in the prototype phase. Minor modification and optimization of the circuit would occur in the final phase.
 
 \bigskip
