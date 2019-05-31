@@ -4,7 +4,7 @@
 %\usepackage{graphicx}
 %\usepackage{float}
 %\usepackage{multirow}
-%\usepackage[table, svgnames]{xcolor} 
+%\usepackage[table, svgnames]{xcolor}
 %\usepackage{array}
 %\usepackage{cellspace}
 %\usepackage{etoolbox}
@@ -15,19 +15,19 @@
 \section{Introduction}
 \bigskip
 \subsection{Background}
-Over the last couple of decades urban centers around the world has faced substantial population growth. As a result the number of larger and more complex buildings in major urban centre around the world are steadily increasing. Buildings are becoming a major subject for disasters resulting in high amounts of damage and casualty. Due to increased urbanization and complexity of urban structures, search and Rescue operation in indoor urban environments face various complications and uncertainties. According to Statistics Canada an average of 135 fire related deaths occur each year from 2010 to 2014 [1].
+Over the last couple of decades urban centers around the world have faced substantial population growth. As a result the number of larger and more complex buildings in major urban centres around the world are steadily increasing. Buildings are becoming a major subject for disasters resulting in high amounts of damage and casualty. Due to increased urbanization and complexity of urban structures, search and Rescue operation in indoor urban environments face various complications and uncertainties. According to Statistics Canada an average of 135 fire related deaths occur each year from 2010 to 2014 [1].
 
 \bigskip
-In current practices, emergency management know little about the building until they arrive at the scene where they have to quickly evaluate the given intel and take actions appropriate to the situation [2]. Once responders are on scene, assessments of the structure are conducted with readily available blueprints of buildings. Situational data are created dynamically during this process and the actual rescue process heavily depends on the situational awareness of the first line of emergency response operators [3]. 
+In current practices, emergency management know little about the building until they arrive at the scene where they have to quickly evaluate new information and take actions appropriate to the situation [2]. Once responders are on scene, assessments of the structure are conducted with readily available blueprints of buildings. Situational data are created dynamically during this process and the actual rescue process heavily depends on the situational awareness of the first line of emergency response operators [3].
 
 \bigskip
-An important issue that must be considered is how emergency first responders should be dispatched inside the building in the event of a disaster in order to minimize search and rescue time. Inorder to pinpoint locations of trapped victims quickly and accurately it is critical to have precise data. Proper emergency planning and organization takes substantial amount of time, and having additional information on the locations of trapper personnels would improve first responders’ situational awareness which in terms would improve their own safety and possibly reduce fatality rates.
+An important issue that must be considered is how emergency first responders should be dispatched inside the building in the event of a disaster in order to minimize search and rescue time. In order to pinpoint locations of trapped victims quickly and accurately it is critical to have precise data. Proper emergency planning and organization takes substantial amount of time, and having additional information on the locations of trapped, incompacitated or immobile personnel would improve first responders’ situational awareness which in terms would improve their own safety and possibly reduce fatality rates.
 
 \bigskip
-As such, the need for a distinct indoor positioning rescue system is crucial in getting fast and reliable intel that can allow the first responder crew to find the most optimal route during the search and rescue operations. The Akriveia Beacon by TRIWAVE SYSTEMS focuses on improving the locating and rescue process of personnels trapped in buildings during or after small scale disasters such as fires and low magnitude earthquakes. This is done through a system of Ultra WideBand (UWB) Beacons and ID tag system for accurate near real time location of personnels. 
+As such, the need for a distinct indoor positioning rescue system is crucial in getting fast and reliable intel that can allow the first responder crew to find the most optimal route during the search and rescue operations. The Akriveia Beacon by TRIWAVE SYSTEMS focuses on improving the locating and rescue process of personnel trapped in buildings during or after small scale disasters such as fires and low magnitude earthquakes. This is done through a system of Ultra WideBand (UWB) Beacons and ID tag system for accurate real time location of personnel.
 
 \bigskip
-Ultra-Wideband Beacons are small transcervers communicating with one another over the ultra-wide band radio spectrum. Each ID tag will use a UWB transceivers chip to communicate with the beacon systems. Given the time between sending and receiving, the distance can then be estimated with RSSI. The Beacons will then forward these distance estimation to the central server for data processing, where it will use trilateration to calculate the near real time location of each individual ID tags. This system design allows for multiple ID tags as well as more than three anchor beacons to provide more accuracy through redundancy, making it modular and extendable.
+Ultra-Wideband Beacons are small transcervers communicating with one another over the ultra-wide band radio spectrum. Each ID tag will use a UWB transceiver chip to communicate with the beacon systems. Given the time between sending and receiving, the distance can then be estimated with RSSI. The Beacons will then forward these distance estimation to the central server for data processing, where it will use trilateration to calculate the real time location of each individual ID tags. This system design allows for multiple ID tags as well as more than three anchor beacons to provide more accuracy through redundancy, making it modular and extendable.
 
 \break
 
@@ -44,11 +44,11 @@ This requirement specification document outlines functional and non-functional r
 A high level design of the system hardware and software is also presented to demonstrate the overall system architect and functionality of the product. The requirement section of this document is divided into five main categories as shown in the numbered list below. These requirements will indicate the constraints, demands, necessities, needs, and parameters that must be met or satisfied within the project time frame.
 
 \begin{enumerate}
-	\item General requirement 
-	\item Hardware requirement 
-	\item Electrical requirement 
-	\item Software requirement 
-	\item Performance requirement 
+	\item General requirement
+	\item Hardware requirement
+	\item Electrical requirement
+	\item Software requirement
+	\item Performance requirement
 	\item Safety Requirements
 	\item Sustainability  Requirements
 \end{enumerate}
@@ -57,33 +57,33 @@ Furthermore, any relevant engineering standards, safety and sustainability pract
 
 \bigskip
 \subsection{Intended Audience}
-This document is presented by engineers at TRIWAVE SYSTEMS as a guide for the functional and nonfunctional requirements of the Akriveia Beacon product. The intended audience of this document includes but not limited to, potential clients and/or partners, the supervising professors Dr. Craig Scratchley and Dr. Andrew Rawicz, associated teaching assistants and fellow TRIWAVE SYSTEMS members. The hardware and software engineers of the project can reference this document during the development and/or testing stages of the project for clarification.
+This document is presented by engineers at TRIWAVE SYSTEMS as a guide for the functional and nonfunctional requirements of the Akriveia Beacon product. The intended audience of this document includes but not limited to, potential clients, partners and/or investors, the supervising professors Dr. Craig Scratchley and Dr. Andrew Rawicz, associated teaching assistants and fellow TRIWAVE SYSTEMS members. The hardware and software engineers of the project can reference this document during the development and/or testing stages of the project for clarification.
 
 \break
 
 \subsection{Requirement Classification}
 \bigskip
-For consistency purposes, the following requirement classification code convention is used to describe and organize requirements listed throughout this document. 
+For consistency purposes, the following requirement classification code convention is used to describe and organize requirements listed throughout this document.
 \begin{center}
 \bigskip
-	\textbf{[ REQ. SE.\# - X ]} 
+	\textbf{[ REQ. SE.\# - X ]}
 \end{center}
 
 \bgroup
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{1cm} | m{13cm}| } 
+\begin{tabular}{ | m{1cm} | m{13cm}| }
 \hline
-\rowcolor{lightgray} \textbf{Code} & \textbf{Definition} \\ 
+\rowcolor{lightgray} \textbf{Code} & \textbf{Definition} \\
 \hline
- \textbf{REQ} & Requirement abbreviation.  \\ 
+ \textbf{REQ} & Requirement abbreviation. \\
 \hline
- \textbf{SE} & Requirement Domain Abbreviation Code correspond with each requirements. (see Table 2)\\   
+ \textbf{SE} & Requirement Domain Abbreviation Code correspond with each requirements. (see Table 2)\\
 \hline
- \textbf{\#} & Requirement number ID \\ 
+ \textbf{\#} & Requirement number ID \\
 \hline
- \textbf{X} & Development Stage Encoding (see Table 3)\\ 
+ \textbf{X} & Development Stage Encoding (see Table 3)\\
 \hline
 \end{tabular}
 \caption{Requirement Encoding}
@@ -93,23 +93,23 @@ For consistency purposes, the following requirement classification code conventi
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{7cm} | m{7cm}| } 
+\begin{tabular}{ | m{7cm} | m{7cm}| }
 \hline
-\rowcolor{lightgray} \textbf{Requirement Domain} & \textbf{Abbreviation Code} \\ 
+\rowcolor{lightgray} \textbf{Requirement Domain} & \textbf{Abbreviation Code} \\
 \hline
- General & GE\\ 
+ General & GE\\
 \hline
- Hardware & HW\\ 
+ Hardware & HW\\
 \hline
- Electrical & EC\\  
+ Electrical & EC\\
 \hline
- Software & SW\\ 
+ Software & SW\\
 \hline
- Performance & PE\\ 
+ Performance & PE\\
 \hline
- Safety & SF\\ 
+ Safety & SF\\
 \hline
- Sustainability & SU\\ 
+ Sustainability & SU\\
 \hline
 \end{tabular}
 \caption{Requirement Domain Abbreviation Code}
@@ -119,21 +119,21 @@ For consistency purposes, the following requirement classification code conventi
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{7cm} | m{7cm}| } 
+\begin{tabular}{ | m{7cm} | m{7cm}| }
 \hline
-\rowcolor{lightgray} \textbf{Development Stage} & \textbf{Encoding} \\ 
+\rowcolor{lightgray} \textbf{Development Stage} & \textbf{Encoding} \\
 \hline
-Proof of Concept & C\\ 
+Proof of Concept & C\\
 \hline
-Prototype & P\\ 
+Prototype & P\\
 \hline
-Final Product & F\\  
+Final Product & F\\
 \hline
 \end{tabular}
 \caption{Development Stage Encoding}
-\end{table}	
-	
-	
+\end{table}
+
+
 %\end{document}
 
 
