@@ -1,222 +1,272 @@
 %\documentclass[11pt]{article}
+%\usepackage[a4paper, total={6.5in, 9.5in}]{geometry}
 %\usepackage[document]{ragged2e}
-%\usepackage[a4paper, total={6in, 9in}]{geometry}
+%\usepackage{lipsum}
 %\usepackage{graphicx}
 %\usepackage{float}
 %\usepackage{multirow}
-%\usepackage[table, svgnames]{xcolor}
 %\usepackage{array}
 %\usepackage{cellspace}
 %\usepackage{etoolbox}
+%\usepackage{scrpage2}
+%\usepackage{longtable}
+%\usepackage[table, svgnames]{xcolor} 
+%\ifoot[]{}
+%\cfoot[]{}
+%\ofoot[\pagemark]{\pagemark}
+%\pagestyle{scrplain}
+%
 %\begin{document}
 
 \setcounter{section}{2}
 \section{System Requirements}
-To produce a high-quality product, there are many requirements that must be met from all aspects of technology. This device will perform in the desired way when the software and hardware are robust and reliable. \textbf{TRIWAVE SYSTEMS} has decided that the following requirements, when met, will ensure that this product will be an asset to all first responders that use it, in as many emergency situations as possible. \textbf{TRIWAVE SYSTEMS} puts a high price on safety, reliability, and ease of use, so that this product may help save lives and keep first responders safe. The functionalities that are labeled with a '\textbf{P}', as Prototype, will be presented at the end of ENSC 405W.
+TRIWAVE SYSTEMS is dedicated on producing a high-quality product. To ensure production quality, various requirements at different stages of development will be stated clearing in this section. These requirements will be covering from all aspects of the Akriveia Beacon technology. TRIWAVE SYSTEMS has decided that the following requirements, when met, will ensure that this product will be an asset to all first responders that use it, in as many emergency situations as possible. As TRIWAVE SYSTEMS puts a high price on safety, reliability, and ease of use, so that this product may help save lives and keep first responders safe.  The functionalities that are labelled with a '\textbf{C}', as Proof-of-Concept, will be presented at the end of ENSC 405W.
+
+\bigskip
+\textit{Note: Requirements marked with ‘*’ are not carried over into subsequent development phases}
 
 
-\break
+\bigskip
 \subsection{General Requirements}
-In order for this product to be successful, \textbf{TRIWAVE SYSTEMS} must lay out basic, high-level requirements that can simply describe the important functions of the product. These requirements play an important role in ensuring the overall goals for the function of the product are met at every step of the way.
+In order for the Akriveia Beacon system to be reliable, general high-level requirements describing the important core functions of the system are detailed in the table below. By following these requirements, TRIWAVE SYSTEMS ensure the overall system function and intended purpose are met at every phase of the development cycle.
+
+\bigskip
 
 \bgroup
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
+\begin{tabular}{ | m{3.25cm} | m{12.5cm} |} 
  \hline
- \textbf{ REQ.GE.1 - C } & The system must be intended for indoor use only \\
+ \textbf{REQ.GE.1 - C} & The system must be intended for indoor use only \\ 
 \hline
- \textbf{ REQ.GE.2 - C } & First responders shall have direct access to the system during an emergency \\
+ \textbf{REQ.GE.3 - C} & The system must have two modes of operation: idle mode and emergency mode \\ 
 \hline
- \textbf{ REQ.GE.3 - C } & The system must have two modes of operation: idle mode and emergency mode \\
+ \textbf{REQ.GE.4 - C} & The system must pinpoint ID tag location within one floor buildings \\
 \hline
- \textbf{ REQ.GE.4 - C } & The system must locate ID tags within one floor buildings \\
+ \textbf{REQ.GE.5 - C} & Access to the system and system data must not be available to the general public \\
 \hline
- \textbf{ REQ.GE.5 - C } & Access to the system and system data must not be available to the general public \\
+ \textbf{REQ.GE.6 - P} & First responders must only have access to the system during disaster situation \\
 \hline
- \textbf{ REQ.GE.6 - P } & First responders must only have access to the system during emergency \\
+ \textbf{REQ.GE.7 - P} & The system must track more than one ID tag \\
 \hline
- \textbf{ REQ.GE.7 - P } & The system must track more than one ID tag \\
+ \textbf{REQ.GE.8 - F} & The system must locate ID tags in a building with multiple floors \\
 \hline
- \textbf{ REQ.GE.8 - F } & The system must locate ID tags in a building with multiple floors \\
+ \textbf{REQ.GE.9 - F} & The system must remain operational after earthquakes with magnitude below 6.9 \\
 \hline
- \textbf{ REQ.GE.9 - F } & The system must remain operational after earthquakes with magnitude below 6.9 \\
+ \textbf{REQ.GE.10 - F} & The system must remain operational after or during small scale fires \\
 \hline
- \textbf{ REQ.GE.10 - F } & The system must remain operational during and after small-scale fires \\
-\hline
- \textbf{ REQ.GE.11 - F } & The marketed product must not cost more than CAD200.00 \\
+ \textbf{REQ.GE.11 - F} & The final marketed product must not cost more than CAD \$200.00 \\
 \hline
 \end{tabular}
 \caption{General Requirements}
-\end{table}
+\end{table}	
 
 \break
 \subsection{Hardware Requirements}
-In order for this product to be successful, robust hardware will be absolutely neccessary.  textbf{TRIWAVE SYSTEMS} has chosen to develop a proof of concept using 2.4GHz radio modules to reduce costs, before upgrading the system to using Ultra Wide Band (UWB) modules for further prototyping. Microcontroller Units (MCUs) will be used to control the beacons and ID tags. This is obviously an important role to play in the system and these requirements are meant to reflect the importance of using quality components that suit the needs of the product.
+Robust and reliable hardware will be absolutely necessary in any system that interacts with emergency disaster management. TRIWAVE SYSTEMS has chosen to develop the proof-of-concept prototype using 2.4 GHz radio modules as feasibility testing, before upgrading the system to using Ultra Wide Band (UWB) modules for further prototyping. Micro-controller Units (MCUs) will be used to control the beacons and ID tags. The requirements below details the requirement for hardware functionality of the Akrivia Beacon system.
+
+\bigskip
+
 \bgroup
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
+\begin{tabular}{ | m{3.25cm} | m{12.5cm} |} 
  \hline
- \textbf{ REQ.HW.1 - C } & The server must use a SBC for automated product control \\
+ \textbf{REQ.HW.1 - C} & The server must use a SBC for automated product control \\ 
 \hline
- \textbf{ REQ.HW.2 - C } & The beacons must use a MCU for automated product control \\
+ \textbf{REQ.HW.2 - C} & The beacons must use a MCU for automated product control \\ 
 \hline
- \textbf{ REQ.HW.3 - C } & The ID tags must use a MCU for automated product control \\
+ \textbf{REQ.HW.3 - C} & The ID tags must use a MCU for automated product control \\ 
 \hline
- \textbf{ REQ.HW.4 - C} & Each MCU must use Serial Peripheral Interface (SPI) to communicate with transceiver \\
+ \textbf{REQ.HW.4 - C} & Each MCU must use Serial Peripheral Interface (SPI) to communicate with transceiver \\
 \hline
- \textbf{ REQ.HW.5 - C } & The beacons must use 2.4GHz radio modules as transceivers \\
+ \textbf{REQ.HW.5 - C*} & The beacons must use 2.4 GHz radio modules as transceivers* \\
 \hline
- \textbf{ REQ.HW.6 - C } & The ID tags must use 2.4GHz radio modules as transceivers  \\
+ \textbf{REQ.HW.6 - C*} & The ID tags must use 2.4 GHz radio modules as transceivers*  \\
 \hline
- \textbf{ REQ.HW.7 - C } & The beacons must communicate with the server via serial  USB \\
+ \textbf{REQ.HW.7 - C*} & The beacons must communicate with the server via serial USB* \\
 \hline
- \textbf{ REQ.HW.8 - P } &The beacons must communicate with the server via either RS485 or Ethernet  \\
+ \textbf{REQ.HW.8 - P} & The beacons must communicate with the server via either RS485 or Ethernet  \\
 \hline
- \textbf{ REQ.HW.9 - P } & The beacons must use 3.5-6.5GHz UWB radio modules as transceivers \\
+ \textbf{REQ.HW.9 - P} & The beacons must use 3.5-6.5 GHz UWB radio modules as transceivers \\
 \hline
- \textbf{ REQ.HW.10 - P } & The ID tags must use 3.5-6.5GHz UWB radio modules as transceivers \\
+ \textbf{REQ.HW.10 - P} & The ID tags must use 3.5-6.5 GHz UWB radio modules as transceivers \\
 \hline
 \end{tabular}
 \caption{Hardware Requirements}
-\end{table}
+\end{table}	
 
 \break
 \subsection{Electrical Requirements}
-In order for this product to be reliable, the electrical systems must be robust and efficient. \textbf{TRIWAVE SYSTEMS} has compiled a strict set of requirements that ensures the beacons and ID tags will stay powered for the maximum amount of time. In an emergency, it is important that the system does not change its operation, whether the building's power is working or not. With these requirements \textbf{TRIWAVE SYSTEMS} has ensured that there is a sufficient amount of power going to each device at any time, and is ready to switch from idle mode to emergency mode at any time.
+Since the system is designed for emergency disaster situations, it is crucial that sufficient power is provided to each device at any given time. In order for the system to be reliable and effective, the electrical systems must be robust and efficient. TRIWAVE SYSTEMS has compiled a strict set of electrical requirements that ensures the beacons and ID tags will operate at a safe and efficient state. 
+
+\bigskip
+
 \bgroup
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
+\begin{tabular}{ | m{3.25cm} | m{12.5cm} |} 
  \hline
- \textbf{ REQ.EC.1 - C } & Each beacon shall be powered through standard North American power outlets (120V AC, 60Hz, type A/B) \\
+ \textbf{REQ.EC.1 - C} & Each beacon shall be powered through standard North American power outlets (120V AC, 60Hz, type A/B) \\ 
 \hline
- \textbf{ REQ.EC.2 - C } & Each ID tag must have its own 3.3V battery power source \\
+ \textbf{REQ.EC.2 - C} & Each ID tag must have its own 3.3 V battery power source \\ 
 \hline
- \textbf{ REQ.EC.3 - P } & Each ID tag must have a switch to trigger the device manually \\
+ \textbf{REQ.EC.3 - P} & Each ID tag must have an on-off toggle switch  \\ 
 \hline
- \textbf{ REQ.EC.4 - P} & The ID tags must consume no more than 5W while in idle mode \\
+ \textbf{REQ.EC.4 - P} &  Each ID tag must remain in an idle, low power state with no more than 5W of power consumption while not in a disaster  \\
 \hline
- \textbf{ REQ.EC.5 - P } & The beacons must consume no more than 5W while in idle mode\\
+ \textbf{REQ.EC.5 - P} &  Each beacon must remain in an idle, low power state with no more than 5W of power consumption while not in a disaster \\
 \hline
- \textbf{ REQ.EC.6 - P } & Each beacon shall have its own backup power source (9V battery)  \\
+ \textbf{REQ.EC.6 - P} & Each beacon shall have its own backup power source (9V battery)  \\
 \hline
- \textbf{ REQ.EC.7 - P } & Each ID tag will use RF power harvesting technology to maintain charge on batteries \\
+ \textbf{REQ.EC.7 - P} & Each ID tag will use RF power harvesting technology to maintain charge on its batteries \\
 \hline
- \textbf{ REQ.EC.8 - F } & Each ID tag must have a primary switch using an additional RF harvester as the trigger, and a secondary manual switch that only powers on device  \\
+ \textbf{REQ.EC.8 - F} &  Each ID tag must have a primary switch using an additional RF harvester as the trigger and a secondary manual switch to turn device on only   \\
 \hline
- \textbf{ REQ.EC.9 - F } & Each beacon shall incorporate a power caster device \\
+ \textbf{REQ.EC.9 - F} & Each beacon shall incorporate a power caster device \\
 \hline
- \textbf{ REQ.EC.10 - F } & The server must have a battery backup (UPS) \\
+ \textbf{REQ.EC.10 - F} & The server must have a battery backup (UPS) \\
 \hline
 \end{tabular}
 \caption{Electrical Requirements}
-\end{table}
+\end{table}	
 
 \break
 \subsection{Software Requirements}
-In order for  \textbf{TRIWAVE SYSTEMS} to properly develop a proof of concept of this product, a strong back end of software needs to be developed. This starts with the use of trilateration at a frequency of 2.4GHz to locate a single ID tag. As this product progresses, communication with the server must be done in an efficient manner, and a User Interface (UI) must be developed that is easy to use and conveys important information quickly.
+The Akriveia system will composed a intricate software stack containing a database and a web server hosted GUI. The server is the main data processing using and will be implemented with trilateration algorithms to locate ID tag positions in near real time. In order for the software system to be reliable, secure and accurate the following requirements were made.
+
+\bigskip
+
 \bgroup
 \def\arraystretch{1.5}
-\begin{longtable}[H]{ | m{3.5cm} | m{12.5cm} | }
-%\centering
-%\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
+\begin{longtable}[H]{ | m{3.5cm} | m{12.5cm} |} 
  \hline
- \textbf{ REQ.SW.1 - C } & The system must use time of flight to locate ID tags \\
+ \textbf{REQ.SW.1 - C} & The system must use time of flight to locate ID tags \\ 
 \hline
- \textbf{ REQ.SW.2 - P } & The system must use 2D trilateration methods to locate ID tags \\
+ \textbf{REQ.SW.2 - P*} & The system must use 2D trilateration methods to locate ID tags* \\ 
 \hline
- \textbf{ REQ.SW.3 - P } & Distance calculations must be performed using RSSI data received from beacons \\
+ \textbf{REQ.SW.3 - P} & Distance calculations must be performed using RSSI data received from beacons \\ 
 \hline
- \textbf{ REQ.SW.4 - P} & Admin shall have access the the server through credential verification system \\
+ \textbf{REQ.SW.4 - P} & Admin shall have access the the server through credential verification system \\
 \hline
- \textbf{ REQ.SW.5 - P } & Admins must be able to create employees account associated with each ID tag \\
+ \textbf{REQ.SW.5 - P} & Admins must be able to create employees account associated with each ID tag \\
 \hline
- \textbf{ REQ.SW.6 - P } & First responder ID tags must be assicated with pre-define first responder account \\
+ \textbf{REQ.SW.6 - P} & First responder ID tags must be assicated with pre-define first responder account \\
 \hline
- \textbf{ REQ.SW.7 - P } & The server must be able to periodically check ID tags to verify tags are in working condition (correctness of data, device not broken) \\
+ \textbf{REQ.SW.7 - P} & The server must be able to periodically check ID tags to verify tags are in working condition (correctness of data, device not broken) \\
 \hline
- \textbf{ REQ.SW.8 - P } & The system must detect and report ID tag defects, if any \\
+ \textbf{REQ.SW.8 - P} & The system must detect and report ID tag defects, if any \\
 \hline
- \textbf{ REQ.SW.9 - P } & The server will store location history through out the event of an emergency \\
+ \textbf{REQ.SW.9 - P} & The server will store location history through out the event of an emergency \\
 \hline
- \textbf{ REQ.SW.10 - F} & Scaled blueprints of the monitor area must be able to be uploaded to the server system for accurate layout and location \\
+ \textbf{REQ.SW.10 - F} & Scaled blueprints of the monitor area must be able to be uploaded to the server system for accurate layout and location \\
 \hline
- \textbf{ REQ.SW.11 - F} & The ID tags broadcasting must be able to be turned off from the servers \\
+ \textbf{REQ.SW.11 - F} & The ID tags broadcasting must be able to be turned off from the servers \\
 \hline
- \textbf{ REQ.SW.12 - F} & The server must distinguish between different floors and be able to provide locations of ID tags for any floor serviced at any time during an emergency \\
+ \textbf{REQ.SW.12 - F} & The server must distinguish between different floors and be able to provide locations of ID tags for any floor serviced at any time during an emergency \\
 \hline
- \textbf{ REQ.SW.13 - F} & The system will provide floor plans for operators to track locations of disaster victims \\
+ \textbf{REQ.SW.13 - F} & The system will provide floor plans for operators to track locations of disaster victims \\
 \hline
- \textbf{ REQ.SW.14 - F} & The system must use 3D trilateration methods to locate ID tags \\
+ \textbf{REQ.SW.14 - F} & The system must use 3D trilateration methods to locate ID tags \\
 \hline
- \textbf{ REQ.SW.15 - P} & The UI must be intuitive to use for operators \\
-\hline
- \textbf{ REQ.SW.16 - P} & The system must display a simple floor-plan/blueprint represented as simple geometry (ie. rectangle) \\
-\hline
- \textbf{ REQ.SW.17 - P} & The system UI must display location of ID tags in near real time \\
-\hline
- \textbf{ REQ.SW.18 - P} & Each ID tags must be identified on the UI map by distinct symbols and/or tags \\
-\hline
- \textbf{ REQ.SW.19 - P} & The system UI application must fill the entire screen but not obscure any system-wide status bars. \\
-\hline
- \textbf{ REQ.SW.20 - P} & UI tag for rescue operations must have distinct indication from civilian ID tags \\
-\hline
- \textbf{ REQ.SW.21 - F} & The System UI must support mobile devices such as laptop PCs and iOS tablets \\
-\hline
- \textbf{ REQ.SW.22 - F} & The UI must be able to display blueprints and location markers for all serviced floors in building \\
-\hline
-%\end{tabluar}
 \caption{Software Requirements}
-\end{longtable}
+\end{longtable}	
 
 \break
+\subsubsection{Software - UI Requirements}
+\bigskip
+Emergency first responders will be the first operators to interact with the Akriveia beacon system during a disaster. As such, the user interface must be intuitive and quick to use for the first responders. The following table highlight important user interface requirements of the system.
+\bigskip
+
+\bgroup
+\def\arraystretch{1.5}
+\begin{longtable}[H]{ | m{3.5cm} | m{12.5cm} |} 
+\hline
+ \textbf{REQ.SW.15 - P} & The \Gls{UI} must be intuitive to use for operators \\
+\hline
+ \textbf{REQ.SW.16 - P*} & The system must display a simple floor-plan/blueprint represented as simple geometry (ie. rectangle)* \\
+\hline
+ \textbf{REQ.SW.17 - P} & The system UI must display location of ID tags in near real time \\
+\hline
+ \textbf{REQ.SW.18 - P} & Each ID tags must be identified on the UI map by distinct symbols and/or tags \\
+\hline
+ \textbf{REQ.SW.19 - P} & The system UI application must fill the entire screen but not obscure any system-wide status bars. \\
+\hline
+ \textbf{REQ.SW.20 - P} & UI tag for rescue operations must have distinct indication from civilian ID tags \\
+\hline
+ \textbf{REQ.SW.21 - F} & The System UI must support mobile devices such as laptop PCs and \Gls{iOS} tablets \\
+\hline
+ \textbf{REQ.SW.22 - F} & The UI must be able to display blueprints and location markers for all serviced floors in building \\
+\hline
+\caption{Software - UI Requirements}
+\end{longtable}	
+\break
+
 \subsection{Performance Requirements}
-Reliability and accuracy are arguably the most important attributes of this product when in an emergency situation. \textbf{TRIWAVE SYSTEMS} wants this product to be used far and wide by first responders, and in order to get the desired market reach, this has to be an extremely accurate and reliable system. All of the requirements for this product are important, but the performance must be the top priority before this can be brought to the market. These requirements are meant to reflect the importance \textbf{TRIWAVE SYSTEMS} puts on the performance of their products.
+
+\bigskip
+Reliability and accuracy are the most important attributes of the Akriveia system during an emergency situation. As a system designed to be widely used by first responders, the Akriveia Beacons must be both reliable and accurate. Performance of the product maintain top priority before the system reach general availability. The requirements below reflect the importance TRIWAVE SYSTEMS puts on the performance of the Akriveia Beacon system.
+
+\bigskip
 \bgroup
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
+\begin{tabular}{ | m{3.5cm} | m{12.5cm} |} 
  \hline
- \textbf{ REQ.PE.1 - C } & The system shall locate users within the building with an accuracy of 1m \\
+ \textbf{REQ.PE.1 - C*} & The system shall locate users within the building with an accuracy of 1m* \\ 
 \hline
- \textbf{ REQ.PE.2 - P} & The system shall track each ID tag in near real time with a latency of no more than 3 seconds \\
+ \textbf{REQ.PE.2 - P} & The system shall track each ID tag in near real time with a latency of no more than 3 seconds \\ 
 \hline
- \textbf{ REQ.PE.3 - P } & The system must undergo a calibration process on startup before usage \\
+ \textbf{REQ.PE.3 - P} & The system must undergo a calibration process on start-up before usage \\ 
 \hline
- \textbf{ REQ.PE.4 - P} & The system UI must be accessible with in 60 seconds when operators directly connect to the system server \\
+ \textbf{REQ.PE.4 - P} & The system UI must be accessible with in 60 seconds when operators directly connect to the system server \\
 \hline
- \textbf{ REQ.PE.5 - F} & The system shall locate users within the building with an accuracy of 0.5m \\
+ \textbf{REQ.PE.5 - F} & The system shall locate users within the building with an accuracy of 0.5m \\
 \hline
- \textbf{ REQ.PE.6 - F } & The server's location processing throughput must be at least 100 employee locations per second \\
+ \textbf{REQ.PE.6 - F} & The server's location processing throughput must be at least 100 employee locations per second \\
 \hline
- \textbf{ REQ.PE.7 - F } & Each beacon must be capable of detecting at least 100 employees within a 100m radius in 1 second \\
+ \textbf{REQ.PE.7 - F} & Each beacon must be capable of detecting at least 100 employees within a 100m radius in 1 second \\
 \hline
- \textbf{ REQ.PE.8 - F } & The ID Tags must remain operational under temperatures no more than 60 degree celsius \\
+ \textbf{REQ.PE.8 - F} & The ID Tags must remain operational under temperatures no more than 60 degree Celsius \\
 \hline
- \textbf{ REQ.PE.9 - F } & The Beacons must remain operational under temperatures no more than 60 degree celsius \\
+ \textbf{REQ.PE.9 - F} & The Beacons must remain operational under temperatures no more than 60 degree  \\
 \hline
- \textbf{ REQ.PE.10 - C } & 50\% of data transmitted via wireless communication must not be lost or corrupted \\
-\hline
- \textbf{ REQ.PE.10 - C } & Wireless communication must be done using 2.4 GHz wireless frequencies \\
-\hline
- \textbf{ REQ.PE.10 - C } & Wireless communication between transceivers must not have a latency of more than 100ms \\
-\hline
- \textbf{ REQ.PE.10 - P } & The latency of wireless communication between transceivers must be less than 50ms \\
-\hline
- \textbf{ REQ.PE.10 - P } & Wireless communication must be established on 3.5-6.5 GHz UWB frequencies \\
-\hline
- \textbf{ REQ.PE.10 - F } & 5\% of data transmitted via wireless communication must not be lost or corrupted \\
-\hline
-
 \end{tabular}
 \caption{Performance Requirements}
-\end{table}
+\end{table}	
 
+\break
+
+\subsubsection{Performance Requirements - Signal}
+\bigskip
+In addition to basic performance requirement, the Akriveia beacon heavily relies on wireless signal communications. The following tables details the requirements for signal communication and processing.
+\bigskip
+
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | m{3.5cm} | m{12.5cm} |} 
+\hline
+ \textbf{REQ.PE.10 - C*} & 50\% of data transmitted via wireless communication must not be lost or corrupted* \\
+\hline
+ \textbf{REQ.PE.10 - C*} & Wireless communication must be done using 2.4 GHz wireless frequencies* \\
+\hline
+ \textbf{REQ.PE.10 - C*} & Wireless communication between transceivers must not have a latency of more than 100ms* \\
+\hline
+ \textbf{REQ.PE.10 - P} & The latency of wireless communication between transceivers must be less than 50ms \\
+\hline
+ \textbf{REQ.PE.10 - P} & Wireless communication must be established on 3.5-6.5 GHz UWB frequencies \\
+\hline
+ \textbf{REQ.PE.10 - F} & 5\% of data transmitted via wireless communication must not be lost or corrupted \\
+
+\hline
+\end{tabular}
+\caption{Performance - Signal Requirements }
+\end{table}	
+	
 %\end{document}
-

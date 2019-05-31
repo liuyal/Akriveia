@@ -1,8 +1,10 @@
 **.aux
 **.log
-build/
 **.pdf
 **.toc
 **.tof
 **.lof
 **.lot
+**.blg
+**.bbl
+build/
