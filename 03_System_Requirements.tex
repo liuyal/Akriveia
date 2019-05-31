@@ -1,15 +1,14 @@
-\documentclass[11pt]{article}
-\usepackage[document]{ragged2e}
-\usepackage[a4paper, total={6in, 9in}]{geometry}
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage{multirow}
-\usepackage[table, svgnames]{xcolor} 
-\usepackage{array}
-\usepackage{cellspace}
-\usepackage{etoolbox}
-\usepackage{longtable}
-\begin{document}
+%\documentclass[11pt]{article}
+%\usepackage[document]{ragged2e}
+%\usepackage[a4paper, total={6in, 9in}]{geometry}
+%\usepackage{graphicx}
+%\usepackage{float}
+%\usepackage{multirow}
+%\usepackage[table, svgnames]{xcolor}
+%\usepackage{array}
+%\usepackage{cellspace}
+%\usepackage{etoolbox}
+%\begin{document}
 
 \setcounter{section}{2}
 \section{System Requirements}
@@ -24,13 +23,13 @@ In order for this product to be successful, \textbf{TRIWAVE SYSTEMS} must lay ou
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} | } 
+\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
  \hline
- \textbf{ REQ.GE.1 - C } & The system must be intended for indoor use only \\ 
+ \textbf{ REQ.GE.1 - C } & The system must be intended for indoor use only \\
 \hline
- \textbf{ REQ.GE.2 - C } & First responders shall have direct access to the system during an emergency \\ 
+ \textbf{ REQ.GE.2 - C } & First responders shall have direct access to the system during an emergency \\
 \hline
- \textbf{ REQ.GE.3 - C } & The system must have two modes of operation: idle mode and emergency mode \\ 
+ \textbf{ REQ.GE.3 - C } & The system must have two modes of operation: idle mode and emergency mode \\
 \hline
  \textbf{ REQ.GE.4 - C } & The system must locate ID tags within one floor buildings \\
 \hline
@@ -50,7 +49,7 @@ In order for this product to be successful, \textbf{TRIWAVE SYSTEMS} must lay ou
 \hline
 \end{tabular}
 \caption{General Requirements}
-\end{table}	
+\end{table}
 
 \break
 \subsection{Hardware Requirements}
@@ -59,13 +58,13 @@ In order for this product to be successful, robust hardware will be absolutely n
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} | } 
+\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
  \hline
- \textbf{ REQ.HW.1 - C } & The server must use a SBC for automated product control \\ 
+ \textbf{ REQ.HW.1 - C } & The server must use a SBC for automated product control \\
 \hline
- \textbf{ REQ.HW.2 - C } & The beacons must use a MCU for automated product control \\ 
+ \textbf{ REQ.HW.2 - C } & The beacons must use a MCU for automated product control \\
 \hline
- \textbf{ REQ.HW.3 - C } & The ID tags must use a MCU for automated product control \\ 
+ \textbf{ REQ.HW.3 - C } & The ID tags must use a MCU for automated product control \\
 \hline
  \textbf{ REQ.HW.4 - C} & Each MCU must use Serial Peripheral Interface (SPI) to communicate with transceiver \\
 \hline
@@ -83,7 +82,7 @@ In order for this product to be successful, robust hardware will be absolutely n
 \hline
 \end{tabular}
 \caption{Hardware Requirements}
-\end{table}	
+\end{table}
 
 \break
 \subsection{Electrical Requirements}
@@ -92,13 +91,13 @@ In order for this product to be reliable, the electrical systems must be robust 
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} | } 
+\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
  \hline
- \textbf{ REQ.EC.1 - C } & Each beacon shall be powered through standard North American power outlets (120V AC, 60Hz, type A/B) \\ 
+ \textbf{ REQ.EC.1 - C } & Each beacon shall be powered through standard North American power outlets (120V AC, 60Hz, type A/B) \\
 \hline
- \textbf{ REQ.EC.2 - C } & Each ID tag must have its own 3.3V battery power source \\ 
+ \textbf{ REQ.EC.2 - C } & Each ID tag must have its own 3.3V battery power source \\
 \hline
- \textbf{ REQ.EC.3 - P } & Each ID tag must have a switch to trigger the device manually \\ 
+ \textbf{ REQ.EC.3 - P } & Each ID tag must have a switch to trigger the device manually \\
 \hline
  \textbf{ REQ.EC.4 - P} & The ID tags must consume no more than 5W while in idle mode \\
 \hline
@@ -116,22 +115,22 @@ In order for this product to be reliable, the electrical systems must be robust 
 \hline
 \end{tabular}
 \caption{Electrical Requirements}
-\end{table}	
+\end{table}
 
 \break
 \subsection{Software Requirements}
 In order for  \textbf{TRIWAVE SYSTEMS} to properly develop a proof of concept of this product, a strong back end of software needs to be developed. This starts with the use of trilateration at a frequency of 2.4GHz to locate a single ID tag. As this product progresses, communication with the server must be done in an efficient manner, and a User Interface (UI) must be developed that is easy to use and conveys important information quickly.
 \bgroup
 \def\arraystretch{1.5}
-\begin{longtable}[H]{ | m{3.5cm} | m{12.5cm} | } 
+\begin{longtable}[H]{ | m{3.5cm} | m{12.5cm} | }
 %\centering
-%\begin{tabular}{ | m{3.5cm} | m{12.5cm} | } 
+%\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
  \hline
- \textbf{ REQ.SW.1 - C } & The system must use time of flight to locate ID tags \\ 
+ \textbf{ REQ.SW.1 - C } & The system must use time of flight to locate ID tags \\
 \hline
- \textbf{ REQ.SW.2 - P } & The system must use 2D trilateration methods to locate ID tags \\ 
+ \textbf{ REQ.SW.2 - P } & The system must use 2D trilateration methods to locate ID tags \\
 \hline
- \textbf{ REQ.SW.3 - P } & Distance calculations must be performed using RSSI data received from beacons \\ 
+ \textbf{ REQ.SW.3 - P } & Distance calculations must be performed using RSSI data received from beacons \\
 \hline
  \textbf{ REQ.SW.4 - P} & Admin shall have access the the server through credential verification system \\
 \hline
@@ -173,7 +172,7 @@ In order for  \textbf{TRIWAVE SYSTEMS} to properly develop a proof of concept of
 \hline
 %\end{tabluar}
 \caption{Software Requirements}
-\end{longtable}	
+\end{longtable}
 
 \break
 \subsection{Performance Requirements}
@@ -182,13 +181,13 @@ Reliability and accuracy are arguably the most important attributes of this prod
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} | } 
+\begin{tabular}{ | m{3.5cm} | m{12.5cm} | }
  \hline
- \textbf{ REQ.PE.1 - C } & The system shall locate users within the building with an accuracy of 1m \\ 
+ \textbf{ REQ.PE.1 - C } & The system shall locate users within the building with an accuracy of 1m \\
 \hline
- \textbf{ REQ.PE.2 - P} & The system shall track each ID tag in near real time with a latency of no more than 3 seconds \\ 
+ \textbf{ REQ.PE.2 - P} & The system shall track each ID tag in near real time with a latency of no more than 3 seconds \\
 \hline
- \textbf{ REQ.PE.3 - P } & The system must undergo a calibration process on startup before usage \\ 
+ \textbf{ REQ.PE.3 - P } & The system must undergo a calibration process on startup before usage \\
 \hline
  \textbf{ REQ.PE.4 - P} & The system UI must be accessible with in 60 seconds when operators directly connect to the system server \\
 \hline
@@ -217,8 +216,7 @@ Reliability and accuracy are arguably the most important attributes of this prod
 
 \end{tabular}
 \caption{Performance Requirements}
-\end{table}	
+\end{table}
 
+%\end{document}
 
-	
-\end{document}
