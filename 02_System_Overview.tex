@@ -1,33 +1,9 @@
-%\documentclass[11pt]{article}
-%\usepackage[a4paper, total={6.5in, 9.5in}]{geometry}
-%\usepackage[document]{ragged2e}
-%\usepackage{lipsum}
-%\usepackage{graphicx}
-%\usepackage{float}
-%\usepackage{multirow}
-%\usepackage{array}
-%\usepackage{cellspace}
-%\usepackage{etoolbox}
-%\usepackage{scrpage2}
-%\usepackage{longtable}
-%\usepackage[table, svgnames]{xcolor}
-%\usepackage{titlesec}
-%\setcounter{secnumdepth}{4}
-%\titleformat{\paragraph}
-%{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-%\titlespacing*{\paragraph}
-%{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-%\ifoot[]{}
-%\cfoot[]{}
-%\ofoot[\pagemark]{\pagemark}
-%\pagestyle{scrplain}
-%\begin{document}
+
 
 \setcounter{section}{1}
 \section{System Overview}
 \bigskip
 \subsection{System Layout}
-\bigskip
 The Akriveia Beacon indoor locating rescue system combines electrical, hardware and software systems to detect and locate multiple occupants within a building during an emergency disaster situation. Each individual component of the system is developed separately in the PoC (Proof of Concept) phase; then partially integrated in the Prototype phase and fully integrated in the Final Product phase.
 
 \bigskip
@@ -35,7 +11,6 @@ A high-level system overview displays three Locator Beacons, an ID tag, a Server
 The Locator Beacons transmits wireless signals to the Access Card to acquire a response.
 When the beacons receive a response back, the received signal data will be forwarded to the data processing server to calculate the distance and location of the ID tag through trilateration algorithms.
 Afterwards, the location results are displayed on a \Gls{GUI} for operators.
-
 
 \begin{figure}[h!]
     \centering
@@ -47,8 +22,6 @@ Afterwards, the location results are displayed on a \Gls{GUI} for operators.
 
 \break
 \subsubsection{Proof Of Concept (PoC)}
-
-\bigskip
 The Proof of Concept (\Gls{PoC}) demonstrates the feasibility of the location determination system using Beacons to ID tag distances estimation along with trilateration. Such a system should show the effectiveness of a trilateration algorithm for determining distance and location of the ID tag in 2 dimensional space. For the PoC, all equipment are powered by a external power supply; as the main goal of the PoC is to demonstrate the feasibility of locating access card with location beacon system with trilateration algorithms.
 
 \begin{figure}[h!]
@@ -71,7 +44,6 @@ This system will use four 2.4 GHz \Gls{RF} modules, four micro-controller units 
 
 \break
 \subsubsection{Prototype}
-\bigskip
 The Prototype demonstrates the same objectives from the PoC except the transceivers will be using Ultra-wideband (UWB) signals instead of 2.4 GHz band signals. UWB uses the radio frequencies of 3.5 to 6.5 GHz and would significantly reduce the issue of signal interference or multipath propagation. Although 2.4 GHz is more widely used for its versatility, UWB would be more well suited for the Akriveia Beacon system. Selecting UWB chips would result in a higher wave propagation effect, lower signal interference and signal multipath \cite{R4}. In additional, an early prototype RF harvesting circuit would be implemented during the prototype phase to test the feasibility of the concept.
 
 \begin{figure}[h!]
@@ -101,7 +73,6 @@ chips and developing RF harvester circuit. Prototype phase objectives are stated
 
 \break
 \paragraph{RF Harvester Prototype Design}
-\bigskip
 RF is an abundant source for energy harvesting especially in a radio wave rich environment. When Radio Waves reach an antenna it causes a changing potential difference across the antenna. The potential difference causes charge carriers to move along the length of the antenna in an attempt to equalize the field, and the RF to \Gls{DC} integrated circuit (Figure \ref{fig:rfh}) is able to capture energy from the movement of those charge carriers. The energy is stored temporarily in a capacitor and then used to create a desired potential difference at the load \cite{R5}.
 \begin{figure}[h!]
     \centering
@@ -115,7 +86,6 @@ There will be a demonstrable RF harvester circuit similar to Figure \ref{fig:rfh
 
 \break
 \subsubsection{Final Product}
-\bigskip
 The final product will demonstrate the final fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. All the components of the systems will be fully integrated as a close-to-production product. Component circuit and \Gls{PCB} footprint will be minimized and proper casing will be made to house all electronics. The data processing server will provide the user with a full GUI to interact with the system along with the fully implemented features such as importable blueprints and multi-floor tacking.
 
 \begin{figure}[h!]
@@ -144,7 +114,6 @@ The final product should satisfy these objectives below:
 
 \break
 \paragraph{RF Harvester Final Design}
-\bigskip
 Once RF harvester test circuit produces adequate results in the prototype phase, there will be two RF harvester circuits implemented on the ID tags in the final design. The primary RF harvester will act as a RF trigger switch to activating the RF module in case of an emergency, the second RF harvester will be for for charging the ID tags using ambient RF signals.
 
 \bigskip
@@ -158,22 +127,18 @@ Both RF harvester circuits will be integrated together with the RF module circui
 \subsection{Trilateration Overview}
 \bigskip
 \subsubsection{Proof of Concept (PoC)}
-\bigskip
 The Akriveia Beacon System will employ a two dimensional trilateration positioning method to locate the mobile sensors within the ID tags in the Proof-of-Concept (PoC) phase as illustrated in Figure \ref{Tri}. The 2-D position of an ID tag can be located by the intersection of the three circles, where their radii  are determined individually by the measured distance between each beacon and the ID tag. The method will abide the scheme of lateration with absolute distances, which uses distance-related measurements to describe the distance between mobile sensors and several fixed sensors. The metric to be used for distance-related measurements will be Time-of-Flight (ToF), which describes the signal propagation time in a one way communication between a transmitter and a receiver \cite{R6}. In the PoC phase, ToF data will be collected from 2.4 GHz RF medium and converted to distance based on a form of Distance Speed Time formula, where Time will be ToF and Speed will be the speed of light since RF wave is a form of electromagnetic radiation.
-
-\bigskip
+\medskip
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{./images/Tri.png}
     \caption{Trilateration Diagram}
     \label{Tri}
 \end{figure}
-\bigskip
 
 \begin{equation}
-D_n = Speed\,of\,light \times ToF
+D_n = Speed of light * ToF
 \end{equation}
-
 
 \subsubsection{Prototype/Final Product}
 In the Engineering Prototype and Final Product phase, the Akriveia Beacon System will not only continue to adhere to the concept of lateration with absolute distances for positioning computation, but also extend its application into three dimensions. In 3-D trilateration positioning, ID tags will be located based on the intersection three spheres instead of three circles as in the case of 2-D. In combating the vulnerability of signals being multipathed in a 2.4 GHz RF medium, the transceiver modules of the beacons and ID tags will be replaced with ultra-wideband (UWB) modules, where operational UWB frequencies ranges from 3.5 GHz to 6.5 GHz \cite{R42}.
@@ -181,9 +146,7 @@ In the Engineering Prototype and Final Product phase, the Akriveia Beacon System
 
 
 
-
 \subsection{Software System Overview}
-\bigskip
 Akriveia's software design is specifically chosen for safety, robustness and performance. It's primary compute server is powered by a Raspberry Pi 3 B+ running a Rust web server to leverage type-safety and memory access guarantees while still maintaining C++ like performance because of compiled binaries and lack of garbage collection. Figure \ref{software_diagram} below is a diagram of the software architecture, which serves content through the web server to first responders while processing real time location data of users from beacons in the background. The server will make use of the widely used model-view-controller architecture to reduce development costs and leverage modern software development practices. Sqlite was chosen for its simplicity and minimal system footprint, which is intended to be used to persist data such as user and beacon location information, and building blueprints.
 
 \bigskip
@@ -196,4 +159,3 @@ Akriveia's software design is specifically chosen for safety, robustness and per
 \bigskip
 
 
-%\end{document}
