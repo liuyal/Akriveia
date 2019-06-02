@@ -19,17 +19,17 @@ In order for the Akriveia Beacon system to be reliable, general high-level requi
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.25cm} | m{12.5cm} |} 
+\begin{tabular}{ | m{3.25cm} | m{12.5cm} |}
  \hline
- \textbf{REQ.GE.1 - C} & The system must be intended for indoor use only \\ 
+ \textbf{REQ.GE.1 - C} & The system must be intended for indoor use only \\
 \hline
- \textbf{REQ.GE.2 - C} & The system must have two modes of operation: idle mode and emergency mode \\ 
+ \textbf{REQ.GE.2 - C} & The system must have two modes of operation: idle mode and emergency mode \\
 \hline
  \textbf{REQ.GE.3 - C} & The system must pinpoint ID tag location within one floor buildings \\
 \hline
  \textbf{REQ.GE.4 - C} & Access to the system and system data must not be available to the general public \\
 \hline
- \textbf{REQ.GE.5 - P} & First responders must only have access to the system during disaster situation \\
+ \textbf{REQ.GE.5 - P} & First responders must only have access to the system during disaster situations \\
 \hline
  \textbf{REQ.GE.6 - P} & The system must track more than one ID tag \\
 \hline
@@ -39,11 +39,11 @@ In order for the Akriveia Beacon system to be reliable, general high-level requi
 \hline
  \textbf{REQ.GE.9 - F} & The system must remain operational after or during small scale fires \\
 \hline
- \textbf{REQ.GE.10 - F} & The final marketed product must not cost more than CAD \$200.00 \\
+ \textbf{REQ.GE.10 - F} & The final marketed product consisting of one server, three beacons and one ID tag must not cost more than CAD \$200.00 \\
 \hline
 \end{tabular}
 \caption{General Requirements}
-\end{table}	
+\end{table}
 
 \break
 \subsection{Hardware Requirements}
@@ -55,13 +55,13 @@ Robust and reliable hardware will be absolutely necessary in any system that int
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.25cm} | m{12.5cm} |} 
+\begin{tabular}{ | m{3.25cm} | m{12.5cm} |}
  \hline
- \textbf{REQ.HW.1 - C} & The server must use a \Gls{SBC} for automated product control \\ 
+ \textbf{REQ.HW.1 - C} & The server must use a \Gls{SBC} for data processing and display \\
 \hline
- \textbf{REQ.HW.2 - C} & The beacons must use a MCU for automated product control \\ 
+ \textbf{REQ.HW.2 - C} & The beacons must use a MCU for intermediate data processing \\
 \hline
- \textbf{REQ.HW.3 - C} & The ID tags must use a MCU for automated product control \\ 
+ \textbf{REQ.HW.3 - C} & The ID tags must use a MCU for request processing \\
 \hline
  \textbf{REQ.HW.4 - C} & Each MCU must use Serial Peripheral Interface (SPI) to communicate with transceiver \\
 \hline
@@ -79,11 +79,11 @@ Robust and reliable hardware will be absolutely necessary in any system that int
 \hline
 \end{tabular}
 \caption{Hardware Requirements}
-\end{table}	
+\end{table}
 
 \break
 \subsection{Electrical Requirements}
-Since the system is designed for emergency disaster situations, it is crucial that sufficient power is provided to each device at any given time. In order for the system to be reliable and effective, the electrical systems must be robust and efficient. TRIWAVE SYSTEMS has compiled a strict set of electrical requirements that ensures the beacons and ID tags will operate at a safe and efficient state. 
+Since the system is designed for emergency disaster situations, it is crucial that sufficient power is provided to each device at any given time. In order for the system to be reliable and effective, the electrical systems must be robust and efficient. TRIWAVE SYSTEMS has compiled a strict set of electrical requirements that ensures the beacons and ID tags will operate at a safe and efficient state.
 
 \bigskip
 
@@ -91,13 +91,13 @@ Since the system is designed for emergency disaster situations, it is crucial th
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.25cm} | m{12.5cm} |} 
+\begin{tabular}{ | m{3.25cm} | m{12.5cm} |}
  \hline
- \textbf{REQ.EC.1 - C} & Each beacon shall be powered through standard North American power outlets (120V AC, 60Hz, type A/B) \\ 
+ \textbf{REQ.EC.1 - C} & Each beacon shall be powered through standard North American power outlets (120V AC, 60Hz, type A/B) \\
 \hline
- \textbf{REQ.EC.2 - C} & Each ID tag must have its own 3.3 V battery power source \\ 
+ \textbf{REQ.EC.2 - C} & Each ID tag must have its own 3.3 V battery power source \\
 \hline
- \textbf{REQ.EC.3 - P} & Each ID tag must have an on-off toggle switch  \\ 
+ \textbf{REQ.EC.3 - P} & Each ID tag must have an on-off toggle switch  \\
 \hline
  \textbf{REQ.EC.4 - P} &  Each ID tag must remain in an idle, low power state with no more than 5W of power consumption while not in a disaster  \\
 \hline
@@ -113,9 +113,11 @@ Since the system is designed for emergency disaster situations, it is crucial th
 \hline
  \textbf{REQ.EC.10 - F} & The server must have a battery backup (UPS) \\
 \hline
+ \textbf{REQ.EC.11 - F} & Users must no longer be capable of turning off the ID tag power switch manually \\
+\hline
 \end{tabular}
 \caption{Electrical Requirements}
-\end{table}	
+\end{table}
 
 \break
 \subsection{Software Requirements}
@@ -125,19 +127,19 @@ The Akriveia system will composed a intricate software stack containing a databa
 
 \bgroup
 \def\arraystretch{1.5}
-\begin{longtable}[H]{ | m{3.5cm} | m{12.5cm} |} 
+\begin{longtable}[H]{ | m{3.5cm} | m{12.5cm} |}
  \hline
- \textbf{REQ.SW.1 - C} & The system must use time of flight to locate ID tags \\ 
+ \textbf{REQ.SW.1 - C} & The system must use time of flight to locate ID tags \\
 \hline
- \textbf{REQ.SW.2 - P*} & The system must use 2D trilateration methods to locate ID tags* \\ 
+ \textbf{REQ.SW.2 - P*} & The system must use 2D trilateration methods to locate ID tags* \\
 \hline
- \textbf{REQ.SW.3 - P} & Distance calculations must be performed using RSSI data received from beacons \\ 
+ \textbf{REQ.SW.3 - P} & Distance calculations must be performed using RSSI data received from beacons \\
 \hline
  \textbf{REQ.SW.4 - P} & Admin shall have access the the server through credential verification system \\
 \hline
  \textbf{REQ.SW.5 - P} & Admins must be able to create employees account associated with each ID tag \\
 \hline
- \textbf{REQ.SW.6 - P} & First responder ID tags must be assicated with pre-define first responder account \\
+ \textbf{REQ.SW.6 - P} & First responder ID tags must be assicated with a pre-defined first responder account \\
 \hline
  \textbf{REQ.SW.7 - P} & The server must be able to periodically check ID tags to verify tags are in working condition (correctness of data, device not broken) \\
 \hline
@@ -156,7 +158,7 @@ The Akriveia system will composed a intricate software stack containing a databa
  \textbf{REQ.SW.14 - F} & The system must use 3D trilateration methods to locate ID tags \\
 \hline
 \caption{Software Requirements}
-\end{longtable}	
+\end{longtable}
 
 \break
 \subsubsection{Software - UI Requirements}
@@ -165,7 +167,7 @@ Emergency first responders will be the first operators to interact with the Akri
 
 \bgroup
 \def\arraystretch{1.5}
-\begin{longtable}[H]{ | m{3.5cm} | m{12.5cm} |} 
+\begin{longtable}[H]{ | m{3.5cm} | m{12.5cm} |}
 \hline
  \textbf{REQ.SW.15 - P} & The \Gls{UI} must be intuitive to use for operators \\
 \hline
@@ -184,7 +186,7 @@ Emergency first responders will be the first operators to interact with the Akri
  \textbf{REQ.SW.22 - F} & The UI must be able to display blueprints and location markers for all serviced floors in building \\
 \hline
 \caption{Software - UI Requirements}
-\end{longtable}	
+\end{longtable}
 \break
 
 \subsection{Performance Requirements}
@@ -195,29 +197,33 @@ Reliability and accuracy are the most important attributes of the Akriveia syste
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} |} 
+\begin{tabular}{ | m{3.5cm} | m{12.5cm} |}
  \hline
- \textbf{REQ.PE.1 - C*} & The system shall locate users within the building with an accuracy of 1m* \\ 
+ \textbf{REQ.PE.1 - C*} & The system shall locate users within the building with an accuracy of 1m* \\
 \hline
- \textbf{REQ.PE.2 - P} & The system shall track each ID tag in near real time with a latency of no more than 3 seconds \\ 
+ \textbf{REQ.PE.2 - P} & The system shall track each ID tag in near real time with a latency of no more than 3 seconds \\
 \hline
- \textbf{REQ.PE.3 - P} & The system must undergo a calibration process on start-up before usage \\ 
+ \textbf{REQ.PE.3 - P} & The system must undergo a calibration process on start-up before usage \\
 \hline
- \textbf{REQ.PE.4 - P} & The system UI must be accessible with in 60 seconds when operators directly connect to the system server \\
+ \textbf{REQ.PE.4 - P} & The server must restart within 120 seconds \\
+\hline
+ \textbf{REQ.PE.4 - P} & The server must be fully functional within 120 seconds after booting \\
+\hline
+ \textbf{REQ.PE.4 - P} & The system UI must be accessible with in 2 seconds when operators directly connect to the system server \\
 \hline
  \textbf{REQ.PE.5 - F} & The system shall locate users within the building with an accuracy of 0.5m \\
 \hline
  \textbf{REQ.PE.6 - F} & The server's location processing throughput must be at least 100 employee locations per second \\
 \hline
- \textbf{REQ.PE.7 - F} & Each beacon must be capable of detecting at least 100 employees within a 100m radius in 1 second \\
+ \textbf{REQ.PE.7 - F} & Each beacon must be capable of detecting at least 100 employees within a 100m radius per second \\
 \hline
- \textbf{REQ.PE.8 - F} & The ID Tags must remain operational under temperatures no more than 60 degree Celsius \\
+ \textbf{REQ.PE.8 - F} & The ID Tags must remain operational in temperatures less than 60 degrees Celsius \\
 \hline
- \textbf{REQ.PE.9 - F} & The Beacons must remain operational under temperatures no more than 60 degree  \\
+ \textbf{REQ.PE.9 - F} & The Beacons must remain operational in temperatures less than 60 degrees Celsius \\
 \hline
 \end{tabular}
 \caption{Performance Requirements}
-\end{table}	
+\end{table}
 
 \break
 
@@ -229,7 +235,7 @@ In addition to basic performance requirement, the Akriveia beacon heavily relies
 \def\arraystretch{1.5}
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3.5cm} | m{12.5cm} |} 
+\begin{tabular}{ | m{3.5cm} | m{12.5cm} |}
 \hline
  \textbf{REQ.PE.10 - C*} & 50\% of data transmitted via wireless communication must not be lost or corrupted* \\
 \hline
@@ -246,4 +252,4 @@ In addition to basic performance requirement, the Akriveia beacon heavily relies
 \hline
 \end{tabular}
 \caption{Performance - Signal Requirements }
-\end{table}	
+\end{table}
