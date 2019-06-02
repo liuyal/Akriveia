@@ -1,22 +1,4 @@
-%\documentclass[11pt]{article}
-%\usepackage[a4paper, total={6.5in, 9.5in}]{geometry}
-%\usepackage[document]{ragged2e}
-%\usepackage{lipsum}
-%\usepackage{graphicx}
-%\usepackage{float}
-%\usepackage{multirow}
-%\usepackage{array}
-%\usepackage{cellspace}
-%\usepackage{etoolbox}
-%\usepackage{scrpage2}
-%\usepackage{longtable}
-%\usepackage[table, svgnames]{xcolor} 
-%\ifoot[]{}
-%\cfoot[]{}
-%\ofoot[\pagemark]{\pagemark}
-%\pagestyle{scrplain}
-%
-%\begin{document}
+
 
 \setcounter{section}{2}
 \section{System Requirements}
@@ -41,23 +23,23 @@ In order for the Akriveia Beacon system to be reliable, general high-level requi
  \hline
  \textbf{REQ.GE.1 - C} & The system must be intended for indoor use only \\ 
 \hline
- \textbf{REQ.GE.3 - C} & The system must have two modes of operation: idle mode and emergency mode \\ 
+ \textbf{REQ.GE.2 - C} & The system must have two modes of operation: idle mode and emergency mode \\ 
 \hline
- \textbf{REQ.GE.4 - C} & The system must pinpoint ID tag location within one floor buildings \\
+ \textbf{REQ.GE.3 - C} & The system must pinpoint ID tag location within one floor buildings \\
 \hline
- \textbf{REQ.GE.5 - C} & Access to the system and system data must not be available to the general public \\
+ \textbf{REQ.GE.4 - C} & Access to the system and system data must not be available to the general public \\
 \hline
- \textbf{REQ.GE.6 - P} & First responders must only have access to the system during disaster situation \\
+ \textbf{REQ.GE.5 - P} & First responders must only have access to the system during disaster situation \\
 \hline
- \textbf{REQ.GE.7 - P} & The system must track more than one ID tag \\
+ \textbf{REQ.GE.6 - P} & The system must track more than one ID tag \\
 \hline
- \textbf{REQ.GE.8 - F} & The system must locate ID tags in a building with multiple floors \\
+ \textbf{REQ.GE.7 - F} & The system must locate ID tags in a building with multiple floors \\
 \hline
- \textbf{REQ.GE.9 - F} & The system must remain operational after earthquakes with magnitude below 6.9 \\
+ \textbf{REQ.GE.8 - F} & The system must remain operational after earthquakes with magnitude below 6.9 \\
 \hline
- \textbf{REQ.GE.10 - F} & The system must remain operational after or during small scale fires \\
+ \textbf{REQ.GE.9 - F} & The system must remain operational after or during small scale fires \\
 \hline
- \textbf{REQ.GE.11 - F} & The final marketed product must not cost more than CAD \$200.00 \\
+ \textbf{REQ.GE.10 - F} & The final marketed product must not cost more than CAD \$200.00 \\
 \hline
 \end{tabular}
 \caption{General Requirements}
@@ -75,7 +57,7 @@ Robust and reliable hardware will be absolutely necessary in any system that int
 \centering
 \begin{tabular}{ | m{3.25cm} | m{12.5cm} |} 
  \hline
- \textbf{REQ.HW.1 - C} & The server must use a SBC for automated product control \\ 
+ \textbf{REQ.HW.1 - C} & The server must use a \Gls{SBC} for automated product control \\ 
 \hline
  \textbf{REQ.HW.2 - C} & The beacons must use a MCU for automated product control \\ 
 \hline
@@ -251,19 +233,17 @@ In addition to basic performance requirement, the Akriveia beacon heavily relies
 \hline
  \textbf{REQ.PE.10 - C*} & 50\% of data transmitted via wireless communication must not be lost or corrupted* \\
 \hline
- \textbf{REQ.PE.10 - C*} & Wireless communication must be done using 2.4 GHz wireless frequencies* \\
+ \textbf{REQ.PE.11 - C*} & Wireless communication must be done using 2.4 GHz wireless frequencies* \\
 \hline
- \textbf{REQ.PE.10 - C*} & Wireless communication between transceivers must not have a latency of more than 100ms* \\
+ \textbf{REQ.PE.12 - C*} & Wireless communication between transceivers must not have a latency of more than 100ms* \\
 \hline
- \textbf{REQ.PE.10 - P} & The latency of wireless communication between transceivers must be less than 50ms \\
+ \textbf{REQ.PE.13 - P} & The latency of wireless communication between transceivers must be less than 50ms \\
 \hline
- \textbf{REQ.PE.10 - P} & Wireless communication must be established on 3.5-6.5 GHz UWB frequencies \\
+ \textbf{REQ.PE.14 - P} & Wireless communication must be established on 3.5-6.5 GHz UWB frequencies \\
 \hline
- \textbf{REQ.PE.10 - F} & 5\% of data transmitted via wireless communication must not be lost or corrupted \\
+ \textbf{REQ.PE.15 - F} & 5\% of data transmitted via wireless communication must not be lost or corrupted \\
 
 \hline
 \end{tabular}
 \caption{Performance - Signal Requirements }
 \end{table}	
-	
-%\end{document}
