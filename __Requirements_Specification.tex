@@ -1,6 +1,8 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper, total={6.5in, 9.5in}]{geometry}
 \usepackage[document]{ragged2e}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=black,bookmarksopen=true]{hyperref}
+\usepackage{bookmark}
 \usepackage{lipsum}
 \usepackage{graphicx}
 \usepackage[noadjust]{cite}  
@@ -25,6 +27,7 @@
 \cfoot[]{}
 \ofoot[\pagemark]{\pagemark}
 \pagestyle{scrplain}
+\usepackage{pdfpages}
 
 % Glossary
 \usepackage[utf8]{inputenc}
@@ -35,6 +38,11 @@
 
 \begin{document}
 
+\setboolean{@twoside}{false}
+\includepdf[pages={1}]{./images/__Letter_of_transmittal.pdf}
+
+\setboolean{@twoside}{false}
+\includepdf[pages={1}]{./images/title_page.pdf}
 
 \input{00_Abstract.tex}
 \pagebreak
