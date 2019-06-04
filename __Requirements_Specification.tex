@@ -13,27 +13,40 @@
 \usepackage{setspace}
 \usepackage{cellspace}
 \usepackage{etoolbox}
-\usepackage{scrpage2}
 \usepackage{longtable}
 \usepackage[table, svgnames]{xcolor} 
 \usepackage{titlesec}
 \usepackage{amsmath}
-\setcounter{secnumdepth}{4}
-\titleformat{\paragraph}
-{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}
-{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-\ifoot[]{}
-\cfoot[]{}
-\ofoot[\pagemark]{\pagemark}
-\pagestyle{scrplain}
 \usepackage{pdfpages}
+
+%\usepackage{scrpage2}
+%\pagestyle{scrplain}
+%\setcounter{secnumdepth}{4}
+%\titleformat{\paragraph}
+%{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+%\titlespacing*{\paragraph}
+%{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+%\ifoot[]{}
+%\cfoot[]{}
+%\ofoot[\pagemark]{\pagemark}
+
+\usepackage{fancyhdr}
+\fancypagestyle{logo}{
+    \fancyhf{} % clears header/footer
+    \renewcommand\bottomfraction{0.9}
+    \renewcommand\textfraction{0.1}
+    \fancyhead[C]{\includegraphics[ width=\linewidth, keepaspectratio]{./images/header_black.png}}
+    \fancyfoot[LE,RO]{\thepage}
+}
+\pagestyle{logo}
+
 
 % Glossary
 \usepackage[utf8]{inputenc}
 \usepackage{glossaries}
 \makeglossaries
 \input{00_Glossary.tex}
+
 
 
 \begin{document}
@@ -44,6 +57,7 @@
 \setboolean{@twoside}{false}
 \includepdf[pages={1}]{./images/title_page.pdf}
 
+\bigskip
 \input{00_Abstract.tex}
 \pagebreak
 \clearpage
