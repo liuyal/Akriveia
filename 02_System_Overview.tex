@@ -127,24 +127,27 @@ Both RF harvester circuits will be integrated together with the RF module circui
 \subsection{Trilateration Overview}
 \bigskip
 \subsubsection{Proof of Concept (PoC)}
-The Akriveia Beacon System will employ a two dimensional trilateration positioning method to locate the mobile sensors within the ID tags in the Proof-of-Concept (PoC) phase as illustrated in Figure \ref{Tri}. The 2-D position of an ID tag can be located by the intersection of the three circles, where their radii  are determined individually by the measured distance between each beacon and the ID tag. The method will abide the scheme of lateration with absolute distances, which uses distance-related measurements to describe the distance between mobile sensors and several fixed sensors. The metric to be used for distance-related measurements will be Time-of-Flight (ToF), which describes the signal propagation time in a one way communication between a transmitter and a receiver \cite{R6}. In the PoC phase, ToF data will be collected from 2.4 GHz RF medium and converted to distance based on a form of Distance Speed Time formula, where Time will be ToF and Speed will be the speed of light since RF wave is a form of electromagnetic radiation.
+The Akriveia Beacon System will employ a two dimensional trilateration positioning method to locate the mobile sensors within the ID tags in the Proof-of-Concept (PoC) phase as illustrated in Figure \ref{Tri}. The 2-D position of an ID tag can be located by the intersection of the three circles, where their radii  are determined individually by the measured distance between each beacon and the ID tag. The method will abide the scheme of lateration with absolute distances, which uses distance-related measurements to describe the distance between mobile sensors and several fixed sensors. The metric used to calculate these distances are from RSSI which would be measured from the 2.4Ghz wireless modules using equation (1).
 \medskip
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\linewidth]{./images/Tri.png}
+    \includegraphics[scale=0.40]{./images/Tri.png}
     \caption{Trilateration Diagram}
     \label{Tri}
 \end{figure}
 
 \begin{equation}
-D_n = Speed of light * ToF
+    Distance = 10^{(Measured Power - RSSI)/(10*environmental Factor)}
 \end{equation}
 
 \subsubsection{Prototype/Final Product}
-In the Engineering Prototype and Final Product phase, the Akriveia Beacon System will not only continue to adhere to the concept of lateration with absolute distances for positioning computation, but also extend its application into three dimensions. In 3-D trilateration positioning, ID tags will be located based on the intersection three spheres instead of three circles as in the case of 2-D. In combating the vulnerability of signals being multipathed in a 2.4 GHz RF medium, the transceiver modules of the beacons and ID tags will be replaced with ultra-wideband (UWB) modules, where operational UWB frequencies ranges from 3.5 GHz to 6.5 GHz \cite{R4}.
+In the Prototype and Final Product phase, the Akriveia Beacon System will continue to adhere to the concept of lateration with absolute distances for positioning computation, but also extend its application into three dimensions. However for the prototype and final product, trilateration calculation will based on Time of Flight (ToF). The metric to be used for distance-related measurements will be Time-of-Flight (ToF), equation (2), which describes the signal propagation time in a one way communication between a transmitter and a receiver \cite{R6}. ToF data will be collected from 2.4 GHz RF medium and converted to distances based on a form of Distance Speed Time formula shown in the equation below. Time will be ToF and Speed will be the speed of light since RF wave is a form of electromagnetic radiation. In 3-D trilateration positioning, ID tags will be located based on the intersection three spheres instead of three circles as in the case of 2-D. In combating the vulnerability of signals being multipathed in a 2.4 GHz RF medium, the transceiver modules of the beacons and ID tags will be replaced with ultra-wideband (UWB) modules, where operational UWB frequencies ranges from 3.5 GHz to 6.5 GHz \cite{R4}.
+
+\begin{equation}
+    D_n = Speed of light * ToF
+\end{equation}
+
 \break
-
-
 
 \subsection{Software System Overview}
 Akriveia's software design is specifically chosen for safety, robustness and performance. It's primary compute server is powered by a Raspberry Pi 3 B+ running a Rust web server to leverage type-safety and memory access guarantees while still maintaining C++ like performance because of compiled binaries and lack of garbage collection. Figure \ref{software_diagram} below is a diagram of the software architecture, which serves content through the web server to first responders while processing real time location data of users from beacons in the background. The server will make use of the widely used model-view-controller architecture to reduce development costs and leverage modern software development practices. Sqlite was chosen for its simplicity and minimal system footprint, which is intended to be used to persist data such as user and beacon location information, and building blueprints.
@@ -157,5 +160,3 @@ Akriveia's software design is specifically chosen for safety, robustness and per
     \label{software_diagram}
 \end{figure}
 \bigskip
-
-

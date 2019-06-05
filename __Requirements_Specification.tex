@@ -19,34 +19,22 @@
 \usepackage{amsmath}
 \usepackage{pdfpages}
 
-%\usepackage{scrpage2}
-%\pagestyle{scrplain}
-%\setcounter{secnumdepth}{4}
-%\titleformat{\paragraph}
-%{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-%\titlespacing*{\paragraph}
-%{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-%\ifoot[]{}
-%\cfoot[]{}
-%\ofoot[\pagemark]{\pagemark}
-
 \usepackage{fancyhdr}
 \fancypagestyle{logo}{
     \fancyhf{} % clears header/footer
     \renewcommand\bottomfraction{0.9}
     \renewcommand\textfraction{0.1}
-    \fancyhead[C]{\includegraphics[ width=\linewidth, keepaspectratio]{./images/header_black.png}}
+
+    \fancyhead[C]{\includegraphics[ width=\linewidth, keepaspectratio]{./images/header_white.png}}
     \fancyfoot[LE,RO]{\thepage}
 }
 \pagestyle{logo}
-
 
 % Glossary
 \usepackage[utf8]{inputenc}
 \usepackage{glossaries}
 \makeglossaries
 \input{00_Glossary.tex}
-
 
 
 \begin{document}
