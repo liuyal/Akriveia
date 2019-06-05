@@ -137,14 +137,14 @@ The Akriveia Beacon System will employ a two dimensional trilateration positioni
 \end{figure}
 
 \begin{equation}
-    Distance = 10^{(Measured_Power - RSSI)/(10*Environmental_Factor)}
+    Distance = 10^{(Measured\_Power - RSSI)/(10*Environmental\_Factor)}
 \end{equation}
 
 \subsubsection{Prototype/Final Product}
 In the Prototype and Final Product phase, the Akriveia Beacon System will continue to adhere to the concept of lateration with absolute distances for positioning computation, but also extend its application into three dimensions. However for the prototype and final product, trilateration calculation will based on Time of Flight (ToF). The metric to be used for distance-related measurements will be Time-of-Flight (ToF), equation (2), which describes the signal propagation time in a one way communication between a transmitter and a receiver \cite{R6}. ToF data will be collected from 2.4 GHz RF medium and converted to distances based on a form of Distance Speed Time formula shown in the equation below. Time will be ToF and Speed will be the speed of light since RF wave is a form of electromagnetic radiation. In 3-D trilateration positioning, ID tags will be located based on the intersection three spheres instead of three circles as in the case of 2-D. In combating the vulnerability of signals being multipathed in a 2.4 GHz RF medium, the transceiver modules of the beacons and ID tags will be replaced with ultra-wideband (UWB) modules, where operational UWB frequencies ranges from 3.5 GHz to 6.5 GHz \cite{R4}.
 
 \begin{equation}
-    D_n = Speed_of_light * ToF
+    D_n = Speed\_of\_light * ToF
 \end{equation}
 
 \break
