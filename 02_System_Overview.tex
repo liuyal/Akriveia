@@ -4,12 +4,12 @@
 \section{System Overview}
 \bigskip
 \subsection{System Layout}
-The Akriveia Beacon indoor locating rescue system combines electrical, hardware and software systems to detect and locate multiple occupants within a building during an emergency disaster situation. Each individual component of the system is developed separately in the PoC (Proof of Concept) phase; then partially integrated in the Prototype phase and fully integrated in the Final Product phase.
+The Akriveia Beacon indoor locating rescue system combines electrical, hardware and software systems to detect and locate multiple occupants within a building during an emergency disaster situation. Each component of the system is developed separately in the PoC (Proof of Concept) phase; then partially integrated in the Prototype phase and fully integrated in the Final Product phase.
 
 \bigskip
-A high-level system overview displays three Locator Beacons, an ID tag, a Server and a user interface (Figure \ref{fig:system_layout}).
-The Locator Beacons transmits wireless signals to the Access Card to acquire a response.
-When the beacons receive a response back, the received signal data will be forwarded to the data processing server to calculate the distance and location of the ID tag through trilateration algorithms.
+A high-level system overview displays three Locator Beacons, an ID tag, a Server and an user interface (Figure \ref{fig:system_layout}).
+The Locator Beacons transmit wireless signals to the ID tag to acquire a response.
+When the beacons receive a response, the received signal data will be forwarded to the data processing server to calculate the distance and location of the ID tag through a trilateration algorithm.
 Afterwards, the location results are displayed on a \Gls{GUI} for operators.
 
 \begin{figure}[h!]
@@ -22,7 +22,7 @@ Afterwards, the location results are displayed on a \Gls{GUI} for operators.
 
 \break
 \subsubsection{Proof Of Concept (PoC)}
-The Proof of Concept (\Gls{PoC}) demonstrates the feasibility of the location determination system using Beacons to ID tag distances estimation along with trilateration. Such a system should show the effectiveness of a trilateration algorithm for determining distance and location of the ID tag in two dimensional space. For the PoC, all equipment are powered by a external power supply; as the main goal of the PoC is to demonstrate the feasibility of locating access card with location beacon system with trilateration algorithms.
+The Proof of Concept (\Gls{PoC}) demonstrates the feasibility of the location determination system using Beacon to ID tag distance estimation along with trilateration. Such a system should show the effectiveness of a trilateration algorithm for determining distance and location of the ID tag in two dimensional space. For the PoC, all equipment will be powered by an external power supply; as the main goal of the PoC is to demonstrate the feasibility of the main function of the system; locating ID tags with trilateration algorithms.
 
 \begin{figure}[h!]
     \centering
@@ -39,12 +39,12 @@ This system will use four 2.4 GHz \Gls{RF} modules, four micro-controller units 
     \item Establish functioning RF data communication between the RF modules with one module as the ID tag and three as the locator beacons
     \item Perform radio fingerprinting process to determine transmitter properties such as RSSI, time of flight (\Gls{ToF}), and other data
     \item Send distance data from the location beacons to the server for data processing
-    \item Implement trilateration algorithms using distance estimation to determine ID card location in 2D space
+    \item Implement trilateration algorithms using distance estimation to determine ID tag location in 2D space
 \end{enumerate}
 
 \break
 \subsubsection{Prototype}
-The Prototype demonstrates the same objectives from the PoC except the transceivers will be using Ultra-wideband (UWB) signals instead of 2.4 GHz band signals. UWB uses the radio frequencies of 3.5 to 6.5 GHz and would significantly reduce the issue of signal interference or multipath propagation. Although 2.4 GHz is more widely used for its versatility, UWB is more well suited for the Akriveia Beacon system. Selecting UWB chips would result in a higher wave propagation effect, lower signal interference and signal multipath \cite{R4}. In additional, an early prototype RF harvesting circuit would be implemented during the prototype phase to test the feasibility of the concept.
+The Prototype demonstrates the same objectives from the PoC except the transceivers will be using Ultra-wideband (UWB) signals instead of 2.4 GHz signals. UWB uses the radio frequencies of 3.5 to 6.5 GHz and would significantly reduce the issue of signal interference or multipath propagation. Although 2.4 GHz is more widely used for its versatility, UWB is more well suited for the Akriveia Beacon system. Selecting UWB chips would result in a higher wave propagation effect, lower signal interference and signal multipath \cite{R4}. In addition, an early prototype RF harvesting circuit would be implemented during the prototype phase to test the feasibility of the concept.
 
 \begin{figure}[h!]
     \centering
@@ -86,7 +86,7 @@ There will be a demonstrable RF harvester circuit similar to Figure \ref{fig:rfh
 
 \break
 \subsubsection{Final Product}
-The final product will demonstrate the final fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. All the components of the systems will be fully integrated as a close-to-production product. Component circuit and \Gls{PCB} footprint will be minimized and proper casing will be made to house all electronics. The data processing server will provide the user with a full GUI to interact with the system along with the fully implemented features such as importable blueprints and multi-floor tacking.
+The final product will demonstrate the final fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. All the components of the systems will be fully integrated as a close-to-production product. Component circuits and \Gls{PCB} footprint will be minimized and proper casing will be made to house all electronics. The data processing server will provide the user with a full GUI to interact with the system along with the fully implemented features such as importable blueprints and multi-floor tacking.
 
 \begin{figure}[h!]
     \centering
@@ -109,25 +109,24 @@ The final product should satisfy these objectives below:
     \item Send the data to the server to be processed
     \item Have the data processing server apply trilateration algorithms to determine ID card location
     \item Optimize trilateration algorithms to increase accuracy and speed of location calculation
-    \item Display locations on a intuitive GUI for the user
+    \item Display locations on an intuitive GUI for the user
 \end{enumerate}
 
 \break
 \paragraph{RF Harvester Final Design}
-Once RF harvester test circuit produces adequate results in the prototype phase, there will be two RF harvester circuits implemented on the ID tags in the final design. The primary RF harvester will act as a RF trigger switch to activating the RF module in case of an emergency, the second RF harvester will be for for charging the ID tags using ambient RF signals.
+Once the RF harvester test circuit produces adequate results in the prototype phase, there will be two RF harvester circuits implemented on the ID tags in the final design. The first will act as a RF trigger switch to activating the RF module in case of an emergency, the second will be for charging the ID tags using ambient RF signals.
 
 \bigskip
-The first RF harvester circuit will activate the ID tag RF module circuit, this harvester will operate
-on a different frequency and power level, making it distinguishable from UWB or other ambient radio frequencies. The second RF harvester circuit designed for charging the ID tags will be operating at the standard 2.4 GHz band  as ambient RF signal is most comment at this frequency (i.e. Wi-Fi, Cellular). The charging RF harvester would have been implemented and tested in the prototype phase. Minor modification and optimization of the circuit would occur in the final phase.
+The first RF harvester circuit will activate the ID tag RF module circuit, this harvester will operate on a different frequency and power level, making it distinguishable from UWB or other ambient radio frequencies. The second RF harvester circuit designed for charging the ID tags will be operating at the standard 2.4 GHz band as ambient RF signal is most common at this frequency (i.e. Wi-Fi, Cellular). The charging RF harvester would have been implemented and tested in the prototype phase. Minor modification and optimization of the circuit would occur in the final phase.
 
 \bigskip
-Both RF harvester circuits will be integrated together with the RF module circuit together as an ID tag.
+Both RF harvester circuits and the RF module circuit will be combined to produce the final version of the ID tag.
 
 \break
 \subsection{Trilateration Overview}
 \bigskip
 \subsubsection{Proof of Concept (PoC)}
-The Akriveia Beacon System will employ a two dimensional trilateration positioning method to locate the mobile sensors within the ID tags in the Proof-of-Concept (PoC) phase as illustrated in Figure \ref{Tri}. The 2-D position of an ID tag can be located by the intersection of the three circles, where their radii  are determined individually by the measured distance between each beacon and the ID tag. The method will abide the scheme of lateration with absolute distances, which uses distance-related measurements to describe the distance between mobile sensors and several fixed sensors. The metric used to calculate these distances are from RSSI which would be measured from the 2.4Ghz wireless modules using equation (1).
+The Akriveia Beacon System will employ a two dimensional trilateration positioning method to locate the mobile sensors within the ID tags in the Proof-of-Concept (PoC) phase as illustrated in Figure \ref{Tri}. The 2-D position of an ID tag can be located by the intersection of three circles, where their radii are determined individually by the measured distance between each beacon and the ID tag. The method will abide the scheme of lateration with absolute distances, which uses distance-related measurements to describe the distance between mobile sensors and several fixed sensors. The metric used to calculate these distances are from RSSI which would be measured from the 2.4Ghz wireless modules using equation (1).
 \medskip
 \begin{figure}[h!]
     \centering
@@ -141,7 +140,7 @@ The Akriveia Beacon System will employ a two dimensional trilateration positioni
 \end{equation}
 
 \subsubsection{Prototype/Final Product}
-In the Prototype and Final Product phase, the Akriveia Beacon System will continue to adhere to the concept of lateration with absolute distances for positioning computation, but also extend its application into three dimensions. However for the prototype and final product, trilateration calculation will based on Time of Flight (ToF). The metric to be used for distance-related measurements will be Time-of-Flight (ToF), equation (2), which describes the signal propagation time in a one way communication between a transmitter and a receiver \cite{R6}. ToF data will be collected from 2.4 GHz RF medium and converted to distances based on a form of Distance Speed Time formula shown in the equation below. Time will be ToF and Speed will be the speed of light since RF wave is a form of electromagnetic radiation. In 3-D trilateration positioning, ID tags will be located based on the intersection three spheres instead of three circles as in the case of 2-D. In combating the vulnerability of signals being multipathed in a 2.4 GHz RF medium, the transceiver modules of the beacons and ID tags will be replaced with ultra-wideband (UWB) modules, where operational UWB frequencies ranges from 3.5 GHz to 6.5 GHz \cite{R4}.
+In the Prototype and Final Product phase, the Akriveia Beacon System will continue to adhere to the concept of lateration with absolute distances for positioning computation, but also extend its application into three dimensions. However for the prototype and final product,  trilateration calculations will be based on Time of Flight (ToF), the metric to be used for distance-related measurements. Equation (2) describes the signal propagation time in a one way communication between a transmitter and a receiver \cite{R6}. ToF data will be collected from 2.4 GHz RF medium and converted to distances based on a form of Distance Speed Time formula shown in the equation below. Time will be ToF and Speed will be the speed of light since RF wave is a form of electromagnetic radiation. In 3-D trilateration positioning, ID tags will be located based on the intersection of three spheres instead of three circles as in the case of 2-D. In combating the vulnerability of signals being multipathed in a 2.4 GHz RF medium, the transceiver modules of the beacons and ID tags will be replaced with ultra-wideband (UWB) modules, which have an operational frequency range from 3.5 GHz to 6.5 GHz \cite{R4}.
 
 \begin{equation}
     D_n = Speed\_of\_light * ToF
