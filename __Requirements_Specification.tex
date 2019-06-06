@@ -18,13 +18,13 @@
 \usepackage{titlesec}
 \usepackage{amsmath}
 \usepackage{pdfpages}
+\setcounter{secnumdepth}{4}
 
 \usepackage{fancyhdr}
 \fancypagestyle{logo}{
     \fancyhf{} % clears header/footer
     \renewcommand\bottomfraction{0.9}
     \renewcommand\textfraction{0.1}
-
     \fancyhead[C]{\includegraphics[ width=\linewidth, keepaspectratio]{./images/header_white.png}}
     \fancyfoot[LE,RO]{\thepage}
 }
@@ -51,7 +51,7 @@
 \clearpage
 \printglossaries
 \pagebreak
-\begin{spacing}{0.90}
+\begin{spacing}{0.85}
 \tableofcontents
 \end{spacing}
 \pagebreak
