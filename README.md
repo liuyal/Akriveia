@@ -6,17 +6,17 @@ See grading rubric for document details
 Due July 07, 2019
 
 ## To generate Glossary
-pdflatex __Requirements_Specification.tex
+pdflatex __Deisgn_Specification.tex
 
-makeindex -s __Requirements_Specification.ist -o __Requirements_Specification.gls __Requirements_Specification.glo
+makeindex -s __Deisgn_Specification.ist -o __Deisgn_Specification.gls __Deisgn_Specification.glo
 
-pdflatex __Requirements_Specification.tex
+pdflatex __Deisgn_Specification.tex
 
 ## To generate Reference
-pdflatex __Requirements_Specification.tex
+pdflatex __Deisgn_Specification.tex
 
-bibtex __Requirements_Specification
+bibtex __Deisgn_Specification
 
-pdflatex __Requirements_Specification.tex
+pdflatex __Deisgn_Specification.tex
 
-pdflatex __Requirements_Specification.tex
+pdflatex __Deisgn_Specification.tex
