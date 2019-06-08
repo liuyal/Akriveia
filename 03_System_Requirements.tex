@@ -39,7 +39,7 @@ In order for the Akriveia Beacon system to be reliable, general high-level requi
 \hline
  \textbf{REQ.GE.9 - F} & The system must remain operational after or during small scale fires \\
 \hline
- \textbf{REQ.GE.10 - F} & The final marketed product consisting of one server, three beacons and one ID tag must not cost more than CAD \$200.00 \\
+ \textbf{REQ.GE.10 - F} & The final marketed product consisting of one data processing unit, three beacons and one ID tag must not cost more than CAD \$200.00 \\
 \hline
 \end{tabular}
 \caption{General Requirements}
@@ -57,7 +57,7 @@ Robust and reliable hardware will be absolutely necessary in any system that int
 \centering
 \begin{tabular}{ | m{3.25cm} | m{12.5cm} |}
  \hline
- \textbf{REQ.HW.1 - C} & The server must use a \Gls{SBC} for data processing and display \\
+ \textbf{REQ.HW.1 - C} & The data processing unit must use a \Gls{SBC} for data processing and display \\
 \hline
  \textbf{REQ.HW.2 - C} & The beacons must use a MCU for intermediate data processing \\
 \hline
@@ -69,9 +69,9 @@ Robust and reliable hardware will be absolutely necessary in any system that int
 \hline
  \textbf{REQ.HW.6 - C*} & The ID tags must use 2.4 GHz radio modules as transceivers*  \\
 \hline
- \textbf{REQ.HW.7 - C*} & The beacons must communicate with the server via serial USB* \\
+ \textbf{REQ.HW.7 - C*} & The beacons must communicate with the data processing unit via serial USB* \\
 \hline
- \textbf{REQ.HW.8 - P} & The beacons must communicate with the server via either RS485 or Ethernet  \\
+ \textbf{REQ.HW.8 - P} & The beacons must communicate with the data processing unit via a closed Wi-Fi network \\
 \hline
  \textbf{REQ.HW.9 - P} & The beacons must use 3.5-6.5 GHz UWB radio modules as transceivers \\
 \hline
@@ -111,7 +111,7 @@ Since the system is designed for emergency disaster situations, it is crucial th
 \hline
  \textbf{REQ.EC.9 - F} & Each beacon shall incorporate a power caster device \\
 \hline
- \textbf{REQ.EC.10 - F} & The server must have a battery backup (UPS) \\
+ \textbf{REQ.EC.10 - F} & The data processing unit must have a battery backup (UPS) \\
 \hline
  \textbf{REQ.EC.11 - F} & Users must no longer be capable of turning off the ID tag power switch manually \\
 \hline
@@ -121,7 +121,7 @@ Since the system is designed for emergency disaster situations, it is crucial th
 
 \break
 \subsection{Software Requirements}
-The Akriveia system will be composed of an intricate software stack containing a database and a web server hosted GUI. The server is the main data processing unit and will be implemented with trilateration algorithms to locate ID tag positions in near real time. In order for the software system to be reliable, secure and accurate the following requirements were made.
+The Akriveia system will be composed of an intricate software stack containing a database and a web server hosted GUI. The data processing unit is the main computational unit and will be implemented with trilateration algorithms to locate ID tag positions in near real time. In order for the software system to be reliable, secure and accurate the following requirements were made.
 
 \bigskip
 
@@ -135,27 +135,29 @@ The Akriveia system will be composed of an intricate software stack containing a
 \hline
  \textbf{REQ.SW.3 - P} & Distance calculations must be performed using RSSI data received from beacons \\
 \hline
- \textbf{REQ.SW.4 - P} & Admin shall have access the the server through credential verification system \\
+ \textbf{REQ.SW.4 - P} & Admin shall have access the the data processing unit through credential verification system \\
 \hline
  \textbf{REQ.SW.5 - P} & Admins must be able to create employees account associated with each ID tag \\
 \hline
  \textbf{REQ.SW.6 - P} & First responder ID tags must be assicated with a pre-defined first responder account \\
 \hline
- \textbf{REQ.SW.7 - P} & The server must be able to periodically check ID tags to verify tags are in working condition (correctness of data, device not broken) \\
+ \textbf{REQ.SW.7 - P} & The data processing unit must be able to periodically check ID tags to verify tags are in working condition (correctness of data, device not broken) \\
 \hline
  \textbf{REQ.SW.8 - P} & The system must detect and report ID tag defects, if any \\
 \hline
- \textbf{REQ.SW.9 - P} & The server will store location history through out the event of an emergency \\
+ \textbf{REQ.SW.9 - P} & The data processing unit will store location history through out the event of an emergency \\
 \hline
- \textbf{REQ.SW.10 - F} & Scaled blueprints of the monitor area must be able to be uploaded to the server system for accurate layout and location \\
+ \textbf{REQ.SW.10 - F} & Scaled blueprints of the monitor area must be able to be uploaded to the data processing unit for accurate layout and location \\
 \hline
  \textbf{REQ.SW.11 - F} & The ID tags broadcasting must be able to be turned off from the servers \\
 \hline
- \textbf{REQ.SW.12 - F} & The server must distinguish between different floors and be able to provide locations of ID tags for any floor serviced at any time during an emergency \\
+ \textbf{REQ.SW.12 - F} & The data processing unit must distinguish between different floors and be able to provide locations of ID tags for any floor serviced at any time during an emergency \\
 \hline
  \textbf{REQ.SW.13 - F} & The system will provide floor plans for operators to track locations of disaster victims \\
 \hline
  \textbf{REQ.SW.14 - F} & The system must use 3D trilateration methods to locate ID tags \\
+\hline
+ \textbf{REQ.SW.15 - F} & The system must use a closed Wi-Fi network for data forwarding from Beacon to data processing unit \\
 \hline
 \caption{Software Requirements}
 \end{longtable}
@@ -205,15 +207,15 @@ Reliability and accuracy are the most important attributes of the Akriveia syste
 \hline
  \textbf{REQ.PE.3 - P} & The system must undergo a calibration process on start-up before usage \\
 \hline
- \textbf{REQ.PE.4 - P} & The server must restart within 120 seconds \\
+ \textbf{REQ.PE.4 - P} & The data processing unit must restart within 120 seconds \\
 \hline
- \textbf{REQ.PE.4 - P} & The server must be fully functional within 120 seconds after booting \\
+ \textbf{REQ.PE.4 - P} & The data processing unit must be fully functional within 120 seconds after booting \\
 \hline
- \textbf{REQ.PE.4 - P} & The system UI must be accessible with in 2 seconds when operators directly connect to the system server \\
+ \textbf{REQ.PE.4 - P} & The system UI must be accessible with in 2 seconds when operators directly connect to the system data processing unit \\
 \hline
  \textbf{REQ.PE.5 - F} & The system shall locate users within the building with an accuracy of 0.5m \\
 \hline
- \textbf{REQ.PE.6 - F} & The server's location processing throughput must be at least 100 employee locations per second \\
+ \textbf{REQ.PE.6 - F} & The data processing unit's location processing throughput must be at least 100 employee locations per second \\
 \hline
  \textbf{REQ.PE.7 - F} & Each beacon must be capable of detecting at least 100 employees within a 100m radius per second \\
 \hline

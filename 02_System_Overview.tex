@@ -7,10 +7,7 @@
 The Akriveia Beacon indoor locating rescue system combines electrical, hardware and software systems to detect and locate multiple occupants within a building during an emergency disaster situation. Each component of the system is developed separately in the PoC (Proof of Concept) phase; then partially integrated in the Prototype phase and fully integrated in the Final Product phase.
 
 \bigskip
-A high-level system overview displays three Locator Beacons, an ID tag, a Server and an user interface (Figure \ref{fig:system_layout}).
-The Locator Beacons transmit wireless signals to the ID tag to acquire a response.
-When the beacons receive a response, the received signal data will be forwarded to the data processing server to calculate the distance and location of the ID tag through a trilateration algorithm.
-Afterwards, the location results are displayed on a \Gls{GUI} for operators.
+A high-level system overview displays three Locator Beacons, an ID tag, a data processing unit and an user interface (Figure \ref{fig:system_layout}). The Locator Beacons transmit wireless signals to the ID tag to acquire a response. When the beacons receive a response, the received signal data will be forwarded to the portable data processing unit via a closed Wi-Fi network. Then the processing unit will calculate the distance and location of the ID tag through a trilateration algorithm. Afterwards, the location results are displayed on a \Gls{GUI} for operators.
 
 \begin{figure}[h!]
     \centering
@@ -32,13 +29,13 @@ The Proof of Concept (\Gls{PoC}) demonstrates the feasibility of the location de
 \end{figure}
 \bigskip
 
-This system will use four 2.4 GHz \Gls{RF} modules, four micro-controller units (\Gls{MCU}) and a Raspberry Pi as the data processing server. The proof-of-concept demonstrates the following objectives:
+This system will use four 2.4 GHz \Gls{RF} modules, four micro-controller units (\Gls{MCU}) and a Raspberry Pi as the data processing unit. The proof-of-concept demonstrates the following objectives:
 
 \begin{enumerate}
     \item Utilization of 2.4 GHz RF module chips as signal receiver and transmitter
     \item Establish functioning RF data communication between the RF modules with one module as the ID tag and three as the locator beacons
     \item Perform radio fingerprinting process to determine transmitter properties such as RSSI, time of flight (\Gls{ToF}), and other data
-    \item Send distance data from the location beacons to the server for data processing
+    \item Send distance data from the location beacons to the data processing unit for data processing
     \item Implement trilateration algorithms using distance estimation to determine ID tag location in 2D space
 \end{enumerate}
 
@@ -58,17 +55,13 @@ The objectives of the Prototype remains largely the same with the PoC besides us
 chips and developing RF harvester circuit. Prototype phase objectives are stated below:
 
 \begin{enumerate}
-    \item Utilizing UWB RF module chips in the UWB frequencies of 3.5 to 6.5 GHz as
-    signal receivers and transmitters
-    \item Establishing functioning RF data communication between the four UWB modules
-    with one as the Access Card and three as the Locator Beacons
-    \item Using signal fingerprinting to determine transmitter properties such as ToF,
-    RSSI and unique identifier
+    \item Utilizing UWB RF module chips in the UWB frequencies of 3.5 to 6.5 GHz as signal receivers and transmitters
+    \item Establishing functioning RF data communication between the four UWB modules with one as the Access Card and three as the Locator Beacons
+    \item Using signal fingerprinting to determine transmitter properties such as ToF, RSSI and unique identifier
     \item Implement manual off/on activation switch to RF module circuit on ID tags
-    \item Apply trilateration algorithms on data processing server to determine
-    ID card location
-    \item Implementation of software stack on server and initial development of GUI
-    \item Prototype and early implementation of  RF harvesting circuit or device charging
+    \item Apply trilateration algorithms on data processing unit to determine ID card location
+    \item Implementation of software stack on data processing unit and initial development of GUI
+    \item Prototype and early implementation of RF harvesting circuit or device charging
 \end{enumerate}
 
 \break
@@ -86,8 +79,8 @@ There will be a demonstrable RF harvester circuit similar to Figure \ref{fig:rfh
 
 \break
 \subsubsection{Final Product}
-The final product will demonstrate the final fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. All the components of the systems will be fully integrated as a close-to-production product. Component circuits and \Gls{PCB} footprint will be minimized and proper casing will be made to house all electronics. The data processing server will provide the user with a full GUI to interact with the system along with the fully implemented features such as importable blueprints and multi-floor tacking.
-
+The final product will demonstrate the final fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. Here the additon of Wi-Fi modules can be seen, as the Beacon will use wireless Wi-Fi communication with the data processing unit. The Wi-Fi network will be a closed network meaning that the network is only share between beacons and the data processing unit to ensure reliability and stability. All the components of the systems will be fully integrated as a close-to-production product. Component circuits and \Gls{PCB} footprint will be minimized and proper casing will be made to house all electronics. The data processing unit will provide the user with a full GUI to interact with the system along with the fully implemented features such as importable blueprints and multi-floor tacking.
+\medskip
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{./images/03_sys_Final.png}
@@ -99,17 +92,14 @@ The final product will demonstrate the final fully functional indoor rescue syst
 The final product should satisfy these objectives below:
 
 \begin{enumerate}
-    \item Establishing functioning RF data communication between the four UWB modules with
-    one imitating the Access Card and three imitating the Locator Beacons
-    \item Using signal fingerprinting to determine transmitter properties such as ToF, RSSI
-    and unique identifier
+    \item Establishing functioning RF data communication between the four UWB modules with one imitating the Access Card and three imitating the Locator Beacons
+    \item Using signal fingerprinting to determine transmitter properties such as ToF, RSSI and unique identifier
     \item Utilizing UWB RF module chips in the frequencies of 3.5 to 6.5 GHz as signal receivers/transmitters
-    \item Develop an ID tag with manual (ON) RF module activation, one RF harvesting circuit
-    for charging and one RF harvester as a RF Trigger switch
-    \item Send the data to the server to be processed
-    \item Have the data processing server apply trilateration algorithms to determine ID card location
+    \item Develop an ID tag with manual (ON) RF module activation, one RF harvesting circuit for charging and one RF harvester as a RF Trigger switch
+    \item Send distance data to the data processing unit to be processed
+    \item Have the data processing unit apply trilateration algorithms to determine ID card location
     \item Optimize trilateration algorithms to increase accuracy and speed of location calculation
-    \item Display locations on an intuitive GUI for the user
+    \item Integration of Wi-FI modules for wireless data communication between Beacons and Data Processing Unit
 \end{enumerate}
 
 \break
@@ -149,7 +139,7 @@ In the Prototype and Final Product phase, the Akriveia Beacon System will contin
 \break
 
 \subsection{Software System Overview}
-Akriveia's software design is specifically chosen for safety, robustness and performance. It's primary compute server is powered by a Raspberry Pi 3 B+ running a Rust web server to leverage type-safety and memory access guarantees while still maintaining C++ like performance because of compiled binaries and lack of garbage collection. Figure \ref{software_diagram} below is a diagram of the software architecture, which serves content through the web server to first responders while processing real time location data of users from beacons in the background. The server will make use of the widely used model-view-controller architecture to reduce development costs and leverage modern software development practices. Sqlite was chosen for its simplicity and minimal system footprint, which is intended to be used to persist data such as user and beacon location information, and building blueprints.
+Akriveia's software design is specifically chosen for safety, robustness and performance. It's primary computation unit is powered by a Raspberry Pi 3 B+ running a Rust web server to leverage type-safety and memory access guarantees while still maintaining C++ like performance because of compiled binaries and lack of garbage collection. Figure \ref{software_diagram} below is a diagram of the software architecture, which serves content through the web server to first responders while processing real time location data of users from beacons in the background. The data processing unit will make use of the widely used model-view-controller architecture to reduce development costs and leverage modern software development practices. Sqlite was chosen for its simplicity and minimal system footprint, which is intended to be used to persist data such as user and beacon location information, and building blueprints.
 
 \bigskip
 \begin{figure}[h!]
