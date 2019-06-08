@@ -5,15 +5,39 @@
 \bigskip
 
 \subsection{Background}
+Over the last couple of decades urban centers around the world have faced substantial population growth. As a result, the number of large and complex structures in dense urban areas around the world is rapidly increasing. In Canada alone there are approximating 500,000 commercial buildings \cite{R1}. A large population combined with massively complex buildings in relatively dense areas leads to higher risk for damage and casualties in the event of a disaster. Due to increased urbanization and complexity of urban structures, search and rescue operations in indoor urban environments face various complications and uncertainties. According to Statistics Canada an average of 135 fire related deaths occur with commercial structures each year from 2010 to 2014 \cite{R2}.
 
+\medskip
+In current practices, first responders know little about the situation until arriving on scene. Once responders are on scene, emergency management have to quickly evaluate the situation and take appropriate actions \cite{R3}.  Assessments of the structure are conducted with readily available blueprints of buildings along with limited information of last known location of possible trapped victims, usually derived from witness reports. Situational data are created dynamically during this process and the actual rescue process heavily depends on the situational awareness of the first line of emergency response operators \cite{R4}.
+
+\medskip
+An important issue that must be considered is how emergency first responders should be dispatched inside the building in the event of a disaster in order to minimize search and rescue time. In order to pinpoint locations of trapped victims quickly and accurately it is critical to have precise data. Proper emergency planning and organization takes a substantial amount of time, and having additional accurate information on the locations of trapped, incapacitated or immobile personnel would improve first responders situational awareness which would then improve their own safety and possibly greatly increases the victims chances of rescue and survival.
+
+\medskip
+As such, the need for a distinct indoor positioning rescue system is crucial in getting fast and reliable information that allows first responders to be dispatched within the builds in the most optimal and efficient manner. The Akriveia Beacon by TRIWAVE SYSTEMS focuses on improving the locating and rescue process of personnel trapped in buildings during or after small scale disasters such as fires and low magnitude earthquakes. This is done through a system of Ultra Wide-Band (\Gls{UWB}) Beacons and \Gls{ID} tags for accurate, near real-time location of trapped personnel.
+
+\medskip
+Ultra-Wideband radio modules are small radio transceivers using ultra-wide band radio spectrum to communicate with one another. Each ID tag uses a UWB transceiver module to communicate with the beacon system with similar UWB transceivers. Given the time between sending and receiving transmission data, the distance can be estimated via \Gls{RSSI} or time of flight. The Beacons will then forward these distance estimations to a data processing unit using a closed Wi-fi network where it will use trilateration to calculate the near real time location of each individual ID tag. The system design allows for multiple ID tags as well as more than three anchor beacons to provide more accuracy through redundancy, making it modular and extendable.
+
+\break
 \subsection{Scope}
+
+\medskip
+The Akriveia Beacon product is developed through three different phases of development as shown in Figure \ref{dev}. The three different phases including: the proof-of-concept phase, prototype phase, and final product phase. A high-level design of the system hardware and software is presented in this document to demonstrate the overall system architecture, functionality and implementation of the Akriveia beacon product. The design section of this document is divided into four main sections, overall system design, hardware design, electrical design, and software design. These design specification will indicate the components, implementations, requirements, and constraints that must be met and satisfied within the project time frame. 
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.4]{./images/dev-path.png}
+    \caption{Development Cycle}
+    \label{dev}
+\end{figure}
+
 
 \subsection{Intended Audience}
 
-\subsection{Design Classification}
-
-
-
+\medskip
+This document is presented by engineers at TRIWAVE SYSTEMS as a guide for the design and system overview of the Akriveia Beacon product. The intended audience of this document includes but not limited to, potential clients and/or partners, the supervising professors Dr. Craig Scratchley and Dr. Andrew Rawicz, associated teaching assistants and fellow TRIWAVE SYSTEMS members. The hardware and software engineers of the project can reference this document during the various stages of development and testing stages of the project for clarification. Near the completion of the prototype development phase the product will be tested against the cases specified in the test plan. Engineers responsible for performing quality assurance can refer to the Appendix of this document to ensure all safety concerns have been addressed and that the product fulfils all requirements and meets all expectations for proper usage. 
 
 
 
