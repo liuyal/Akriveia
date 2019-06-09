@@ -39,6 +39,72 @@ The Akriveia Beacon product is developed through three different phases of devel
 \medskip
 This document is presented by engineers at TRIWAVE SYSTEMS as a guide for the design and system overview of the Akriveia Beacon product. The intended audience of this document includes but not limited to, potential clients and/or partners, the supervising professors Dr. Craig Scratchley and Dr. Andrew Rawicz, associated teaching assistants and fellow TRIWAVE SYSTEMS members. The hardware and software engineers of the project can reference this document during the various stages of development and testing stages of the project for clarification. Near the completion of the prototype development phase the product will be tested against the cases specified in the test plan. Engineers responsible for performing quality assurance can refer to the Appendix of this document to ensure all safety concerns have been addressed and that the product fulfils all requirements and meets all expectations for proper usage. 
 
+\break
+\subsection{Design  Classification}
+For consistency purposes, the following design classification code convention is used to describe and organize design requirements listed throughout this document. 
+\medskip
+\begin{center}
+	\textbf{[ DES.SE.\# - X ]} 
+\end{center}
+
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | m{1cm} | m{13cm}| } 
+\hline
+\rowcolor{lightgray} \textbf{Code} & \textbf{Definition} \\ 
+\hline
+ \textbf{DES} & Design abbreviation. \\ 
+\hline
+ \textbf{SE} & Design Domain Abbreviation Code correspond with each Design requirements. (see Table 2)\\   
+\hline
+ \textbf{\#} & Design number ID \\ 
+\hline
+ \textbf{X} & Development Stage Encoding (see Table 3)\\ 
+\hline
+\end{tabular}
+\caption{Design Requirement Encoding}
+\end{table}
+
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | m{7cm} | m{7cm}| } 
+\hline
+\rowcolor{lightgray} \textbf{Requirement Domain} & \textbf{Abbreviation Code} \\ 
+\hline
+ General & GE\\ 
+\hline
+ Hardware & HW\\ 
+\hline
+ Electrical & EC\\  
+\hline
+ Software & SW\\ 
+\hline
+\end{tabular}
+\caption{Design  Domain Abbreviation Code}
+\end{table}
+
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | m{7cm} | m{7cm}| }
+\hline
+\rowcolor{lightgray} \textbf{Development Stage} & \textbf{Encoding} \\
+\hline
+Proof of Concept & C\\
+\hline
+Prototype & P\\
+\hline
+Final Product & F\\
+\hline
+\end{tabular}
+\caption{Development Stage Encoding}
+\end{table}	
+
 
 
 
