@@ -4,38 +4,44 @@
 \section{Software Design}
 \bigskip
 
+% NOTE: future work would be to build a system to flash new beacons with firmware for the credentials to communicate with the system.
+% NOTE: assume beacons have line of sight to eachother. this allows us to make the callibration phase easier by manually measuring the distance between beacons rather than creating a callibration script.
+
 % this first line is probably redundant, but for now im just using it to indicate that there are different types of devices each with their own software environment.
-The Akriveia system will feature 3 different devices, namely: the server, beacons, and id tags.
-There are two primary software envirnoments: the server is a debian based linux environment including support for raspbian, ubuntu and debian itself.
+The Akriveia system will feature 3 different devices, namely: the data processor, beacons, and id tags.
+There are two primary software environments: the data processor is a debian based linux environment including support for raspbian, ubuntu and debian itself.
 Additionally, each beacon is an embedded device running without an operating system using the arduino runtime environment.
 Each id tag will run under a similar envirnment to the beacons, with different application logic.
 
 \bigskip
-\subsection{Akriveia Server}
+\subsection{Data Processor}
 
-The Akriveia server is the primary access point for Administrators and First Responders, of whom will be presented a Graphical User Interface through a web server which will serve a static webpage.
-The software on this device is written entirely in rust, including the static client side webpage; this is achieved using the relatively bleeding edge rust library called yew, which makes use of rust's LLVM backend to output a static javascript file and adds additional functionality such as html generation which will be used to render the GUI.
+The Akriveia data processor is the primary access point for Administrators and First Responders, of whom will be presented a Graphical User Interface through a web data processor which will serve a static webpage.
+The software on this device is written entirely in rust, including the static client side webpage; this is achieved using the rust library called yew, which makes use of rust's LLVM backend to output a static javascript file and adds additional functionality such as html generation which will be used to render the GUI.
 This technology is similar to Facebook's React library for javascript.
 % TODO make the ref actually point to something valid
 Please see the \ref{ui-appendix} for additional details on the UI layout.
 \bigskip
 
 \subsubsection{Libraries}
-The Akriveia server uses the Actix rust library for its concurrency model, and additionally for its Actix Web submodule for a webserver framework.
-Actix makes use of the actor model of concurrency to help alleviate the burden of multithreading in rust. Akriveia makes use of this model to handle multiple beacon connections at once.
-The Actix Web library is a web framework which eases the development of typical REST webservers.
+The Akriveia data processor uses the Actix rust library for its concurrency model, and additionally for its Actix Web submodule for a webserver framework.
+Actix implements the actor model of concurrency to help alleviate the burden of multithreading in rust. Akriveia makes use of this model to handle multiple user and beacon connections at once.
+The Actix Web library is a web framework which eases the development of typical REST data processor in rust.
 
 % TODO make a reference to the actor concurrency model
 
 
+
 \subsubsection{Functionality}
 % TODO flesh these out into paras
-functions of the server:
+functions of the data processor:
 	- collecting data from each beacon
 	- sending commands to each beacon
 	- performing calculations to determine the location of each id tag
 		- time of flight
+			- send a request to id tags, wait for responses and calculate the tof
 		- rssi
+			- NOTE: only breifly mention rssi for pos
 	- serving REST requests from the client webpage
 	- serving static html for new client sessions
 
@@ -108,8 +114,8 @@ Users(controller)
 
 % TODO flesh these out into paras
 functions of each beacon
-	- sending data to the server
-	- responding to commands from the server and acting on them
+	- sending data to the data processor
+	- responding to commands from the data processor and acting on them
 	- store data on each id tag encountered in an hash table entry - use the mac address as the key
 	- store a rolling buffer for each id tag so that data points can be averaged, reducing error
 	-
