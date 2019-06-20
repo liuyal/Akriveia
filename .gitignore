@@ -1,0 +1,10 @@
+**.aux
+**.log
+**.toc
+**.tof
+**.lof
+**.lot
+**.blg
+**.bbl
+**.pdf
+build/
