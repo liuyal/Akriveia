@@ -15,7 +15,7 @@ pdflatex _Deisgn_Specification.tex
 ## To generate Reference
 pdflatex _Deisgn_Specification.tex
 
-bibtex _Deisgn_Specification
+bibtex _Deisgn_Specification.aux
 
 pdflatex _Deisgn_Specification.tex
 
