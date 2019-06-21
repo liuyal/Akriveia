@@ -25,26 +25,28 @@ This technology is similar to Facebook's React library for javascript.
 \bigskip
 % language choices, formatting, standards, libraries
 \subsection{Software Stack}
-Akrivia is composed of two primary languages, the server will be implemented entirely in rust while the beacons and id tags will be use c++.
+Akrivia is composed of two primary languages, the server is implemented entirely in rust while the beacons and id tags use C++.
 
 \bigskip
 \subsubsection{Software Environments}
 The data processing server requires an operating system to perform mundane CPU scheduling for our multithreaded application, wifi drivers, and a proper file system to handle a database.
 As such, the linux - and more specifically the debian destribution of linux - was chosen as the servers operating system.
-\smallskip
+
+\bigskip
 % TODO add a citation for debian stability
 Debian is widely praised for its stability, which makes it ideal for a data processing server because Akriveia simply cannot fail as lives depend on it to work.
 Debian brings in the aptitude package manager for dependency management, which allows for quick installation of required driver updates, operating system updates, and any additional packages required by Akriveia.
 Debian's Aptitude has the advantage compared to other package managers because it removes the need to worry about dependencies, manual installation, and even installation of sub dependencies.
 As Debian is a linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily x86-84 and ARM64 - giving Akriveia the flexibility to run almost anywhere with little cost.
-\smallskip
+
+\bigskip
 Debian is contrasted by another linux distribution called arch linux which uses a different package management paradigm called rolling releases, favoring earlier adoption of newer packages to more quickly introduce features at the cost of stability.
 Another alternative to Debian is Windows, however Windows suffers from high power usage, poor package management, and heavy reliance on proprietary software, whereas linux is free of cost, open source, and has a more inclusive licence.
 
 \bigskip
 \subsubsection{Software Languages}
 % TODO revise with word flow in mind. segmented thoughts in each sentence.
-The server will be written in rust.
+The server is written in rust.
 % TODO make the citation work
 Rust is a newer language compared to C, it was created in 2006 \cite{rust_graydon_interview} and its first stable version was released in 2015 \cite{rust_releases}, taking inspiration from C++ and Haskell in its design.
 Rust is a systems language designed for stability and robustness, it eliminates entire classes of errors using its borrow checking system, a feature unique to this language.
@@ -52,24 +54,38 @@ The borrow checking system defines a strict set of rules to follow, and fails to
 As a systems language, rust is compiled to binary rather than executed as a script through an interpreter however this does not stop it from being a higher order language.
 The borrow checker statically analyzes the code being compiled, and in doing so is able to statically determine when to allocate and more importantly when to free heap allocated memory.
 Fundamentally, this means that without a garbage collector and without manually managing memory, rust provides a mechanism to manage memory without a runtime cost while behaving like a garbage collected language providing great flexibility in expressiveness and allowing higher order operations without taking brain resources.
+\smallskip
+
+The beacon and id tag are written in C++.
+Ideally, the entire project would be written in one languge, however for the case of programming embedded devices, namely arduinos, we have opted to stick wih the standard toolset shipped with the arduino tools.
+C++ is specifically designed for embedded programming, allowing use of higher level features when desired while also giving the developer absolute control over how memory is managed.
+On arduinos, memory is very limited so control is key to fitting our program within the small space constraints.
 
 
 \bigskip
 \subsubsection{Software Standards}
+% TODO references here
+Rust code will follow the the rustfmt standard of source layouts, rustfmt is a tool provided by the rust project that automatically formats all source in the standard format. The rust compiler also provides a few warnings for common formatting issues builtin.
+\smallskip
+C++ will follow the arduino programming standards.
 
-
-
-% introduce major libraries that define how we implement the system.
+% introduce major libraries that largely dictate how we implement the system.
 \subsubsection{Frameworks}
+Akriveia's main server framework is called Actix.
 Actix is an Actor Framework that follows the Actor Model paradigm of multithreaded workloads.
-
-The Akriveia data processor uses the Actix rust library for its concurrency model, and additionally for its Actix Web submodule for a webserver framework.
-Actix implements the actor model of concurrency to help alleviate the burden of multithreading in rust.
-Akriveia makes use of this model to handle multiple user and beacon connections at once.
+The Actor Model operates on objects called actors to orchestrate concurrent computations, it does this by treating actors as seperate entities that execute on an event loop on one or more threads, where the event loop simply looks at a list of events generated by actors and executes each event in order as long as it is not blocked by other events.
+Events are generated when actors pass messages to eachother, in response the actor that receives the message can modify its local state, create other actors, send messages to other actors, execute arbitrary logic, and finally send a response to the message.
+This programming paradigm prevents the need for locks (and by extension, deadlocks) because the message passing mechanism alleviates the need to manually manage concurrency, opting to use atomics instead.
+\smallskip
+Actix was chosen as the primarily to give the flexibility of multithreading without incurring the typical thought process overhead associated with multithreading. Additionally, as a framework rather than a library, Actix serves as the basis to make REST webservers through the package Actix Web, which is further discussed under the \ref{software_libraries} section.
 
 % discuss which libraries we are using, and how they will be used by us
 \subsubsection{Libraries}
+\label{software_libraries}
 The Actix Web library is a web framework which eases the development of typical REST data processor in rust.
+The Akriveia data processor uses the Actix rust library for its concurrency model, and additionally for its Actix Web submodule for a webserver framework.
+Actix implements the actor model of concurrency to help alleviate the burden of multithreading in rust.
+Akriveia makes use of this model to handle multiple user and beacon connections at once.
 
 
 % discuss the model view controller paradigm, and its benefits
