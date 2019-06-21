@@ -7,32 +7,65 @@
 % NOTE: future work would be to build a system to flash new beacons with firmware for the credentials to communicate with the system.
 % NOTE: assume beacons have line of sight to eachother. this allows us to make the callibration phase easier by manually measuring the distance between beacons rather than creating a callibration script.
 
-% this first line is probably redundant, but for now im just using it to indicate that there are different types of devices each with their own software environment.
-The Akriveia system will feature 3 different devices, namely: the data processor, beacons, and id tags.
-There are two primary software environments: the data processor is a debian based linux environment including support for raspbian, ubuntu and debian itself.
+%Libraries/Packages/Frameworks
+%Software Stack
+
+% discuss the system at a high level, but leave details to subsections
+% breifly reintroduce important topics that the user will need to be reminded of
+\subsection{Software Overview}
+The Akriveia system is comprised of 3 different devices, namely: the data processor, beacons, and id tags; this device diversity plays a large role in the software choice for the beacons and id tags.
+This device diversity introduces the need for two different software environments. The data processor is a debian based linux environment including support for raspbian, ubuntu and debian itself.
 Additionally, each beacon is an embedded device running without an operating system using the arduino runtime environment.
 Each id tag will run under a similar envirnment to the beacons, with different application logic.
-
-\bigskip
-\subsection{Data Processor}
-
 The Akriveia data processor is the primary access point for Administrators and First Responders, of whom will be presented a Graphical User Interface through a web data processor which will serve a static webpage.
 The software on this device is written entirely in rust, including the static client side webpage; this is achieved using the rust library called yew, which makes use of rust's LLVM backend to output a static javascript file and adds additional functionality such as html generation which will be used to render the GUI.
 This technology is similar to Facebook's React library for javascript.
-% TODO make the ref actually point to something valid
-Please see the \ref{ui-appendix} for additional details on the UI layout.
+
+\bigskip
+% language choices, formatting, standards, libraries
+\subsection{Software Stack}
+Akrivia is composed of two primary languages, the server will be implemented entirely in rust while the beacons and id tags will be use c++.
+
 \bigskip
 
-\subsubsection{Libraries}
+\subsubsection{Environments}
+The data processing server requires an operating system to perform mundane CPU scheduling for our multithreaded application, wifi drivers, and a proper file system to handle a database.
+As such, the linux - and more specifically the debian destribution of linux - was chosen as the servers operating system.
+\bigskip
+
+% TODO add a citation for debian stability
+Debian is widely praised for its stability, which makes it ideal for a data processing server because Akriveia simply cannot fail as lives depend on it to work.
+Debian brings in the aptitude package manager for dependency management, which allows for quick installation of required driver updates, operating system updates, and any additional packages required by Akriveia.
+Debian's Aptitude has the advantage compared to other package managers because it removes the need to worry about dependencies, manual installation, and even installation of sub dependencies.
+As Debian is a linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily x86-84 and ARM64 - giving Akriveia the flexibility to run almost anywhere with little cost.
+
+Debian is contrasted by another linux distribution called arch linux which uses a different package management paradigm called rolling releases, favoring earlier adoption of newer packages to more quickly introduce features at the cost of stability.
+Another alternative to Debian is Windows, however Windows suffers from high power usage, poor package management, and heavy reliance on proprietary software, whereas linux is free of cost, open source, and has a more inclusive licence.
+
+
+% introduce major libraries that define how we implement the system.
+\subsubsection{Frameworks}
 The Akriveia data processor uses the Actix rust library for its concurrency model, and additionally for its Actix Web submodule for a webserver framework.
-Actix implements the actor model of concurrency to help alleviate the burden of multithreading in rust. Akriveia makes use of this model to handle multiple user and beacon connections at once.
+Actix implements the actor model of concurrency to help alleviate the burden of multithreading in rust.
+Akriveia makes use of this model to handle multiple user and beacon connections at once.
+
+% discuss which libraries we are using, and how they will be used by us
+\subsubsection{Libraries}
 The Actix Web library is a web framework which eases the development of typical REST data processor in rust.
 
+
+% discuss the model view controller paradigm, and its benefits
+\subsection{Model-View-Controller}
+
+% discuss how we plan to multithread the data processor. go into slightly more detail about actix actors, and why this
+% is necessary
+\subsection{Threading Model}
 % TODO make a reference to the actor concurrency model
 
-
-
-\subsubsection{Functionality}
+% discuss the data processor subsystems in detail
+\subsection{Data Processor Software Architecture}
+% discus the purpose of the webserver, and how it will be used to control the other subsystems dictated by user command.
+\subsubsection{Webserver Subsystem}
 % TODO flesh these out into paras
 functions of the data processor:
 	- collecting data from each beacon
@@ -45,7 +78,19 @@ functions of the data processor:
 	- serving REST requests from the client webpage
 	- serving static html for new client sessions
 
-\subsubsection{Model View Controller}
+\subsubsection{Beacon Manager Subsystem}
+
+\subsubsection{Serial Beacon Communication Subsystem}
+
+\subsubsection{UDP Beacon Communication Subsystem}
+
+
+% discuss database choice - sqlite and why. lead into our models
+\subsection{Database details}
+
+% discuss how we plan to represent data in the database, tie back to model-view-controller(specifically models, which
+% will implement all of the database queries for the controllers to use.
+\subsubsection{Models}
 
 % TODO format this into a table
 User(model)
@@ -100,7 +145,8 @@ Map(model)
 		- explanation: bitmap for the floor blueprints to view on the gui
 		- type: binary
 
-
+% discuss what each controller will do - i dont expect this one to be very meaty
+\subsection{Controllers}
 Maps(controller)
 	explanation: handles requests for map operations such as to create, update, delete the map instances.
 
@@ -109,6 +155,17 @@ Beacons(controller)
 
 Users(controller)
 	explanation: handles requests for user(id tag) operations such as to create, update and delete user instances.
+
+% describe how the view will work, but dont go into details about the GUI visuals - leaving that for the ui appendix
+% mention browser, js, html, rust -> webassembly compile
+\subsection{View}
+% TODO make the ref actually point to something valid
+Please see the \ref{ui-appendix} for additional details on the UI layout.
+
+
+% discuss security considerations, talk about features of rust which help us in this regard.
+\subsection{Security}
+
 
 \bigskip
 
