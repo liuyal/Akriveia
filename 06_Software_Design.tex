@@ -13,6 +13,7 @@
 % discuss the system at a high level, but leave details to subsections
 % breifly reintroduce important topics that the user will need to be reminded of
 \subsection{Software Overview}
+% TODO revise
 The Akriveia system is comprised of 3 different devices, namely: the data processor, beacons, and id tags; this device diversity plays a large role in the software choice for the beacons and id tags.
 This device diversity introduces the need for two different software environments. The data processor is a debian based linux environment including support for raspbian, ubuntu and debian itself.
 Additionally, each beacon is an embedded device running without an operating system using the arduino runtime environment.
@@ -27,24 +28,41 @@ This technology is similar to Facebook's React library for javascript.
 Akrivia is composed of two primary languages, the server will be implemented entirely in rust while the beacons and id tags will be use c++.
 
 \bigskip
-
-\subsubsection{Environments}
+\subsubsection{Software Environments}
 The data processing server requires an operating system to perform mundane CPU scheduling for our multithreaded application, wifi drivers, and a proper file system to handle a database.
 As such, the linux - and more specifically the debian destribution of linux - was chosen as the servers operating system.
-\bigskip
-
+\smallskip
 % TODO add a citation for debian stability
 Debian is widely praised for its stability, which makes it ideal for a data processing server because Akriveia simply cannot fail as lives depend on it to work.
 Debian brings in the aptitude package manager for dependency management, which allows for quick installation of required driver updates, operating system updates, and any additional packages required by Akriveia.
 Debian's Aptitude has the advantage compared to other package managers because it removes the need to worry about dependencies, manual installation, and even installation of sub dependencies.
 As Debian is a linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily x86-84 and ARM64 - giving Akriveia the flexibility to run almost anywhere with little cost.
-
+\smallskip
 Debian is contrasted by another linux distribution called arch linux which uses a different package management paradigm called rolling releases, favoring earlier adoption of newer packages to more quickly introduce features at the cost of stability.
 Another alternative to Debian is Windows, however Windows suffers from high power usage, poor package management, and heavy reliance on proprietary software, whereas linux is free of cost, open source, and has a more inclusive licence.
+
+\bigskip
+\subsubsection{Software Languages}
+% TODO revise with word flow in mind. segmented thoughts in each sentence.
+The server will be written in rust.
+% TODO make the citation work
+Rust is a newer language compared to C, it was created in 2006 \cite{rust_graydon_interview} and its first stable version was released in 2015 \cite{rust_releases}, taking inspiration from C++ and Haskell in its design.
+Rust is a systems language designed for stability and robustness, it eliminates entire classes of errors using its borrow checking system, a feature unique to this language.
+The borrow checking system defines a strict set of rules to follow, and fails to compile if these rules are broken - even if the application is otherwise logically correct.
+As a systems language, rust is compiled to binary rather than executed as a script through an interpreter however this does not stop it from being a higher order language.
+The borrow checker statically analyzes the code being compiled, and in doing so is able to statically determine when to allocate and more importantly when to free heap allocated memory.
+Fundamentally, this means that without a garbage collector and without manually managing memory, rust provides a mechanism to manage memory without a runtime cost while behaving like a garbage collected language providing great flexibility in expressiveness and allowing higher order operations without taking brain resources.
+
+
+\bigskip
+\subsubsection{Software Standards}
+
 
 
 % introduce major libraries that define how we implement the system.
 \subsubsection{Frameworks}
+Actix is an Actor Framework that follows the Actor Model paradigm of multithreaded workloads.
+
 The Akriveia data processor uses the Actix rust library for its concurrency model, and additionally for its Actix Web submodule for a webserver framework.
 Actix implements the actor model of concurrency to help alleviate the burden of multithreading in rust.
 Akriveia makes use of this model to handle multiple user and beacon connections at once.
