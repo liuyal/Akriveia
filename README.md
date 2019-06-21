@@ -22,7 +22,7 @@ pdflatex __Requirements_Specification.tex
 
 pdflatex __Requirements_Specification.tex
 
-bibtex __Requirements_Specification
+bibtex __Requirements_Specification.aux
 
 pdflatex __Requirements_Specification.tex
 
