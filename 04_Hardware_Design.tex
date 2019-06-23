@@ -26,4 +26,39 @@
 
 
 \pagebreak
-\subsection{Hardware Design Requirements}
+\subsection{Hardware Design Specification}
+\medskip
+TRIWAVE SYSTEMS has chosen to develop the proof-of-concept prototype using 2.4 GHz radio modules as feasibility testing, before upgrading the system to using Ultra Wide Band (UWB) modules for further prototyping. Micro-controller Units (MCUs) will be used to control the beacons and ID tags. The requirements below detail the requirement for hardware functionality of the Akrivia Beacon system.
+\medskip
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | m{3cm} | m{12.5cm} |}
+\hline
+\textbf{REQ.HW.1 - C} & The Beacons must use ESP32 as the microcontroller unit and transceiver \\
+\hline
+\textbf{REQ.HW.2 - C} & The ID Tag must use ESP32 as the microcontroller unit and transceiver \\
+\hline
+\textbf{REQ.HW.3 - P} & ID tag broadcast duration must be at least 1 hour long upon activation\\
+\hline
+\textbf{REQ.HW.4 - P} & ID tag must return to deep sleep mode after broadcasting period\\
+\hline
+\textbf{REQ.HW.5 - P} & The Beacons must use Decawave DWM1000 UWB modules as transceivers\\
+\hline
+\textbf{REQ.HW.6 - P} & The Beacons must use ESP32 as the controller units\\
+\hline
+\textbf{REQ.HW.7 - P} & The ID tags must use Decawave DWM1000 UWB modules as transceivers\\
+\hline
+\textbf{REQ.HW.8 - P} & The ID tags must use ESP32 as the controller units\\
+\hline
+\end{tabular}
+\caption{Hardware Design Specification}
+\end{table}
+
+
+
+
+
+
+

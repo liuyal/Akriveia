@@ -79,7 +79,48 @@ The final product will demonstrate the fully functional indoor rescue system tha
 
 
 \pagebreak
-\subsection{System Design Requirements}
+\subsection{System Design Specification}
+\medskip
+The Akriveia Beacon consists of three main components: the Beacons, ID Tags, and the Data processing unit. The detailed specifications for each system will be outlined in their corresponding sections throughout the document. General system and performance specifications of Akriveia Beacon are listed in the table below.
+\medskip
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | m{3cm} | m{12.5cm} |}
+\hline
+\textbf{REQ.SY.1 - C} & The system must have two access modes: Emergency (for first responders), and Admin (for IT services)\\
+\hline
+\textbf{REQ.SY.2 - P} & Beacons and ID Tag must communicate with each other using BLE\\
+\hline
+\textbf{REQ.SY.3 - P} & Administrator must be able to access the system to perform health checks on the Beacons and ID tags \\
+\hline
+\textbf{REQ.SY.4 - P} & Administrator must be able to access the system to add/remove ID tags in the system database \\
+\hline
+\textbf{REQ.SY.5 - P} & The Beacons must use a WiFi mesh for forwarding data to DPU\\
+\hline
+\textbf{REQ.SY.6 - P} & The Beacons must contain a rolling buffer for ToF data for each id tag transmitted to\\
+\hline
+\textbf{REQ.SY.7 - P} & Each Beacons must use median of previous 10 samples of ToF data to sent to data processing unit\\
+\hline
+\textbf{REQ.SY.8 - P} & Beacons and ID Tag must communicate with each other using UWB (3.5-6.5 GHz)\\
+\hline
+\textbf{REQ.SY.9 - F} & The System shall be easy to set up and tear down\\
+\hline
+\end{tabular}
+\caption{System Design Specification}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
