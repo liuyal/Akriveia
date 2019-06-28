@@ -64,9 +64,13 @@ The module enables the location tracking of objects in real time location system
 
 
 
-
 \pagebreak
 \subsection{DPU - Raspberry Pi}
+\medskip
+The Data Processing Unit is a stand alone single board computer (SBC). For the demonstration of this project a Raspberry Pi 3 B+ is used as the DPU since it is an affordable and robust SBC, but the DPU in theory should be any electrical computer device that is capable of running a basic linux operating system; as the software stack is designed to operate on any linux based system. Since the Pi is cheap, portable and designed with an Cortex-A53 processor it meets the minimum requirements for the DPU.
+
+\bigskip
+The Raspberry Pi 3 B+ is a single board computer with a 1.4GHz 64-bit quad-core processor, dual-band wireless LAN, and Bluetooth 4.2/BLE \cite{R3-3-1}. The Broadcom BCM2837B0, Cortex-A53 (ARMv8) 64-bit SoC at 1.4GHz quad-core processor allows complex tri or multilateration calculations done simultaneously for multiple ID Tags. With dual-band 2.4GHz and 5GHz IEEE 802.11.b/g/n/ac wireless LAN, the Pi can create a reliable network access for multiple ESP32 for data forwarding. At a power rating of 5V/2.5A DC the Pi requires minimal power to operate, which allows for a variety of power options during emergency disasters. Furthermore, the Pi is configured with a linux based OS, Debian which contains the software stack developed in Rust that will create a layer of user interface between the user and the Akriveia Beacon system.
 
 
 \medskip
