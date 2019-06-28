@@ -26,7 +26,7 @@ Battery Life Time = 4000mAH/260mA = 15.38 Hours
 \end{figure}
 
 \pagebreak
-To optimize the battery life time when not under emergency mode, the ESP32 has an advanced power saving mode called Deep Sleep. Power consumption for ID tags can be cut back power usage by leveraging one of ESP32’s Sleep Modes and dramatically extending the battery life. In deep sleep mode, the CPU, most of the RAM and all the digital peripherals are powered off. The only parts of the chip that remains powered on are: RTC controller, RTC peripherals (including ULP co-processor), and RTC memories (slow and fast) as shown in figure \ref{ds_mode} \cite{R5-1-1}. The chip consumes around 10\(\mu\)A under deep sleep mode and using calculation shown in equation (2) the battery life time can be extended up to 400,000 hours.
+To optimize the battery life time when not under emergency mode, the ESP32 has an advanced power saving mode called Deep Sleep. Power consumption for ID tags can be cut back power usage by leveraging one of ESP32’s Sleep Modes and dramatically extending the battery life. In deep sleep mode, the CPU, most of the RAM and all the digital peripherals are powered off. The only parts of the chip that remains powered on are: RTC controller, RTC peripherals (including ULP co-processor), and RTC memories (slow and fast) as shown in figure \ref{ds_mode} \cite{R5-1-1}. The chip consumes around 10\(\mu\)A under deep sleep mode and using calculation shown in equation (2) the battery life time can be extended up to 400,000 hours. When under deep sleep mode, the ESP32 can then be woken up from deep sleep mode using a touch button sensor connected to a touch GPIO to resume normal functions.
 \medskip
 \begin{equation}
 Battery Life Time = 4000mAH/10uA = 400,000 Hours
