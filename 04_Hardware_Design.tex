@@ -27,8 +27,25 @@ When system is under emergency mode, the beacons will attempt to establish a dat
 \pagebreak
 \subsection{Communication Protocol}
 \subsubsection{Beacon to ID Tag Communication}
+
+
+
 \pagebreak
 \subsubsection{Beacon to DPU Communication}
+\medskip
+For the proof of concept and prototype, data-pipeline is a simple implementation with USB serial interface. The Beacon and DPU  will listen and send data with the data processing unit over the serial read and write interface. 
+
+\bigskip
+In the Final design the Beacons will use the WiFi module on the ESP32 to join a privately hosted access point created by a hostapd on the data processing unit (Raspberry Pi). Once each beacon is connected to the access point they will be assigned an IP by the Dynamic Host Configuration Protocol (DHCP) server. A one-to-many network will be created as shown in figure \ref{udp}. Using User Datagram Protocol (UDP) communication over the networking layer, the DPU can bind on the gateway IP and a specific port to listen for forwarded beacon data. To initiate control with the beacons, the DPU will bind to each beacon IP at a specified port and send commands using UDP.
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.7]{./images/UDP.png}
+    \caption{UDP Communication Network}
+    \label{udp}
+\end{figure}
+\medskip
 
 
 
