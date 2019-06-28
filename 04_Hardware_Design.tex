@@ -3,9 +3,24 @@
 \setcounter{section}{3}
 \section{Hardware Design}
 \bigskip
-\subsection{System Design}
+\subsection{System Operation Modes}
+\medskip
+The Akrievia Beacon system will have two modes of operations, the idle mode, and the emergency mode. Idle mode occurs during every day operation that is not under an emergency. An emergency is defined as a situation that poses an immediate risk to health, life, property, or environment. Most emergencies require urgent intervention to prevent a worsening of the situation. In emergency situations the system will be triggered on to operate under the emergency mode following a system state diagram as shown in figure \ref{sys_state}.
 
+\bigskip
+When system is under idle mode, the beacon system does not attempt to transmit location information from ID Tags to the DPU, as the ID Tags will be under deep sleep mode. In idle mode the system is available for configuration such as adding/deleting ID Tags and beacons. In the Event of an emergency, a trigger such as one that could be associated with a fire alarm will trigger the system state into the emergency mode.
 
+\bigskip
+When system is under emergency mode, the beacons will attempt to establish a data pipeline using the UWB modules. And the ID Tags are triggered on by personnel carrying the device that are in need of rescue or assistance. Under emergency mode the DPU triggers the Beacons to start sending and receiving packets to determine ToF data from the ID Tags. The ID tags will receive request packet from beacon and transmit location data back to the beacon. Once the emergency situation is resolved the system can be switched back into idle mode.
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.6]{./images/state_d.png}
+    \caption{Akriveia Beacon System State Diagram}
+    \label{sys_state}
+\end{figure}
+\medskip
 
 
 
