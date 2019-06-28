@@ -6,7 +6,7 @@
 
 \subsection{Power Management}
 \medskip
-Developing a product that operates in emergency and disaster situations means that each component will have to operate in an extremely wide range of conditions. For this reason, each piece of this system will include a backup power supply. Another restriction that must be considered is related to the size of the ID Tags; if an employee must wear their ID tag all day, every day, as would be expected by employers using this system, a large, heavy ID Tag is not an option and must be powered using lower voltage batteries. However, the ID tag must have enough power to properly operate at any given time. As the prototype phase of this system is developed, a battery for the ID Tags will be found that is sufficient in power delivery and size.
+Developing a product that operates in emergency and disaster situations means that each component will have to operate in an extremely wide range of conditions. For this reason, each piece of this system will include a backup power supply. Another restriction that must be considered is related to the size of the ID Tags; if an employee must wear their ID tag all day, every day, as would be expected by employers using this system, a large, heavy ID Tag is not an option and must be powered using lower voltage batteries. However, the ID tag must have enough power to properly operate at any given time. As the prototype phase of this system is developed, a battery for the ID Tags will be found that is sufficient in power delivery and size. Since size is not as much of a constraint for the other components of the system, it is easier to be more liberal with the size of the backup battery. For the Beacons, a 9V battery will be the backup. The Data Processing Unit will be powered by the device that it is plugged in to, over USB.
 
 \pagebreak
 \subsection{RF Harvester}
@@ -31,8 +31,6 @@ There will be a demonstrable RF harvester circuit similar to Figure \ref{rf_c} t
     \label{rf_c}
 \end{figure}
 
-
-
 \pagebreak
 \subsection{Electrical Design Specification}
 \medskip
@@ -46,22 +44,16 @@ The system is designed for emergency disaster situations, it is crucial that suc
 \hline
 \textbf{REQ.EC.1 - C} &  Each beacon shall be powered through standard North American power outlets (120V AC, 60Hz, type A/B)\\
 \hline
-\textbf{REQ.EC.2 - P} &  The ID tags must have a manual switch to toggle power on \\
+\textbf{REQ.EC.2 - C} &  The Data Processing Unit (DPU) will be powered over USB by the device that it is plugged in to\\
 \hline
-\textbf{REQ.EC.3 - P} &  The ID Tags must be powered by 4.5V rechargeable lithium ion battery\\
+\textbf{REQ.EC.3 - P} &  The ID tags must have a manual switch to toggle power on \\
 \hline
-\textbf{REQ.EC.4 - P} &  The ID tags must be under deep sleep mode drawing no more than 10 uA when not in emergency mode\\
+\textbf{REQ.EC.4 - P} &  The ID Tags must be powered by 4.5V rechargeable lithium ion battery\\
 \hline
-\textbf{REQ.EC.5 - F} &  The beacons must use rechargeable 9V lithium battery as a backup power supply\\
+\textbf{REQ.EC.5 - P} &  The ID tags must be under deep sleep mode drawing no more than 10 uA when not in emergency mode\\
+\hline
+\textbf{REQ.EC.6 - F} &  The beacons must use rechargeable 9V lithium battery as a backup power supply\\
 \hline
 \end{tabular}
 \caption{Electrical Design Specification}
 \end{table}
-
-
-
-
-
-
-
-
