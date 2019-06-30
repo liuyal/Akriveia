@@ -135,15 +135,81 @@ Akriveia is required to maintain communication with many beacons and perform cal
 % discuss how we plan to multithread the data processor. go into slightly more detail about actix actors, and why this
 % is necessary
 \subsection{Threading Model}
-% TODO make a reference to the actor concurrency model
+The purpose of multithreading the DPU is to make use of the hardware provided, since all modern server and desktop processors have at least two dedicated hardware cores.
+Additionally, it is important for the DPU to have realtime responsiveness on the webserver, requiring that large computations such as triangluation for many beacons must be offloaded to other threads, keeping responsiveness high since the webserver thread is not blocked on computation while a request comes in.
+An additional consideration specifically for the proof of concept which uses blocking serial communication to communicate to the beacons, meaning that each beacon requires a dedicated thread to communicate with the DPU.
+
+Rust and Actix make multithreaded development easier by using message passing for interthread communication, at the cost of performance when compared to traditional mutexes and atomics.
+The implementation of message passing is a thread safe queue using mutexes and atomics to ensure data integrity, where multiple threads are able to send commands to another thread, which recieve the message without blocking either thread.
+To further discuss the Actix threading model, some definitions are required:
+\begin{enumerate}
+	\item Actor: A class that contains message handler callbacks.
+	\item Arbitor: A thread pool, where each thread in the pool is an event loop.
+\end{enumerate}
+Once instantiated, the arbitor spawns as many threads as indicated by its constructor and waits for actors to be spawned within the thread pool.
+By default, the number of threads in the pool is the number of cores on the CPU.
+The arbiter is an environment for actors to execute, and as actors are spawned into the thread pool, they can send messages to other actors, or create other actors in response to external events such as from the file system or HTTP requests.
+As shown in Figure~\ref{actix_thread_model}, the arbitor manages its own threads, which are all spawned at startup rather than on demand.
+Within each thread, the arbitor executes the event loop, which polls its queue, and acts on any messages in the queue by delegating the task to the actor the message is bound to.
+To pass a message to another actor, the sender must have the address of the recipient so that the arbitor can determine the destination, rather than a broadcasting system; this is shown in Figure~\ref{actix_messages}.
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[scale=0.6]{images/actix_thread_model.png}
+    \caption{Actix Thread Model}
+    \label{actix_thread_model}
+\end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[scale=0.6]{images/actix_message_passing.png}
+    \caption{Actix Message Passing}
+    \label{actix_messages}
+\end{figure}
+
+The beacons and id tags do not have a full OS, so they can only rely on single threaded interrupt handling to "multitask".
+Interrupt handling does not provide full concurrency, instead it time slices the single core to provide the illusion of multitasking.
+Interrupt handling is calling a function as a result of an event such as an external device raising a bit high on the CPU, or when a timer goes off.
+In the Proof concept, the bluetooth library uses this functionality to handle connections.
+When transitioning to wifi and UWB, similar functionality will be implemented in each respective technology's library, of which Akrievia simply relies on rather than reimplementing ourselves.
 
 \bigskip
 % discuss the data processor subsystems in detail
 \subsection{Data Processor Software Architecture}
+In the proof of concept, the DPU creates an HTTP server actor and a beacon manager actor.
+The HTTP server waits on web requests, delegating tasks to the beacon manager and polling it for the necessary information.
+On startup, the beacon manager queries the number of serial arduino devices, spawning a thread for each device.
+Each thread spawned by the beacon manager represents a serial connection to a beacon.
+The beacon manager sends messages using a traditional Multiple Producer Single Consumer Message Queue (MSPC) defined in the rust standard library, while the each serial communcation thread returns messages back to the manager through the actix message passing system.
+Figure~\ref{software_poc_arch} gives a graphical representation of the previous description.
+As a side note, Actix uses MSPC internally for its message passing system.
+
+\bigskip
+The prototype and final versions bring in major changes to the software design.
+As shown in figure~\ref{software_final_arch}, a major change is the removal of the serial connection actor which is replaced with the udp actor(which tentatively may be tcp instead).
+The beacon manager remains, but instead controls the udp actor rather than the serial connections.
+An additional role of the beacon manager is to delegate computation of triangulation to the triangulation processor actor, which will save data in memory until there are at least 3 data points for a single it tag to determine its position.
+The triangluation processor makes the positional calculation and saves new position to disk via the id tag model, which abstracts the database query.
+The beacon and map models perform a similar role, abstracting their associated database queries into a single location following MVC.
+Controllers mainly handle the model they were paired with, however the id tag controller will also query the triangulation processor for realtime positional data and the beacon controller commands beacons indirectly through the beacon manager.
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[scale=0.6]{images/poc_arch.png}
+    \caption{Proof of Concept Software Architecture}
+    \label{software_poc_arch}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[scale=0.6]{images/prototype_software_arch.png}
+    \caption{Final Software Architecture}
+    \label{software_final_arch}
+\end{figure}
 
 \bigskip
 % discus the purpose of the webserver, and how it will be used to control the other subsystems dictated by user command.
 \subsubsection{Webserver Subsystem}
+
 % TODO flesh these out into paras
 functions of the data processor:
 	- collecting data from each beacon
@@ -158,23 +224,32 @@ functions of the data processor:
 
 \bigskip
 \subsubsection{Beacon Manager Subsystem}
+The role of the beacon manager is to aggregate data from the individual beacon connections, and to give an abstraction for external systems that need not concern themselves with communication details, or how many beacons there actually are.
+
 
 \bigskip
 \subsubsection{Serial Beacon Communication Subsystem}
+In the proof of concept design, this actor deals with blocking serial communication with dedicated threads to keep the connection alive and to prevent web requests from blocking.
 
 \bigskip
 \subsubsection{UDP Beacon Communication Subsystem}
+In the final design, this actor will communicate with the beacons over the UDP networking protocol.
+UDP was chosen because it has less overhead than TCP, and is more suited for realtime applications such as Akriveia.
 
 \bigskip
 % discuss database choice - sqlite and why. lead into our models
 \subsection{Database details}
+Akrievia requires a database to persist map, beacon, and user information.
+SQLite was chosen as our database primarily because of its simplicity to setup and minimal footprint.
+Most commonly used in phones and packaged alongside python, SQLite has a stable file format and large userbase which gives us confidence that it wont fail.
 
 \bigskip
 % discuss how we plan to represent data in the database, tie back to model-view-controller(specifically models, which
 % will implement all of the database queries for the controllers to use.
 \subsubsection{Models}
-
-% TODO format this into a table
+Models are used to group database queries and model operations into a single file for each model, increasing reusability of the system.
+Akrievia is expected to maintain three different types of model: maps, id tags, and beacons.
+The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} show their expected data entries and their type, along with each entries expected purpose.
 
 \begin{table}[H]
 \centering
@@ -206,6 +281,7 @@ functions of the data processor:
 	\hline
 \end{tabular}
 \caption{User Model}
+\label{user_model}
 \end{table}
 
 \begin{table}[H]
@@ -226,12 +302,12 @@ functions of the data processor:
 	\hline
 \end{tabular}
 \caption{Beacon Model}
+\label{beacon_model}
 \end{table}
-
 
 \begin{table}[H]
 \centering
-\begin{tabular}{ | m{3cm} | m{3cm} | m{9.5cm} |}
+\begin{tabular}{| m{3cm} | m{3cm} | m{9.5cm} |}
 	\hline
 	\multicolumn{3}{|c|}{Map Model} \\
 	\hline
@@ -239,25 +315,41 @@ functions of the data processor:
 	\hline
 	Name & String & Human readable floor name for gui. \\
 	\hline
-	Floor number & String & Table key, unique floor number of the map, this is not an integer to accomodate the possibility of odd floor naming conventions. eg floor 1A, or basement. \\
+	Floor number & String & Table key, unique floor number of the map, this is not an integer to accomodate the possibility of odd floor naming conventions. e.g. floor 1A, or basement. \\
 	\hline
 	Bitmap data & binary & Bitmap for the floor blueprints to view on the gui. \\
 	\hline
 \end{tabular}
 \caption{Map Model}
+\label{map_model}
 \end{table}
 
 
 % discuss what each controller will do - i dont expect this one to be very meaty
 \subsection{Controllers}
-Maps(controller)
-	explanation: handles requests for map operations such as to create, update, delete the map instances.
+Controllers are part of the MVC philosophy, unfortunately actix does not directly support the idea of controllers, however this functionality can be implemented manually using Actix Web primitives.
+Each controller exposes available operations for the frontend to manipulate data in a controlled and secure manner.
+The controller manages data using the models to perform direct manipulations and can aggregate data that cannot otherwise be done by models.
+Table~\ref{controllers_table} shows the list of expected controllers in the DPU, one to match each model.
 
-Beacons(controller)
-	explanation: handles requests for beacon operations such as to create, update, delete beacon the model instances.
-
-Users(controller)
-	explanation: handles requests for user(id tag) operations such as to create, update and delete user instances.
+\begin{table}[H]
+\centering
+\begin{tabular}{| m{3cm} | m{9.5cm} |}
+	\hline
+	\multicolumn{2}{|c|}{Map Model} \\
+	\hline
+	Controller Name & Explanation \\
+	\hline
+	Maps & Handles requests for map operations such as to create, update, delete the map instances. \\
+	\hline
+	Beacons & Handles requests for beacon operations such as to create, update, delete beacon the model instances. \\
+	\hline
+	Users & Handles requests for user(id tag) operations such as to create, update and delete user instances. \\
+	\hline
+\end{tabular}
+\caption{Controllers list}
+\label{controllers_table}
+\end{table}
 
 % describe how the view will work, but dont go into details about the GUI visuals - leaving that for the ui appendix
 % mention browser, js, html, rust -> webassembly compile
