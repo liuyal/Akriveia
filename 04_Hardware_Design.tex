@@ -27,7 +27,8 @@ When system is under emergency mode, the beacons will attempt to establish a dat
 \pagebreak
 \subsection{Communication Protocol}
 \subsubsection{Beacon to ID Tag Communication}
-
+\medskip
+Communication between a beacon and an ID tag is facilitated on the Physical (PHY) layer. The Physical layer is responsible for converting data into bits for transmission and converting received bits back into data.The logical connection formed between the two entities are the radio channels that are present in air. In the proof of concept phase, 2MHz wide BLE advertising channels 37, 38 and 39 with center frequencies at 2402MHz, 2426MHz and 2480MHz respectively can be used \ref{R4-2-3}. In the engineering prototype and final phase, 500MHz wide UWB channels 1, 2, 3 and 5 with center frequencies at 3494MHz, 3993MHz, 4492MHz and 6489MHz respectively can be used \ref{R4-2-2}. The radio channels will be used at full duplex to allow simultaneous transmission in both directions. Digital data such as RSSI measurements, ToF measurements and MAC address are encoded into analog signals by means of modulation to represent the data with continuously varying electromagnetic waves. Modulation in both BLE and UWB form pulses of analog signals prior to transmission \ref{R4-2-3}. The process of sending and receiving these analog signals are handled by the integrated chip antenna of the ESP32 and DWM1000 modules. Upon reception of the analog signals, the receiver's demodulator and decoder will reverse the work of the sender to retrieve the digital data. 
 
 
 \pagebreak
