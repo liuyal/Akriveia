@@ -4,14 +4,603 @@
 \section{Appendix A: Supporting Test Plans}
 \bigskip
 
+The test plans are seperated into four sections: 
+\begin{enumerate}
+    \item PoC (Proof of Concept) Test Plan - \textbf{P}
+    \item Prototype Test Plan -\textbf(T)
+    \item Final Product Test Plan -\textbf(F)
+    \item Usability Test Plan -\textbf(U)
+\end{enumerate}
+Each test case is grouped into these four sections and their IDs start with a letter representing the group. These letters are shown in bold above.
+The \textbf{\textit{Design Specifications}} test plans consists of Test cases with expected results.
+
+
+%----------------------------------PoC Test plan ----------------------------------------------------------------------%
+\pagebreak
 
 \subsection{PoC Test Plan}
 
+% What testing is there supposed to be?
+The Proof of Concept (PoC) Test Plan includes testing procedures for verifying and validating the \textbf{\textit{Design Specifications}} under a formal test environment. The goal of the PoC Test Plan is to ensure the basic requirements stated in the \textbf{\textit{Requirement Specifications}} are refined and developed into test cases.
+
+\medskip
+Three main goals for the PoC testing are as follows:
+\begin{enumerate}
+    \item 2.4 GHz chips are able to receive and transmit data accurately
+    \item ESP32 (MCU) receives the transmission data 
+    \item Raspberry Pi receives data serially from ESP32 MCU
+\end{enumerate}
+
+\begin{table}[h!]
+    \centering
+    
+    \begin{tabular}{|m{0.05\linewidth}|m{0.45\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{3}{|l|}{\textbf{PoC Test Plan}}  \\ 
+    \hline
+    ID & Test Cases & Expected Results\\ 
+    \hline
+    
+    % ESP32 bluetooth modules detects bluetooth servers in the proximity 
+    % Console Serial output shows all nearby bluetooth devices with MAC addresses
+    P-01
+    & ESP32 bluetooth modules detects bluetooth servers in the proximity.  
+    & Console Serial output shows all nearby bluetooth devices with MAC addresses. \\ 
+    \hline    
+
+    % ESP32 uses the RSSI formula to output values of nearby bluetooth devices
+    % Arduino serial output is displaying RSSI values of surrounding bluetooth devices
+    P-02
+    & ESP32 uses the RSSI formula to output values of nearby bluetooth devices.
+    & ESP serial out displays RSSI of surrounding bluetooth devices by MAC addresses. \\ 
+    \hline
+
+    % RSSI measurements varies at different distances
+    % Take RSSI measurements at 1m; RSSI measurements should be higher at 2m; RSSI measurements should be lower at 0.5m
+    P-03
+    & RSSI measurements on serial output should vary at different distances.
+    & RSSI measurements at 0.1m, 0.5m, 1m and 2m. The RSSI measurements should become more negative as distance increases.\\ 
+    \hline
+
+    % Measure RSSI measurements at 1m to get measured power
+    % Log average of RSSI at 1m at different locations: empty room, busy hallway, LAB01 to get measured power
+    P-04
+    & Measure RSSI measurements at 1m to get measured power
+    & Log the average RSSI at 1m at different locations. The average measurements at each location is the measured power at specific location. \\ 
+    \hline
+    
+    % ESP32 beacon should take only ESP32 ID tag MAC address
+    % Serial output should output RSSI of ID tags; Filter out all RSSI measurements other than ID tags
+    P-05
+    & ESP32 beacon should only output ESP32 ID tag MAC address.
+    & Serial output should output RSSI of ID tags. Beacon programming filters out all RSSI measurements besides ID tags.\\ 
+    \hline
+
+    % ESP32 sleep mode activates after 2min period
+    % ESP32 shuts off main processor and peripherals. MCU consumes only 10uA in sleep mode.
+    P-06
+    & ESP32 deep sleep mode activates after 2min period of inactivity. 
+    & ESP32 shuts off main processor and peripherals. MCU consumes only 10uA in sleep mode.\\ 
+    \hline
+
+    % Raspberry PI transfers data through serial to a ESP32 beacon
+    % "Start" command is sent serially by the Raspberry PI and received serially by the ESP32 beacon
+    P-07
+    & DPU transfers data through serial to a ESP32 beacon.
+    & "Start" command sent serially by the DPU and received serially by the ESP32 beacon.\\ 
+    \hline
+
+    % Raspberry Pi (DPU) should receive RSSI measurements through serial communication from all 3 ESP32 beacons
+    % Console output of the received RSSI measurements from 3 beacons
+    P-08
+    & Raspberry Pi (DPU) should receive RSSI measurements through serial communication from all 3 ESP32 beacons
+    & Console output of the received RSSI measurements from 3 beacons. \\ 
+    \hline
+
+    % RSSI measurements are taken from all 3 beacons and converted into distances by Distance-RSSI formula
+    % Console output of approximate distances of the 3 beacons to the ID tag
+    P-09
+    & RSSI measurements are taken from all 3 beacons and converted into distances by Distance-RSSI formula
+    & Console output of approximate distances of the 3 beacons to the ID tag. \\ 
+    \hline
+    \end{tabular}
+    \caption{PoC System(General) Test Plans - Part 1}
+\end{table}
+\pagebreak
+\begin{table}[h!]
+    \centering
+    
+    \begin{tabular}{|m{0.05\linewidth}|m{0.45\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{3}{|l|}{\textbf{PoC Test Plan}}  \\ 
+    \hline
+    ID & Test Cases & Expected Results\\ 
+    \hline
+    
+    % Distances from the Distance-RSSI formula are used in the Trilateration algorithm to calculate approximate location
+    % Location of the ID tag is given as (x, y) coordinates with (0, 0) being the location of the bottom left beacon
+    P-10
+    &  Distances from the Distance-RSSI formula are used in the Trilateration algorithm to calculate approximate location
+    &  Location of the ID tag is given as (x, y) coordinates with (0, 0) being the location of the bottom left beacon. \\ 
+    \hline
+
+    % Real-time tracking of the ID tag is calculated and displayed on the Raspberry Pi console output
+    % Location of the ID tags in (x, y) are constantly displayed on the serial output of the Raspberry Pi
+    P-11
+    & Real-time tracking of the ID tag is calculated and displayed on the Raspberry Pi console output
+    & Location of the ID tags in (x, y) are constantly displayed on the serial output of DPU. \\ 
+    \hline
+
+    \end{tabular}
+    \caption{PoC System(General) Test Plans - Part 2}
+\end{table}
+
+%----------------------------------Prototype Test plan ----------------------------------------------------------------------%
 \pagebreak
 \subsection{Prototype Test Plan}
 
+% What will the Prototype Test Plan include?
+The Prototype Test Plan includes testing procedures for verifying and validating the \textbf{\textit{Design Specifications}} under formal test environment. The goal of the Prototype Test Plan is to ensure the requirements stated in the  \textbf{\textit{Requirement Specifications}} are meet.
+
+\medskip
+Three main goals for the Prototype testing are as follows:
+\begin{enumerate}
+    \item UWB chips are able to receive and transmit data accurately
+    \item ESP32(MCU) integrates with the UWB modules and receives transmission data 
+    \item Raspberry Pi (DPU) calculates the location coordinates from Time of Flight (ToF)
+\end{enumerate}
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|m{0.05\linewidth}|m{0.45\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{3}{|l|}{\textbf{Prototype Test Plan}}           \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    ID & Testing Criteria & Observations       \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+    
+    % UWB chip and breakout board are soldered properly.  SPI Bus Pins are operating as expected
+    % MISO/MOSI pins are outputting expected values. SCLK is receiving proper clock signals. 
+    % IRQ pin is generating interrupts and CS pin remains at the correct state (active-low)
+    T-01 
+    & UWB chip and breakout board are soldered properly. SPI Bus Pins are operating as expected
+    & MISO/MOSI pins are outputting expected values. SCLK is receiving proper clock signals. 
+    IRQ pin is generating interrupts and CS pin remains at the correct active-low state.\\ 
+    \hline
+    
+    % UWB chip and breakout board are soldered properly. Other Pins are operating as expected
+    % EXTON tells external devices to go to sleep mode. GPIO7 general purpose I/O pin transmits data properly
+    % RSTn pin resets Decawave 1000 chip. WAKEUP pin asserted to wake up DW1000 chip from sleep
+    T-02
+    & UWB chip and breakout board are soldered properly. Pins are operating as expected
+    & Device sleep activate by EXTON. GPIO7 transmits data. RSTn pin resets DWM1000. WAKEUP pin trigger DW1000 to wake. \\ 
+    \hline
+
+    % ESP32 (MCU) transfers data to/fro from the UWB module based on SPI communications.
+    % ESP32s should receive expected data from SPI-bus and output onto console output. Check pins are functioning as expected
+    T-03 
+    & ESP32 transfers data from the UWB module via SPI communications.
+    & ESP32 receive expected data from SPI and output to console. pins are functioning as expected. \\ 
+    \hline
+
+    % UWB chips receive and transmit simple messages to and from other UWB chips through UWB frequencies of 3.4Ghz - 6Ghz
+    % Received data is shown serially on the consoles for the chips
+    T-04 
+    & UWB chips receive and transmit simple messages to and from other UWB chips through UWB frequencies of 3.5-6.5 GHz.
+    & Received data is shown serially on the consoles for the chips.   \\ 
+    \hline
+
+    % ESP32 MCUs are woken out of deep sleep by the GPIO # pin. ESP32 should wake the UWB through the WAKEUP pin
+    % ESP32 MCUs and UWB are in active state; Start operating as programmed
+    T-05
+    & ESP32 are woken out of deep sleep by the GPIO \#5 pin. ESP32 should wake the UWB through the WAKEUP pin.
+    & ESP32 and UWB are in active state; Start operating as programmed. \\ 
+    \hline
+
+    % ESP32 MCUs go into sleep after 2 minutues of inactivity. UWB module is sent to sleep though the EXTON pin.
+    % ESP32 MCUs and UWB are in deep sleep mode
+    T-06
+    & ESP32 go into sleep after 2 minutues of inactivity. UWB module is sent to sleep though the EXTON pin.
+    & ESP32 and UWB are in deep sleep mode. \\ 
+    \hline
+
+    % UWB ID tag receives "emergency" signal from UWB beacons. UWB chip ensure ESP32 MCU remains awake through the EXTON pin
+    % ESP32 MCUs and UWB remains in active state. ESP32s are awake and do not go back to sleep
+    T-07
+    & ID tag receives "emergency" signal from beacons. UWB chip ensure ESP32 remains awake through the EXTON pin.
+    & ESP32 and UWB remains in active state. ESP32s are awake and do not go back to sleep. \\ 
+    \hline
+
+    % The ID tags are able to be powered by the battery
+    % ID tags are functional while being batter powered
+    T-08
+    & ID tags are to be powered by the battery.
+    & ID tags are functional using battery power. \\ 
+    \hline   
+    
+    % MCU receives timestamps from UWB and calculates ToF from sent and received data 
+    % Serial output of ToF measurement. There should be manual verification of calculation
+    T-09
+    & MCU receives timestamps from UWB and calculates ToF from sent and received data.
+    & Serial output of ToF measurement. There should be manual verification of calculation.   \\ 
+    \hline
+    
+\end{tabular}
+    \caption{Prototype Test Plans - Part 1}
+\end{table}    
+    
+\pagebreak    
+    
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|m{0.05\linewidth}|m{0.45\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{3}{|l|}{\textbf{Prototype Test Plan}}           \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    ID & Testing Criteria & Observations       \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----       
+    
+    % ToF measurements are taken and used in the Distance-ToF formulas to generate distance
+    % Distances are displayed on the serial output. There should be manual verification of the calculations
+    T-10
+    & ToF are taken and used in the distance-ToF formulas to generate coordinates.
+    & Distances are displayed on serial output. Require manual verification of calculations.  \\ 
+    \hline    
+    
+    % Distances determined from ToF is sent to Raspberry Pi (DPU) for trilateration calculation
+    % Serial output from Raspberry Pi showing the x-y coordinates from trilateration algorithm
+    T-11
+    & Distances estimation from ToF is sent to DPU for trilateration calculation
+    & Serial output from Raspberry Pi showing the x-y coordinates from trilateration algorithm.    \\ 
+    \hline
+    
+    % Raspberry Pi (DPU) should display x-y coordinates onto the webpage
+    % Console output of the x-y coordinates of the ID tag in reference to the bottom left beacon as (0, 0)
+    T-12
+    & DPU should display x-y coordinates on webpage.
+    & Console output of x-y coordinates of the ID tag in reference to the bottom left beacon as (0, 0).    \\ 
+    \hline
+
+    % Real-time tracking of the ID tag in x-y coordinates on the console
+    % Webpage should show real-time changes in the x-y coordinates of the ID tag 
+    T-13
+    & Real-time tracking of the ID tag in x-y coordinates on the console
+    & Webpage should show real-time changes in the x-y coordinates of the ID tag.       \\ 
+    \hline 
+    
+    % Raspberry Pi (DPU) hosts the web server. Webpage can be accessed through Pi's wifi network
+    % Devices can access the webpage through the devices' browser
+    T-14
+    & DPU hosts the web server. Webpage can be accessed through DPU's wifi network.
+    & Devices can access the webpage browser.     \\ 
+    \hline   
+
+\end{tabular}
+    \caption{Prototype Test Plans - Part 2}
+\end{table}
+
+
+%----------------------------------Final Product Test plan ----------------------------------------------------------------------%
 \pagebreak
-\subsection{Final Product Test Plan}
+\subsubsection{Final Product Test Plan}
+
+% What will the Final Product Test Plan include?
+The Final Product Test Plan includes all the testing procedures for verifying and validating the \textbf{\textit{Design Specifications}} under a formal
+ test environment. The goal of the Final Product Test Plan is to ensure the basic requirements stated in the \textbf{\textit{Requirement Specifications}}
+ are refined and developed into test cases.
+
+\medskip
+Three main goals for the Final Product testing are as follows:
+
+\begin{enumerate}
+    \item 2.4 GHz chips are able to receive and transmit data accurately
+    \item Arduino micro-controllers(MCU) receives the transmission data 
+    \item Raspberry Pi receives data serially from Arduino M
+\end{enumerate}
+
+
+\begin{table}[h!]
+    \centering
+    
+    \begin{tabular}{|m{0.05\linewidth}|m{0.45\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{3}{|l|}{\textbf{Final Product Test Plan}}      \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    ID   & Testcases    & Observations     \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+    
+    % Test for the accuracy of UWB ToF to ensure accuracy is within <1m.
+    % Run a set of automated test for different distances to test the determined
+    % ToF distances is accurate or within error range of 1m
+    F-01
+    & Test for the accuracy of UWB ToF to ensure accuracy is within $\leq$1m.
+    & Different distances set up to test ToF estimation accurate within error range of 1m.  \\ 
+    \hline
+    
+    % Emergency signal initiates emergency mode for all beacons & ID tags
+    % All beacons are now in emergency mode. ID tags woken up will go into emergency state and stay woken up
+    F-02 
+    & Emergency signal initiates emergency mode for all beacons and ID tags.
+    & All beacons are now in emergency mode. ID tags woken up will go into emergency state and stay woken up.  \\ 
+    \hline
+    
+    % Beacons forward data from farthest ID tags to the Raspberry Pi (DPU) so that all ID tags 
+    % can be displayed on the map
+    % All ID tags distances are received by the DPU.
+    F-03 
+    & Beacons forward data from farthest ID tags to the Raspberry Pi (DPU) so that all ID tags 
+    can be displayed on the map. & All ID tags distances are received by the DPU.  \\ 
+    \hline
+
+    % ID tags should drain minimal amount of power (<10uA) when in deep sleep mode 
+    % Measured current drawn by ID tag in deep sleep is less than 10uA
+    F-04
+    & ID tags should drain minimal amount of power ($\leq$10uA) when in deep sleep mode.
+    & Measured current drawn by ID tag in deep sleep is less than 10uA.  \\ 
+    \hline
+
+    % ID tags are woken up by a button press and checks for emergency signals from beacons
+    % ID tags should go into emergency mode if beacons are sending emergency signals. Otherwise,
+    % ID tags should go into deep sleep mode after 2 minutes of inactivity
+    F-05
+    & ID tags are woken up by a button press and checks for emergency signals from beacons.
+    & ID tags should go into emergency mode if beacons are sending emergency signals. Otherwise, 
+    ID tags should go into deep sleep mode after 2 minutes of inactivity  \\ 
+    \hline
+
+    % Beacon uses UDP protocol for communication to send out packets of data continuously without handshaking.
+    % Beacons should continue to send and receive timestamped packets of data.
+    F-06
+    & Beacon uses UDP protocol for communication to send out packets of data continuously without handshaking.
+    & Beacons should continue to send and receive timestamped packets of data.  \\ 
+    \hline
+
+    % The ID tag's components, ESP32 wifi and MCU module, UWB module and housing LED, are all powered by the battery.
+    % All 3 components are operational and can all be powered by the battery.
+    F-07 
+    & The ID tag's components, ESP32 wifi and MCU module, UWB module and housing LED, are all powered by the battery.
+    & All 3 components are operational and can all be powered by the battery.  \\ 
+    \hline
+    
+    % The beacon's components, ESP32 wifi and MCU module, UWB module and housing LED, are powered through AC outlet.
+    % All 3 components are operational and no issues occur.
+    F-08 
+    & The beacon's components, ESP32 wifi and MCU module, UWB module and housing LED, are powered through AC outlet.
+    & All 3 components are operational and no issues occur.  \\ 
+    \hline
+
+\end{tabular}
+    \caption{Final Product Test Plans - Part 1}
+\end{table}
 
 \pagebreak
-\subsection{Usability Test Plan}
+
+\begin{table}[h!]
+    \centering
+    
+    \begin{tabular}{|m{0.05\linewidth}|m{0.45\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{3}{|l|}{\textbf{Final Product Test Plan}}      \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    ID   & Testcases    & Observations     \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+
+	% All the components of the ID tag are integrated together: ESP32 (MCU) and wifi modules, UWB modules
+    % , the battery and ID tag housing
+    % ID tag is functional and all components are working together
+    F-09
+    & All the components of the ID tag are integrated together: ESP32 (MCU) and wifi modules, UWB modules
+    , the battery and ID tag housing.
+    & ID tag is functional and all components are working together.  \\ 
+    \hline
+
+    % Beacons use UDP protocol for communication to the Raspberry Pi (DPU) for real-time tracking.
+    % Raspberry Pi updates the ID tags location in real-time to provide up-to-date tracking.
+    F-10
+    & Beacons use UDP protocol for communication to the Raspberry Pi (DPU) for real-time tracking.
+    & Raspberry Pi updates the ID tags location in real-time to provide up-to-date tracking.  \\ 
+    \hline
+
+    % Beacons run on emergency battery power when A/C power supply is unavailable.
+    % When power is disconnected, Beacons run no battery power until A/C power is available.
+    F-11
+    & Beacons run on emergency battery power when A/C power supply is unavailable.
+    & When power is disconnected, Beacons run no battery power until A/C power is available.  \\ 
+    \hline
+
+% ---- Software test cases -------%
+
+    % Raspberry Pi (DPU) displays the ID tag locations on a scaled map GUI.
+    % All ID tags are shown on the scaled map with an accuracy of <1m.
+    F-12
+    & Raspberry Pi (DPU) displays the ID tag locations on a scaled map GUI.
+    & All ID tags are shown on the scaled map with an accuracy of $\leq$1m.  \\ 
+    \hline
+    
+    % Move the ID tags around the floor to check for real-time tracking.
+    % GUI map shows ID tags current location with <5sec delay between the current and previous location.
+    F-13
+    & Move the ID tags around the floor to check for real-time tracking.
+    & GUI map shows ID tags current location with 	$\leq$ 5s delay between location. \\ 
+    \hline
+
+    % Check if the MAC address and status in the GUI match with the devices
+    % ID tags/Beacon statuses in the GUI are accurate and reflect the current situation
+    F-14
+    & Check if the MAC address and status in the GUI match with the devices.
+    & ID tags/Beacon statuses in the GUI are accurate and reflect the current situation.  \\ 
+    \hline
+
+    % Test for any bugs or possible unauthorized access to data in the system.
+    % Run a set of automated tests to look at any bugs or issues that arise. Manual
+    % testing is required.
+    F-15
+    & Test for any bugs or possible unauthorized access to data in the system.
+    & Automated tests to look for any bugs or issues that arise. Manual testing is required.  \\ 
+    \hline
+
+
+\end{tabular}
+	\caption{Final Product Test Plans - Part 2}
+\end{table}
+
+
+
+%----------------------------------Usability Test plan ----------------------------------------------------------------------%
+\pagebreak
+\subsubsection{Usability Test Plan}
+
+% What will the usability test plan include
+The Usability Test Plan includes all the testing procedures for verifying and validating the Usability Specifications under a 
+formal test environment. The goal of the Usability Test Plan is to ensure the basic requirements stated in the 
+\textbf{\textit{Appendix B: User Interface and Appearance}} section of the document are met.
+
+\medskip
+Three main goals for the Usability testing are as follows:
+\begin{enumerate}
+    \item ID tags and Beacons are intuintive to use and implement
+    \item GUI is easy to navigate and access information for Primary Users
+    \item GUI is easy to edit and customize configuration for Secondary Users
+\end{enumerate} 
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|m{0.05\linewidth}|m{0.45\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{3}{|l|}{\textbf{Usability Test Plan}}           \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    ID    & Test Cases    & Observations     \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+    
+    %----Software side -------------------%
+    % Connecting to the Beacons' wifi network should be simple and quick.
+    % Select the network on the device's available wifi network. Input the password and the device should be connected.
+    U-01 
+    & Connecting to the Beacons' wifi network should be simple and quick.
+    & Select the network on the device's available wifi network. Input the password and the device should be connected.  \\ 
+    \hline   
+    
+    % Test if webpage address is correct and online.
+    % Inputting the webpage address should bring up the login page for Triwave Systems Akriveia.
+    U-02
+    & Test if webpage address is correct and online.
+    & Inputting the webpage address should bring up the login page for Triwave Systems Akriveia.   \\ 
+    \hline
+    
+    % Test if the login credentials entered matches the one in the system database. Give an appropriate response.
+    % Entering the incorrect login credentials gives an login error. Prompts the user to try again.
+    % Entering the correct login credentials goes to the System Status or user homepage.
+    U-03 
+    & Test if the login credentials entered matches the one in the system database. Give an appropriate response.
+    & Entering the incorrect login credentials gives an login error. Prompts the user to try again.
+      Entering the correct login credentials goes to the System Status or user homepage.  \\ 
+      
+    \hline
+
+    % Test if primary users sees only the Primary User Map View and Status View.
+    % Primary user should not have access to any system configurations, adding map views or adding user views.
+    U-04
+    & Test if primary users sees only the Primary User Map View and Status View.
+    & Primary user should not have access to any system configurations, adding map views or adding user views.   \\ 
+    \hline
+
+    % Test if secondary users can see Add Map View, Beacon View and Add User Views.
+    % Primary user should have access to any system configurations, adding map views or adding user views.
+    U-05
+    & Test if secondary users can see Add Map View, Beacon View and Add User Views.
+    & Secondary user should have access to any system configurations, adding map views or adding user views.   \\ 
+    \hline
+    
+    % Adding maps, beacons or editing user information should be intuitive and simple.
+    % IT personnel with minimal training can add maps, beacons or edit user information without frustration or difficulty.
+    U-06
+    & Adding maps, beacons or editing user information should be intuitive and simple.
+    & IT personnel with minimal training can add maps, beacons or edit user information without frustration or difficulty.   \\ 
+    \hline
+   
+    % Adding maps, beacons or editing user information should be intuitive and simple.
+    % IT personnel with minimal training can add maps, beacons or edit user information without frustration or difficulty. 
+    U-07
+    & Installing new beacons should be intuintive and straight-forward.
+    & Adding beacon page is easy to navigate and form is simple to fill out. IT personnel without any training 
+    of Akriveia system should fill out the form without difficulty.   \\ 
+    \hline
+
+\end{tabular}
+    \caption{PoC Software Requirement Test Plans - Part 1}
+\end{table}
+
+\pagebreak
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|m{0.05\linewidth}|m{0.45\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{3}{|l|}{\textbf{Usability Test Plan}}           \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    ID    & Test Cases    & Observations     \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+    
+    %------- Hardware Devices ----------%
+    
+    % ID tag design has clear indication where the button is pressed.
+    % Users with no training understands intuitively where to press on the ID tag.
+    U-08
+    & ID tag design has clear indication where the button is pressed.
+    & Users with no training understands intuitively where to press on the ID tag.  \\ 
+    \hline
+
+    % In emergency state, ID tag button when pressed will flash green continuously
+    % ID Tags LED light will continue to flash green in emergencies
+    U-09
+    & In emergency state, ID tag button when pressed will flash green continuously.
+    & ID Tags LED light will continue to flash green in emergencies.  \\ 
+    \hline
+    
+    % ID tags LED flashes the correct light in non-emergency mode
+    % LED will flash green for 1 sec if ID tag is operational and has no problems
+    % LED will blink yellow for 3 sec if ID tag battery is low and need replacement.
+    % LED will blink red for 3 sec if ID tag is not operational or has issues. Battery is on critical low power.
+    U-10
+    & ID tags LED flashes the correct light in non-emergency mode
+    & LED will flash green for 1 sec if ID tag is operational and has no problems
+      LED will blink yellow for 3 sec if ID tag battery is low and need replacement.
+      LED will blink red for 3 sec if ID tag is not operational or has issues. Battery is on critical low power.  \\
+    \hline
+
+    % In emergency state, beacons will flash green continuously.
+    % Beacons LED light will continue to flash green in emergencies
+    U-11
+    & In emergency state, beacons will flash green continuously.
+    & Beacons LED light will continue to flash green in emergencies.  \\ 
+    \hline
+
+    % Beacons LED flashes the correct light in non-emergency mode
+    % LED will flash green for 1 sec if Beacon is operational and has no problems
+    % LED will blink yellow for 3 sec if Beacon has been reset. 
+    % LED will blink red for 3 sec if ID tag is not operational or has issues.
+    U-12
+    & Beacons LED flashes the correct light in non-emergency mode
+    & LED will flash green for 1 sec if Beacon is operational and has no problems
+      LED will blink yellow for 3 sec if Beacon has been reset.
+      LED will blink red for 3 sec if ID tag is not operational or has issues.  \\ 
+    \hline
+
+\end{tabular}
+    \caption{PoC Software Requirement Test Plans - Part 2}
+\end{table}
+
