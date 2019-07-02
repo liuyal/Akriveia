@@ -65,17 +65,127 @@ The final product will demonstrate the fully functional indoor rescue system tha
 \end{figure}
 
 
+\pagebreak
+\subsection{RF Fundamentals}
+\medskip
+RF is a common electromagnetic medium for communication systems to deliver digital information over the air from one point to another. Today, RF is used in many daily applications, such as carrying music to FM radios and telecommunications. In fact, it is the discovery of RF signals that enables the deployment of many commercial wireless networks \cite{R2-4-1}.
 
+\medskip
+On the electromagnetic spectrum, RF spans from 30Hz to 300GHz in frequency. Specifically, Bluetooth ranges from 2.40 to 2.48GHz and UWB ranges from 3.1 to 10.6GHz. RF has two main attributes: amplitude and frequency \cite{R2-4-1}.
+
+\medskip
+The amplitude represents the strength of an RF signal. The measure for amplitude is power which indicates the amount of energy required for a signal to propagate over a distance. The amplitude of an RF signal is susceptible to degradation as it travels over a distance in air \cite{R2-4-1}. The rate at which an RF signal degrades follows the inverse square law shown in Figure \ref{isl} , which states that generally signal strength decreases exponentially as distance increases. In theory, the degree of strength loss can be mitigated by having a more powerful signal to begin with provided that there is minimal obstacle against the signal on the way to its destination \cite{R2-4-2}.
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.75]{./images/ISL.png}
+    \caption{Relationship Between Signal Strength and Distance}
+    \label{isl}
+\end{figure}
+
+
+\medskip
+Another factor of RF that influences distance propagation is signal frequency. In RF, frequency describes the number of signal repetition per second. RF frequency is measured in Hertz (Hz), which is the number of cycles occurring each second. For instance, an RF radio operating at 2.4GHz means that the signal includes 2,400,000,000 cycles per second \cite{R2-4-1}. The effects of different frequencies on distance propagation is illustrated in a Free Space Path Loss graph shown in Figure \ref{fsp} below. The graph shows that there is positive correlation between signal strength degradation and frequency, where the higher the frequency, the more quickly signal-strength falls over distance \cite{R2-4-2}. In fact, this relationship is reasonable since the higher the frequency of a signal, the lower its wavelength. 
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[width=\linewidth]{./images/FSP.png}
+    \caption{Effects of Different Frequencies on Distance Propagation}
+    \label{fsp}
+\end{figure}
+
+\medskip
+Besides RF signal attributes, environmental factors can also influence the integrity of an RF signal. Multipath is one of the most common and inevitable factor that can delay and distort a travelling RF signal. Mutipath propogation is a phenomenon where an RF signal takes different paths when propagating from the source to the destination. As illustrated in Figure \ref{multipath}, contact with surfaces such as a desk or a ceiling contribute to the division of a signal into multiple signal portions to arrive at the destination at different times. This induces another phenomenon called multipath delay which causes the distortion of a signal's information. Since a signal is arriving as components, the receiver will not be able to interpret the information of the original signal during demodulation \cite{R2-4-1}.
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[width=\linewidth]{./images/multipath.png}
+    \caption{An Example of Multipath}
+    \label{multipath}
+\end{figure}
 
 \pagebreak
-\subsection{Ultra-Wideband Radio Technology}
+\subsection{Ultra-Wideband and Time-of-Flight}
 \medskip
+Time of flight, or ToF is a distance related metric that describes the propagation time of a radio signal between a sender and a receiver. Precisely, it is the time it takes for a radio signal to travel from a sender to receiver and back to the sender. Since radio waves are a type of electromagnetic radiation, the travel speed of a radio signal is the speed of light, which is approximately thirty centimeters per nanosecond. Given the speed of light constant and a ToF value, the distance between a sender and a receiver can be computed using the Distance Speed Time formula as shown below \cite{R2-5-1}. To measure ToF in the nanosecond scale, Akriveia will employ the Ultra-Wideband (UWB) technology by using the DWM1000 module in the prototype and final product phase.
+
+\begin{equation*}
+    Distance = Speed\:of\:light * ToF
+\end{equation*}
+
+
+\medskip
+In narrowband systems, measuring signal arrival times with accuracy is a difficult task without complex algorithms. Due to bandwidth limitations, radios in narrowband systems cannot resolve signals influenced by multipath and may assume all received subpath signals arrived at the same time \cite{R2-5-2}. Fortunately, multipath components can be resolved using UWB radios due to larger signal bandwidth. UWB radios are formerly known as pulse radios as they send signals in short bursts called chips. The chips are radio energy pulses that carry information over a large bandwidth to counter the effects of multipath fading and interference that are present in conventional narrowband signals such as 2.4G/5G Wi-Fi. Due to the short duration of chips, the effects of multipath are also received as echoes that do not interfere with the original signal \cite{R2-5-1}. As a result, UWB provides a great solution to indoor localization by allowing high precision ToF measuring capabilities.
 
 
 
 \pagebreak
 \subsection{Trilateration Methods}
+\medskip
+The Akriveia 2-D indoor localization solution determines the x-y coordinates of ID tags by trilateration. The method follows a lateration scheme with absolute distances, which uses distance-related metrics such as RSSI or ToF to determine the distance between a sender and a receiver. In the case where there is a single beacon and ID tag, the distance between the two entities can be interpreted as the radius of a circle traced with the beacon centered. Such a circle takes on a standard mathematical form as shown in the equation below, where the variables $x_0$ and $y_0$ are the 2-D coordinates of the beacon position relative to its environment, and $r_0$ is the distance between the beacon and the ID tag. 
+\medskip
+\begin{equation*}
+	(x-x_{0})^2 + (y-y_{0})^2 = r_{0}^2
+\end{equation*}
 
+\medskip
+The same concept applies to the scenario with three beacons and an ID tag. Given the 2-D coordinates the three beacons and their individual distance with respect to the ID tag, three circles can be traced to form an intersection point at the location of the ID tag. Hence, three standard form circle equations are generated to form a system of equations with two unknowns as shown below. The solution to the unknowns, or the intersection coordinates of the ID tag can be obtained by solving such a system.
+
+
+\begin{equation*}
+	(x-x_1)^2 + (y-y_1)^2 = {r_1}^2 
+\end{equation*}
+\begin{equation*}
+	(x-x_2)^2 + (y-y_2)^2 = {r_2}^2 
+\end{equation*}
+\begin{equation*}
+	(x-x_3)^2 + (y-y_3)^2 = {r_3}^2  
+\end{equation*}
+
+\medskip
+The system of three equations can be ultimately simplified to the two equations shown below by expanding and equation elimination,
+
+\begin{equation*}
+	Ax + By = C
+\end{equation*}
+\begin{equation*}
+	Dx + Ey = F
+\end{equation*}
+
+\medskip
+where the representation of constants A, B, C, D, E and F are as follows,
+
+\begin{equation*}
+	A = -2x_1 + 2x_2
+\end{equation*}
+\begin{equation*}
+	B = -2y_1 + 2y_2
+\end{equation*}
+\begin{equation*}
+	C = {r_1}^2 - {r_2}^2 - {x_1}^2 + {x_2}^2 - {y_1}^2 + {y_2}^2
+\end{equation*}
+\begin{equation*}
+	D = -2x_2 + 2x_3
+\end{equation*}
+\begin{equation*}
+	E = -2y_2 + 2y_3
+\end{equation*}
+\begin{equation*}
+	F = {r_2}^2 - {r_3}^2 - {x_2}^2 + {x_3}^2 - {y_2}^2 + {y_3}^2
+\end{equation*}
+
+\medskip
+The system of two equations and two unknowns has the solution as shown below for the 2-D coordinates of an ID tag.
+
+\begin{equation*}
+	x = \frac{CE - FB} {EA - BD}
+\end{equation*}
+\begin{equation*}
+	y = \frac{CD - AF} {BD - AE}
+\end{equation*}
 
 
 \pagebreak
