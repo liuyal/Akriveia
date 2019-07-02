@@ -212,45 +212,50 @@ Controllers mainly handle the model they were paired with, however the id tag co
 The purpose of the Webserver Subsystem is to bridge the GUI and backend by providing a data transfer interface in the form of HTTP REST calls.
 A Webserver architecture is chosen because of its simplicity to implement, widespread adoption, and flexibility.
 
-The Webserver Subsystem will be designed to serve data to a browser, including the the GUI files that are displayed by the browser.
+\bigskip
+The Webserver Subsystem will be designed to serve data to a browser, including the the HTML and Javascript files(GUI files) that are displayed by the browser.
 Once the browser has the GUI files, it will make addiitonal requests to the backend to keep updated information displayed on the GUI.
-The webserver will only allow logged in users to access sensitive data, and only if they have the correct access rights.
+The Webserver Subsystem will only allow logged in users to access sensitive data, and only if they have the correct access rights.
 Electron applications and traditional rendering APIs were also considered, however they each have tradeoffs that do not fit with the design requirements of Akrievia.
 
+\bigskip
 An electron application that utilizes browser technologies merges the backend and frontend together which will reduce deployment flexibility because a monitor connected directly to the DPU will be the only access point to the GUI, however the display will potentially need to be accessed by multiple users at a time, and will introduce high coupling between the frontend display and backend computation.
 Electron applications are also highly single threaded, meaning that they will have higher difficulty in utilizing all cores on the CPU.
 Electron applications are fixed to using javascript for both processing and display, whereas a webserver fixes the GUI implementation to javascript however the real processing is performed in a more performant language such as Rust which is compiled to native binaries.
 
-Compared to a traditional GUI implemented in OpenGL, Vulkan, DirectX, or any higher level libraries that provide interfaces to graphics drivers, a GUI implemented in HTML and Javascript will take much less time to implement because both Javascript and HTML abstract away memory concerns such as pointers, and will never have memory related runtime errors, as guaranteed by the browser.
+\bigskip
+Compared to a traditional GUI implemented using graphics driver interfaces such as OpenGL, Vulkan, DirectX, or any higher level libraries that provide interfaces to graphics drivers, a GUI implemented in HTML and Javascript will take much less time to implement because both Javascript and HTML abstract away memory concerns such as pointers, and will never have memory related runtime errors, as guaranteed by the browser.
 Browsers have widespread adoption, in every GUI based operating system at least one browser is installed by default, making them widespread and widely used.
 Due to widespread adoption, browsers provide the flexibility to display our GUI either on the computer hosting the server itself, or just as easily the GUI can be accessed through another computer at the customers discretion.
-
 
 
 % TODO flesh these out into paras
 functions of the data processor:
 	- collecting data from each beacon
 	- sending commands to each beacon
-	- performing calculations to determine the location of each id tag
-		- time of flight
-			- send a request to id tags, wait for responses and calculate the tof
-		- rssi
-			- NOTE: only breifly mention rssi for pos
-	- serving REST requests from the client webpage
-	- serving static html for new client sessions
 
 \bigskip
 \subsubsection{Beacon Manager Subsystem}
 The role of the beacon manager is to aggregate data from the individual beacon connections, and to give an abstraction for external systems that need not concern themselves with communication details, or how many beacons there actually are.
-
+The Beacon Manager is a singleton, which means there is only one of them in the entire system, and has implications on the design of the rest of the system.
+The most notable design influence is that the beacon manager can quickly become a bottleneck if it performs too much processing directly, and so to prevent this the beacon manager offloads as much work as it can to other subsystems.
 
 \bigskip
 \subsubsection{Serial Beacon Communication Subsystem}
 In the proof of concept design, this actor deals with blocking serial communication with dedicated threads to keep the connection alive and to prevent web requests from blocking.
+This subsystem will remain as bare bones as possible, because it only serves the purpose of quickly creating a working system and will likely be discarded in future iterations of the DPU.
 
 \bigskip
-\subsubsection{Dataprocessing Actor}
-In the proof of concept design, this actor deals with blocking serial communication with dedicated threads to keep the connection alive and to prevent web requests from blocking.
+\subsubsection{Triangulation Processing Subsystem}
+In the final design, the triangulation processing subsystem takes in RSSI and time of flight messages from the beacon manager.
+The triangulation processor waits until it receives enough datapoints, and once it has 3 datapoints from 3 different beacons for one id tag it can perform a location calculation
+While waiting for a full set of data, the incomplete set of data will be stored in a hash table where the mac address of each ID tag is the key and the contents are an array of data points.
+Once the array of datapoints hits the threshhold size of 3 from adding a new datapoint the processor can perform the full triangulation calculation.
+The triangulation calculation can then be used to update the database entry for the corresponding ID tag by the processor.
+To avoid going to the database for realtime updates of the ID tag locations, the ID tag controller will directly query the Triangulation Processor for the most up to date location infromation, reducing latency.
+
+The existance of the Triangulation Processing subsytem is necessary, because the beacon manager will quickly become a bottleneck due to the fact that it is a singleton in a multithreaded system.
+As such, the manager should do as little direct processing and blocking operations itself and instead favor offloading the tasks to other subsystems.
 
 \bigskip
 \subsubsection{UDP Beacon Communication Subsystem}
@@ -261,16 +266,23 @@ UDP was chosen because it has less overhead than TCP, and is more suited for rea
 % discuss database choice - sqlite and why. lead into our models
 \subsection{Database details}
 Akrievia requires a database to persist map, beacon, and user information.
-SQLite was chosen as our database primarily because of its simplicity to setup and minimal footprint.
-Most commonly used in phones and packaged alongside python, SQLite has a stable file format and large userbase which gives us confidence that it wont fail.
+In the time constraints of Capstone, the database will be a central location for data.
+Ideally a production system would support replication of the database to another location, but this is out of scope for the purposes of this course.
+
+\bigskip
+SQLite was chosen primarily because of its simplicity to setup and minimal footprint.
+Most commonly used in phones and packaged alongside python, SQLite has a stable file format and large userbase, and because of this has built a reputation for not failing.
+SQLite is open source, and because of this issues can directly be brought up to the developers along with help from a large amount of experience from the internet due to the large userbase.
+Open source projects are also freely available to browse to learn directly from the codebase when necessary.
+In Akriveia, the database is accesed through model objects to keep concerns local to a single set of similarily structured files, and to keep reusability up in the codebase.
 
 \bigskip
 % discuss how we plan to represent data in the database, tie back to model-view-controller(specifically models, which
 % will implement all of the database queries for the controllers to use.
 \subsubsection{Models}
 Models are used to group database queries and model operations into a single file for each model, increasing reusability of the system.
-Akrievia is expected to maintain three different types of model: maps, id tags, and beacons.
-The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} show their expected data entries and their type, along with each entries expected purpose.
+Akrievia is expected to maintain three different types of models: maps, ID tags, and beacons.
+The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} show their expected data entries and their type for each model, along with the purpose of each entry.
 
 \begin{table}[H]
 \centering
@@ -278,9 +290,10 @@ The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} s
 	\hline
 	\multicolumn{3}{|c|}{User Model} \\
 	\hline
-	Coordinates & 2D Vector & Last known location of the user within the map. \\
-	\hline
 	Data Name & Type & Explanation \\
+
+	\hline
+	Coordinates & 2D Vector & Last known location of the user within the map. \\
 	\hline
 	Emergency Contact & ref:User & Reference to another user as an emergency contact. emergency contacts wont have an employee id or tag id. \\
 	\hline
@@ -312,6 +325,7 @@ The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} s
 	\multicolumn{3}{|c|}{Beacon Model} \\
 	\hline
 	Data Name & Type & Explanation \\
+
 	\hline
 	Mac address & String & unique device identifier for beacon, table key.\\
 	\hline
@@ -331,6 +345,7 @@ The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} s
 \begin{tabular}{| m{3cm} | m{3cm} | m{9.5cm} |}
 	\hline
 	\multicolumn{3}{|c|}{Map Model} \\
+
 	\hline
 	Data Name & Type & Explanation \\
 	\hline
@@ -338,7 +353,7 @@ The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} s
 	\hline
 	Floor number & String & Table key, unique floor number of the map, this is not an integer to accomodate the possibility of odd floor naming conventions. e.g. floor 1A, or basement. \\
 	\hline
-	Bitmap data & binary & Bitmap for the floor blueprints to view on the gui. \\
+	Bitmap data & Binary & Bitmap for the floor blueprints to view on the gui. \\
 	\hline
 \end{tabular}
 \caption{Map Model}
@@ -375,9 +390,17 @@ Table~\ref{controllers_table} shows the list of expected controllers in the DPU,
 % describe how the view will work, but dont go into details about the GUI visuals - leaving that for the ui appendix
 % mention browser, js, html, rust -> webassembly compile
 \subsection{View}
-% TODO make the ref actually point to something valid
-Please see the \ref{ui-appendix} for additional details on the UI layout.
+The view is the last component of the MVC philosophy.
+The job of the view is to display data in a friendly and easy to use GUI.
+In Akriveia, the view is a static webpage served by the Actix Webserver, and is compiled seperately from the backend.
+Traditionally, the browser would render HTML and Javascript served by the backend webserver, however in this project the frontend is written entirely in Rust and compiled to a small HTML stub and webassembly which then dynamically generates more HTML for the browser to render.
+The Yew crate makes this all possible, which is a Rust package that leverages the webassembly LLVM backend for Rust.
+Yew is influenced by Facebook's React, a widely used javascript library to generate dynamic webpages.
 
+% TODO flesh out more
+
+\bigskip
+Please see the UI Appendix for additional details on the UI layout.
 
 % discuss security considerations, talk about features of rust which help us in this regard.
 \subsection{Security}
