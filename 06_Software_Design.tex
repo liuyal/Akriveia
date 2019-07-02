@@ -209,6 +209,23 @@ Controllers mainly handle the model they were paired with, however the id tag co
 \bigskip
 % discus the purpose of the webserver, and how it will be used to control the other subsystems dictated by user command.
 \subsubsection{Webserver Subsystem}
+The purpose of the Webserver Subsystem is to bridge the GUI and backend by providing a data transfer interface in the form of HTTP REST calls.
+A Webserver architecture is chosen because of its simplicity to implement, widespread adoption, and flexibility.
+
+The Webserver Subsystem will be designed to serve data to a browser, including the the GUI files that are displayed by the browser.
+Once the browser has the GUI files, it will make addiitonal requests to the backend to keep updated information displayed on the GUI.
+The webserver will only allow logged in users to access sensitive data, and only if they have the correct access rights.
+Electron applications and traditional rendering APIs were also considered, however they each have tradeoffs that do not fit with the design requirements of Akrievia.
+
+An electron application that utilizes browser technologies merges the backend and frontend together which will reduce deployment flexibility because a monitor connected directly to the DPU will be the only access point to the GUI, however the display will potentially need to be accessed by multiple users at a time, and will introduce high coupling between the frontend display and backend computation.
+Electron applications are also highly single threaded, meaning that they will have higher difficulty in utilizing all cores on the CPU.
+Electron applications are fixed to using javascript for both processing and display, whereas a webserver fixes the GUI implementation to javascript however the real processing is performed in a more performant language such as Rust which is compiled to native binaries.
+
+Compared to a traditional GUI implemented in OpenGL, Vulkan, DirectX, or any higher level libraries that provide interfaces to graphics drivers, a GUI implemented in HTML and Javascript will take much less time to implement because both Javascript and HTML abstract away memory concerns such as pointers, and will never have memory related runtime errors, as guaranteed by the browser.
+Browsers have widespread adoption, in every GUI based operating system at least one browser is installed by default, making them widespread and widely used.
+Due to widespread adoption, browsers provide the flexibility to display our GUI either on the computer hosting the server itself, or just as easily the GUI can be accessed through another computer at the customers discretion.
+
+
 
 % TODO flesh these out into paras
 functions of the data processor:
@@ -229,6 +246,10 @@ The role of the beacon manager is to aggregate data from the individual beacon c
 
 \bigskip
 \subsubsection{Serial Beacon Communication Subsystem}
+In the proof of concept design, this actor deals with blocking serial communication with dedicated threads to keep the connection alive and to prevent web requests from blocking.
+
+\bigskip
+\subsubsection{Dataprocessing Actor}
 In the proof of concept design, this actor deals with blocking serial communication with dedicated threads to keep the connection alive and to prevent web requests from blocking.
 
 \bigskip
