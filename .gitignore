@@ -7,4 +7,6 @@
 **.blg
 **.bbl
 **.pdf
+**.xml
+**.bcf
 build/
