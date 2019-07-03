@@ -5,7 +5,6 @@
 \usepackage{bookmark}
 \usepackage{lipsum}
 \usepackage{graphicx}
-\usepackage[noadjust]{cite}
 \usepackage{float}
 \usepackage[numbib]{tocbibind}
 \usepackage{multirow}
@@ -22,9 +21,10 @@
 \setcounter{secnumdepth}{4}
 \usepackage{fancyhdr}
 
-%\usepackage{biblatex}
-%\addbibresource{bibi.bib}
-
+%\usepackage[noadjust]{cite}
+\usepackage[sorting=none, backend=biber]{biblatex}
+\addbibresource{bibi.bib} 
+\addbibresource{bibi_uid.bib} 
 
 \fancypagestyle{logo}{
     \fancyhf{} % clears header/footer
@@ -34,7 +34,6 @@
     \fancyfoot[LE,RO]{\thepage}
 }
 \pagestyle{logo}
-
 
 % Glossary
 \usepackage[utf8]{inputenc}
@@ -77,7 +76,7 @@
 \pagebreak
 \input{07_Conclusion.tex}
 \pagebreak
-\input{08_References.tex}
+\printbibliography[heading=bibnumbered, title={References}, nottype=book]
 \pagebreak
 \input{09_Appendix_Test_Plan.tex}
 \pagebreak

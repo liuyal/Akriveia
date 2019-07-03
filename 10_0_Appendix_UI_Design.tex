@@ -5,7 +5,6 @@
 %\usepackage{bookmark}
 %\usepackage{lipsum}
 %\usepackage{graphicx}
-%\usepackage[noadjust]{cite}
 %\usepackage{float}
 %\usepackage[numbib]{tocbibind}
 %\usepackage{multirow}
@@ -29,11 +28,15 @@
 %}
 %\pagestyle{logo}
 %
+%%\usepackage[noadjust]{cite}
+%\usepackage[sorting=none, backend=biber]{biblatex}
+%\addbibresource{bibi_uid.bib} 
 %
 %\begin{document}
 %\
-
+%
 \setcounter{section}{9}
+
 \section{Appendix B: User Interface and Appearance}
 \bigskip
 \input{10_1_Introduction.tex}
@@ -52,7 +55,7 @@
 \pagebreak
 \input{10_8_Conclusion.tex}
 \pagebreak
-\input{10_9_References.tex}
+\printbibliography[heading=bibnumbered, title={Appendix References},type=book]
 \pagebreak
 
 

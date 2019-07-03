@@ -9,4 +9,6 @@
 **.pdf
 **.toc
 **.tof
+**.xml
+**.bcf
 build/
