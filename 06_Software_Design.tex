@@ -25,30 +25,30 @@ Akrivia is composed of two primary languages, the DPU is implemented entirely in
 \medskip
 \subsubsection{Software Environments}
 The data processing unit requires an operating system to perform mundane CPU scheduling for the multithreaded application, wifi drivers, and a proper file system to handle a database.
-As such, the linux - and more specifically the debian destribution of linux - was chosen as the DPU operating system.
+As such, the linux - and more specifically the \Gls{Debian} destribution of linux - was chosen as the DPU operating system.
 
 \bigskip
 % TODO add a citation for debian stability
 Debian is widely praised for its stability, which makes it ideal for a data processing unit because Akriveia simply cannot fail as lives depend on it to work.
-Debian brings in the aptitude package manager for dependency management, which allows for quick installation of required driver updates, operating system updates, and any additional packages required by Akriveia.
+Debian brings in the \Gls{Aptitude} package manager for dependency management, which allows for quick installation of required driver updates, operating system updates, and any additional packages required by Akriveia.
 Debian's Aptitude has the advantage compared to other package managers because it removes the need to worry about dependencies, manual installation, and even installation of sub dependencies.
-As Debian is a linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily x86-64 and ARM64 - giving Akriveia the flexibility to run almost anywhere with little cost.
+As Debian is a linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily \Gls{x86-64} and \Gls{ARM64} - giving Akriveia the flexibility to run almost anywhere with little cost.
 
 \bigskip
-Debian is contrasted by another linux distribution called arch linux which uses a different package management paradigm called rolling releases, favoring earlier adoption of newer packages to more quickly introduce features at the cost of stability.
+Debian is contrasted by another linux distribution called arch linux which uses a different package management paradigm called \Gls{Rolling Releases}, favoring earlier adoption of newer packages to more quickly introduce features at the cost of stability.
 Another alternative to Debian is Windows, however Windows suffers from high power usage, poor package management, and heavy reliance on proprietary software, whereas linux is free of cost, open source, and has a more inclusive licence.
 
 \pagebreak
 \subsubsection{Software Languages}
 % TODO revise with word flow in mind. segmented thoughts in each sentence.
-The DPU is written in Rust.
+The DPU is written in \Gls{Rust}.
 % TODO make the citation work
 Rust is a newer language compared to C, it was created in 2006 \cite{rust_graydon_interview} and its first stable version was released in 2015 \cite{rust_releases}, taking inspiration from C++ and Haskell in its design.
 Rust is a systems language designed for stability and robustness, it eliminates entire classes of errors using its borrow checking system, a feature unique to this language.
 The borrow checking system defines a strict set of rules to follow, and fails to compile if these rules are broken - even if the application is otherwise logically correct.
 As a systems language, Rust is compiled to binary rather than executed as a script through an interpreter however this does not stop it from being a higher order language.
-The borrow checker statically analyzes the code being compiled, and in doing so is able to statically determine when to allocate and more importantly when to free heap allocated memory.
-Fundamentally, this means that without a garbage collector and without manually managing memory, Rust provides a mechanism to manage memory without a runtime cost while behaving like a garbage collected language providing great flexibility in expressiveness and allowing higher order operations without taking brain resources.
+The \Gls{Borrow Checker} statically analyzes the code being compiled, and in doing so is able to statically determine when to allocate and more importantly when to free heap allocated memory.
+Fundamentally, this means that without a \Gls{Garbage Collector} and without manually managing memory, Rust provides a mechanism to manage memory without a runtime cost while behaving like a garbage collected language providing great flexibility in expressiveness and allowing higher order operations without taking brain resources.
 
 \bigskip
 The beacon and id tag are written in C++.
@@ -65,11 +65,11 @@ Rust code will follow the the Rustfmt standard of source layouts, Rustfmt is a t
 % introduce major libraries that largely dictate how we implement the system.
 \medskip
 \subsubsection{Frameworks}
-Akriveia's main DPU framework is called Actix. Actix is an Actor Framework that follows the Actor Model paradigm of multithreaded workloads. The Actor Model operates on objects called actors to orchestrate concurrent computations, it does this by treating actors as seperate entities that execute on an event loop on one or more threads, where the event loop simply looks at a list of events generated by actors and executes each event in order as long as it is not blocked by other events.
+Akriveia's main DPU framework is called \Gls{Actix}. Actix is an \Gls{Actor} Framework that follows the \Gls{Actor Model} paradigm of multithreaded workloads. The Actor Model operates on objects called actors to orchestrate concurrent computations, it does this by treating actors as seperate entities that execute on an event loop on one or more threads, where the event loop simply looks at a list of events generated by actors and executes each event in order as long as it is not blocked by other events.
 Events are generated when actors pass messages to eachother, in response the actor that receives the message can modify its local state, create other actors, send messages to other actors, execute arbitrary logic, and finally send a response to the message. This programming paradigm prevents the need for locks (and by extension, deadlocks) because the message passing mechanism alleviates the need to manually manage concurrency, opting to use atomics instead.
 
 \bigskip
-Actix was chosen as the primarily to give the flexibility of multithreading without incurring the typical thought process overhead associated with multithreading. Additionally, as a framework rather than a library, Actix serves as the basis to make REST webservers through the package Actix Web, which is further discussed under the \ref{software_libraries} section.
+Actix was chosen as the primarily to give the flexibility of multithreading without incurring the typical thought process overhead associated with multithreading. Additionally, as a framework rather than a library, Actix serves as the basis to make REST webservers through the package \Gls{Actix Web}, which is further discussed under the \ref{software_libraries} section.
 
 % discuss which libraries we are using, and how they will be used by us
 \subsubsection{Libraries}
@@ -79,7 +79,7 @@ Actix was chosen as the primarily to give the flexibility of multithreading with
 \centering
 \begin{tabular}{ | m{3.25cm} | m{12.5cm} |}
 	\hline
-	\textbf{Actix Web} & The Actix Web library is a crate that extends the functionality of the Actix framework to create HTTP webservers. \\
+	\textbf{Actix Web} & The Actix Web library is a crate that extends the functionality of the Actix framework to create \Gls{HTTP} webservers. \\
 	\hline
 	\textbf{Yew} & Yew is a crate that extends Rusts ability to compile to Web Assembly by adding the ability to dynamically generate html on the client in response to user events and DPU responses. This library is very similar to Facebook's React for javascript. \\
 	\hline
@@ -137,7 +137,7 @@ To further discuss the Actix threading model, some definitions are required:
 \end{enumerate}
 Once instantiated, the arbitor spawns as many threads as indicated by its constructor and waits for actors to be spawned within the thread pool.
 By default, the number of threads in the pool is the number of cores on the CPU.
-The arbiter is an environment for actors to execute, and as actors are spawned into the thread pool, they can send messages to other actors, or create other actors in response to external events such as from the file system or HTTP requests.
+The \Gls{Arbiter} is an environment for actors to execute, and as actors are spawned into the thread pool, they can send messages to other actors, or create other actors in response to external events such as from the file system or HTTP requests.
 As shown in Figure~\ref{actix_thread_model}, the arbitor manages its own threads, which are all spawned at startup rather than on demand.
 Within each thread, the arbitor executes the event loop, which polls its queue, and acts on any messages in the queue by delegating the task to the actor the message is bound to.
 To pass a message to another actor, the sender must have the address of the recipient so that the arbitor can determine the destination, rather than a broadcasting system; this is shown in Figure~\ref{actix_messages}. 
@@ -173,7 +173,7 @@ In the proof of concept, the DPU creates an HTTP server actor and a beacon manag
 The HTTP server waits on web requests, delegating tasks to the beacon manager and polling it for the necessary information.
 On startup, the beacon manager queries the number of serial arduino devices, spawning a thread for each device.
 Each thread spawned by the beacon manager represents a serial connection to a beacon.
-The beacon manager sends messages using a traditional Multiple Producer Single Consumer Message Queue (MPSC) defined in the Rust standard library, while the each serial communcation thread returns messages back to the manager through the actix message passing system.
+The beacon manager sends messages using a traditional Multiple Producer Single Consumer Message Queue (\Gls{MPSC}) defined in the Rust standard library, while the each serial communcation thread returns messages back to the manager through the actix message passing system.
 Figure~\ref{software_poc_arch} gives a graphical representation of the previous description.
 As a side note, Actix uses MPSC internally for its message passing system.
 
@@ -183,7 +183,7 @@ As shown in figure~\ref{software_final_arch}, a major change is the removal of t
 The beacon manager remains, but instead controls the udp actor rather than the serial connections.
 An additional role of the beacon manager is to delegate computation of triangulation to the triangulation processor actor, which will save data in memory until there are at least 3 data points for a single it tag to determine its position.
 The triangluation processor makes the positional calculation and saves new position to disk via the id tag model, which abstracts the database query.
-The beacon and map models perform a similar role, abstracting their associated database queries into a single location following MVC.
+The beacon and map models perform a similar role, abstracting their associated database queries into a single location following \Gls{MVC}.
 Controllers mainly handle the model they were paired with, however the id tag controller will also query the triangulation processor for realtime positional data and the beacon controller commands beacons indirectly through the beacon manager.
 
 \bigskip
@@ -199,7 +199,7 @@ Electron applications are also highly single threaded, meaning that they will ha
 Electron applications are also fixed to using a single language, Javascript, for both processing and display, whereas a webserver fixes the GUI implementation to Javascript however leaves the backend to a mucher broader range of languages where processing power is required.
 
 \pagebreak
-Compared to a GUI implemented using graphics driver interfaces such as OpenGL, Vulkan, DirectX, or any higher level libraries that provide interfaces to graphics drivers, a GUI implemented in HTML and Javascript will take much less time to implement because both Javascript and HTML abstract away memory concerns such as pointers, and will never have memory related runtime errors, as guaranteed by the browser. Browsers have widespread adoption, in every GUI based operating system at least one browser is installed by default, making them widespread and widely used.
+Compared to a GUI implemented using graphics driver interfaces such as OpenGL, Vulkan, DirectX, or any higher level libraries that provide interfaces to graphics drivers, a GUI implemented in HTML and Javascript will take much less time to implement because both Javascript and HTML abstract away memory concerns such as pointers, and will never have memory related runtime errors, as guaranteed by the browser. Browsers have widespread adoption, in every GUI based operating system (\Gls{OS})at least one browser is installed by default, making them widespread and widely used.
 Due to widespread adoption, browsers provide the flexibility to display the GUI either on the computer hosting the server itself, or just as easily the GUI can be accessed through another computer at the customers discretion.
 
 \bigskip
@@ -233,7 +233,7 @@ Electron applications and traditional rendering APIs were also considered, howev
 
 \bigskip
 A direct alternative to Actix Web is a web framework called Rocket.
-Rocket behaves more like a traditional web server: supporting server side rendering and json parsing out of the box.
+Rocket behaves more like a traditional web server: supporting \Gls{Server Side Rendering} and json parsing out of the box.
 This functionality comes at a cost in multiple ways, first rocket is primarily single threaded, second Rocket adds new features at the cost of reducing flexibility, and third rocket does not directly support the Actix Actor system, leaving all non-webserver code up to the developer to implement on their own.
 In comparison, Actix Web does support and extend the Actor system which makes for a more integrated and unified codebase, and by using the Actor system within the webserver, multithreadability is easily added as needed on a per endpoint basis.
 Rocket's additional out-of-the-box features are really just Rust crates in disguise, and so by using Cargo(Rusts package manager for crates) the same functonality can be quickly implemented within an Actix webserver at very little additional time cost.
@@ -401,7 +401,7 @@ The job of the view is to display data in a friendly and easy to use GUI.
 In Akriveia, the view is a static webpage served by the Actix Webserver, and is compiled seperately from the backend.
 Traditionally, the browser would render HTML and Javascript served by the backend webserver, however in this project the frontend is written entirely in Rust and compiled to a small HTML stub and webassembly which then dynamically generates more HTML for the browser to render.
 The Yew crate makes this all possible, which is a Rust package that leverages the webassembly LLVM backend for Rust.
-Yew is influenced by Facebook's React, a widely used Javascript library to generate dynamic webpages.
+Yew is influenced by Facebook's \Gls{React}, a widely used Javascript library to generate dynamic webpages.
 
 \bigskip
 As Yew is influenced by React, it is very possible to simply write the GUI using React.
@@ -409,7 +409,7 @@ The drawback to using React is that it is written in Javascript, meaning that an
 An additional drawback to using React is that struct definitions and interfaces would need to be implemented twice, once in each language, adding tedious boilerplate.
 The modern Javascript development environment as a whole is also getting fairly unweildy, as of 2019 more packages are being added which each introduce transformation steps of the code.
 An example of this workflow could involve writing typescript which is transformed into Javascript, then minimizing the Javascript into unreadable but more performant minimized Javascript.
-Additional steps would similarily be added for babel scripts.
+Additional steps would similarily be added for \Gls{Babel} scripts.
 In the example both of the steps are added to the build manually using webpack which incurs more development overhead to understand and configuration.
 Yew on the otherhand has a opaque compilation step that transforms Rust code into webassembly, which does not require any additional build steps to configure other than installing the package.
 One of the downsides to using Rust compiled to webassebly is that it simply cannot be debugged since it is more similar to binary, but this issue has not arisen yet since framework is very simple to use.
@@ -419,7 +419,7 @@ It does seem, in theory, possible to compile Rust to Javascript which can be deb
 Server Side rendering of templates using libraries such as Askama and Tera were also considered instead of creating a single page website.
 This method of rendering is fantastic for form submissions, however realtime and dynamic pages strain the abilities of server side rendering.
 Akrievia will require realtime updates of maps, which will look and perform much better when rendered on the client side rather than having the backend needlessly rerender the same page with different data.
-Typically, when realtime functionality is required for server side rendered applications, some pages are converted to using client side rendering while others remain server side rendered, requiring libraries like React or JQuery.
+Typically, when realtime functionality is required for server side rendered applications, some pages are converted to using client side rendering while others remain server side rendered, requiring libraries like React or \Gls{JQuery}.
 By simply using client side rendering, the frontend is consistenly implemented throughout, rather than requiring more than one type of rendering.
 
 \bigskip
