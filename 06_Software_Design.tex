@@ -14,12 +14,10 @@
 % breifly reintroduce important topics that the user will need to be reminded of
 \subsection{Software Overview}
 % TODO revise
-The Akriveia system is comprised of 3 different devices, namely: the data processor, beacons, and id tags; this device diversity plays a large role in the software choice for the beacons and id tags.
+The Akriveia system is comprised of 3 different devices, namely: the data processor, beacons, and ID tags; this device diversity plays a large role in the software choice for the beacons and id tags.
 \smallskip
 The Akriveia data processor is the primary access point for Administrators and First Responders, of whom will be presented a Graphical User Interface served by the data processor in addition to handling commands from the client.
-The software on the server is written entirely in rust, including the static client side webpage.
-
-
+The software on the server is written entirely in Rust, including the static client side webpage.
 
 \smallskip
 The requirements for each device are different, however the id tags and beacons are able to share a similar environment.
@@ -28,7 +26,7 @@ As such Akriveia will require two different software environments.
 \bigskip
 % language choices, formatting, standards, libraries
 \subsection{Software Stack}
-Akrivia is composed of two primary languages, the server is implemented entirely in rust while the beacons and id tags use C++.
+Akrivia is composed of two primary languages, the server is implemented entirely in Rust while the beacons and ID tags use C++.
 
 \bigskip
 \subsubsection{Software Environments}
@@ -40,7 +38,7 @@ As such, the linux - and more specifically the debian destribution of linux - wa
 Debian is widely praised for its stability, which makes it ideal for a data processing server because Akriveia simply cannot fail as lives depend on it to work.
 Debian brings in the aptitude package manager for dependency management, which allows for quick installation of required driver updates, operating system updates, and any additional packages required by Akriveia.
 Debian's Aptitude has the advantage compared to other package managers because it removes the need to worry about dependencies, manual installation, and even installation of sub dependencies.
-As Debian is a linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily x86-84 and ARM64 - giving Akriveia the flexibility to run almost anywhere with little cost.
+As Debian is a linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily x86-64 and ARM64 - giving Akriveia the flexibility to run almost anywhere with little cost.
 
 \bigskip
 Debian is contrasted by another linux distribution called arch linux which uses a different package management paradigm called rolling releases, favoring earlier adoption of newer packages to more quickly introduce features at the cost of stability.
@@ -49,14 +47,14 @@ Another alternative to Debian is Windows, however Windows suffers from high powe
 \bigskip
 \subsubsection{Software Languages}
 % TODO revise with word flow in mind. segmented thoughts in each sentence.
-The server is written in rust.
+The server is written in Rust.
 % TODO make the citation work
 Rust is a newer language compared to C, it was created in 2006 \cite{rust_graydon_interview} and its first stable version was released in 2015 \cite{rust_releases}, taking inspiration from C++ and Haskell in its design.
 Rust is a systems language designed for stability and robustness, it eliminates entire classes of errors using its borrow checking system, a feature unique to this language.
 The borrow checking system defines a strict set of rules to follow, and fails to compile if these rules are broken - even if the application is otherwise logically correct.
-As a systems language, rust is compiled to binary rather than executed as a script through an interpreter however this does not stop it from being a higher order language.
+As a systems language, Rust is compiled to binary rather than executed as a script through an interpreter however this does not stop it from being a higher order language.
 The borrow checker statically analyzes the code being compiled, and in doing so is able to statically determine when to allocate and more importantly when to free heap allocated memory.
-Fundamentally, this means that without a garbage collector and without manually managing memory, rust provides a mechanism to manage memory without a runtime cost while behaving like a garbage collected language providing great flexibility in expressiveness and allowing higher order operations without taking brain resources.
+Fundamentally, this means that without a garbage collector and without manually managing memory, Rust provides a mechanism to manage memory without a runtime cost while behaving like a garbage collected language providing great flexibility in expressiveness and allowing higher order operations without taking brain resources.
 
 \bigskip
 The beacon and id tag are written in C++.
@@ -68,7 +66,7 @@ On arduinos, memory is very limited so control is key to fitting our program wit
 \bigskip
 \subsubsection{Software Standards}
 % TODO references here
-Rust code will follow the the rustfmt standard of source layouts, rustfmt is a tool provided by the rust project that automatically formats all source in the standard format. The rust compiler also provides a few warnings for common formatting issues builtin, which will be heeded.
+Rust code will follow the the Rustfmt standard of source layouts, Rustfmt is a tool provided by the Rust project that automatically formats all source in the standard format. The Rust compiler also provides a few warnings for common formatting issues builtin, which will be heeded.
 
 \bigskip
 C++ will follow the iso C++ programming standards \cite{cpp_core_guidelines}. The arduino style guide \cite{arduino_style_guide} was also considered, however the rules list they present is incomplete and more ad hoc than a full style guide.
@@ -97,7 +95,7 @@ Actix was chosen as the primarily to give the flexibility of multithreading with
 	\hline
 	\textbf{Serial Port} & Enables serial communication over USB between the server and beacons.\\
 	\hline
-	\textbf{Rust Standard Libraries} & This is the standard Rust runtime library, and contains many useful boilerplate functions and generic types. This library is included with the basic installation of rustc. \\
+	\textbf{Rust Standard Libraries} & This is the standard Rust runtime library, and contains many useful boilerplate functions and generic types. This library is included with the basic installation of Rustc. \\
 	\hline
 \end{tabular}
 \caption{Akriveia Dependencies - Rust}
@@ -153,20 +151,20 @@ As shown in Figure~\ref{actix_thread_model}, the arbitor manages its own threads
 Within each thread, the arbitor executes the event loop, which polls its queue, and acts on any messages in the queue by delegating the task to the actor the message is bound to.
 To pass a message to another actor, the sender must have the address of the recipient so that the arbitor can determine the destination, rather than a broadcasting system; this is shown in Figure~\ref{actix_messages}.
 
-\begin{figure}[H]
+\begin{figure}
 	\centering
     \includegraphics[scale=0.6]{images/actix_thread_model.png}
     \caption{Actix Thread Model}
     \label{actix_thread_model}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}
 	\centering
     \includegraphics[scale=0.6]{images/actix_message_passing.png}
     \caption{Actix Message Passing}
     \label{actix_messages}
 \end{figure}
 
-The beacons and id tags do not have a full OS, so they can only rely on single threaded interrupt handling to "multitask".
+The beacons and ID tags do not have a full operating system, so they can only rely on single threaded interrupt handling to "multitask".
 Interrupt handling does not provide full concurrency, instead it time slices the single core to provide the illusion of multitasking.
 Interrupt handling is calling a function as a result of an event such as an external device raising a bit high on the CPU, or when a timer goes off.
 In the Proof concept, the bluetooth library uses this functionality to handle connections.
@@ -179,9 +177,9 @@ In the proof of concept, the DPU creates an HTTP server actor and a beacon manag
 The HTTP server waits on web requests, delegating tasks to the beacon manager and polling it for the necessary information.
 On startup, the beacon manager queries the number of serial arduino devices, spawning a thread for each device.
 Each thread spawned by the beacon manager represents a serial connection to a beacon.
-The beacon manager sends messages using a traditional Multiple Producer Single Consumer Message Queue (MSPC) defined in the rust standard library, while the each serial communcation thread returns messages back to the manager through the actix message passing system.
+The beacon manager sends messages using a traditional Multiple Producer Single Consumer Message Queue (MPSC) defined in the Rust standard library, while the each serial communcation thread returns messages back to the manager through the actix message passing system.
 Figure~\ref{software_poc_arch} gives a graphical representation of the previous description.
-As a side note, Actix uses MSPC internally for its message passing system.
+As a side note, Actix uses MPSC internally for its message passing system.
 
 \bigskip
 The prototype and final versions bring in major changes to the software design.
@@ -191,6 +189,23 @@ An additional role of the beacon manager is to delegate computation of triangula
 The triangluation processor makes the positional calculation and saves new position to disk via the id tag model, which abstracts the database query.
 The beacon and map models perform a similar role, abstracting their associated database queries into a single location following MVC.
 Controllers mainly handle the model they were paired with, however the id tag controller will also query the triangulation processor for realtime positional data and the beacon controller commands beacons indirectly through the beacon manager.
+
+\bigskip
+By design, the DPU is a client-server architecture, where the DPU is the server for a browser based client.
+The client-server architecture lends itself to be very flexible and is a very heavily used model for both consumer systems and emergency response systems alike.
+Once the backend starts executing, any computer able to access the IP of the DPU will have access to our system assuming the network is configured in such a way to allow this, conversely with no additional developement work the same server when hooked up to a monitor can act like a client based application by simply accessing localhost on a browser.
+A client-only application lacks this deployment flexibility.
+Variations and alternatives to the client server-architecture were considered, but did not meet the needs of Akriveia, below are some of the choices considered and why they do not fit the role.
+
+\bigskip
+An electron application that utilizes browser technologies merges the backend and frontend together, behaving like a client based application, which will reduce deployment flexibility because a monitor connected directly to the DPU will be the only access point to the GUI, however the display will potentially need to be accessed by multiple users at a time, and will introduce high coupling between the frontend display and backend computation.
+Electron applications are also highly single threaded, meaning that they will have higher difficulty in utilizing all cores on the CPU, wasting money on hardware that could otherwise be used.
+Electron applications are also fixed to using a single language, Javascript, for both processing and display, whereas a webserver fixes the GUI implementation to Javascript however leaves the backend to a mucher broader range of languages where processing power is required.
+
+\bigskip
+Compared to a GUI implemented using graphics driver interfaces such as OpenGL, Vulkan, DirectX, or any higher level libraries that provide interfaces to graphics drivers, a GUI implemented in HTML and Javascript will take much less time to implement because both Javascript and HTML abstract away memory concerns such as pointers, and will never have memory related runtime errors, as guaranteed by the browser.
+Browsers have widespread adoption, in every GUI based operating system at least one browser is installed by default, making them widespread and widely used.
+Due to widespread adoption, browsers provide the flexibility to display our GUI either on the computer hosting the server itself, or just as easily the GUI can be accessed through another computer at the customers discretion.
 
 \begin{figure}[H]
 	\centering
@@ -209,27 +224,45 @@ Controllers mainly handle the model they were paired with, however the id tag co
 \bigskip
 % discus the purpose of the webserver, and how it will be used to control the other subsystems dictated by user command.
 \subsubsection{Webserver Subsystem}
+The purpose of the Webserver Subsystem is to bridge the GUI and backend by providing a data transfer interface in the form of HTTP REST calls.
+A Webserver architecture is chosen because of its simplicity to implement, widespread adoption, and flexibility.
+The view is discussed further in Section~\ref{view_section}.
 
-% TODO flesh these out into paras
-functions of the data processor:
-	- collecting data from each beacon
-	- sending commands to each beacon
-	- performing calculations to determine the location of each id tag
-		- time of flight
-			- send a request to id tags, wait for responses and calculate the tof
-		- rssi
-			- NOTE: only breifly mention rssi for pos
-	- serving REST requests from the client webpage
-	- serving static html for new client sessions
+\bigskip
+The Webserver Subsystem will be designed to serve data to a browser, including the the HTML and Javascript files(GUI files) that are displayed by the browser.
+Once the browser has the GUI files, it will make addiitonal requests to the backend to keep updated information displayed on the GUI.
+The Webserver Subsystem will only allow logged in users to access sensitive data, and only if they have the correct access rights.
+Electron applications and traditional rendering APIs were also considered, however they each have tradeoffs that do not fit with the design requirements of Akrievia.
+
+\bigskip
+A direct alternative to Actix Web is a web framework called Rocket.
+Rocket behaves more like a traditional web server: supporting server side rendering and json parsing out of the box.
+This functionality comes at a cost in multiple ways, first rocket is primarily single threaded, second Rocket adds new features at the cost of reducing flexibility, and third rocket does not directly support the Actix Actor system, leaving all non-webserver code up to the developer to implement on their own.
+In comparison, Actix Web does support and extend the Actor system which makes for a more integrated and unified codebase, and by using the Actor system within the webserver, multithreadability is easily added as needed on a per endpoint basis.
+Rocket's additional out-of-the-box features are really just Rust crates in disguise, and so by using Cargo(Rusts package manager for crates) the same functonality can be quickly implemented within an Actix webserver at very little additional time cost.
 
 \bigskip
 \subsubsection{Beacon Manager Subsystem}
 The role of the beacon manager is to aggregate data from the individual beacon connections, and to give an abstraction for external systems that need not concern themselves with communication details, or how many beacons there actually are.
-
+The Beacon Manager is a singleton, which means there is only one of them in the entire system, and has implications on the design of the rest of the system.
+The most notable design influence is that the beacon manager can quickly become a bottleneck if it performs too much processing directly, and so to prevent this the beacon manager offloads as much work as it can to other subsystems.
 
 \bigskip
 \subsubsection{Serial Beacon Communication Subsystem}
 In the proof of concept design, this actor deals with blocking serial communication with dedicated threads to keep the connection alive and to prevent web requests from blocking.
+This subsystem will remain as bare bones as possible, because it only serves the purpose of quickly creating a working system and will likely be discarded in future iterations of the DPU.
+
+\bigskip
+\subsubsection{Triangulation Processing Subsystem}
+In the final design, the triangulation processing subsystem takes in RSSI and time of flight messages from the beacon manager.
+The triangulation processor waits until it receives enough datapoints, and once it has 3 datapoints from 3 different beacons for one id tag it can perform a location calculation
+While waiting for a full set of data, the incomplete set of data will be stored in a hash table where the mac address of each ID tag is the key and the contents are an array of data points.
+Once the array of datapoints hits the threshhold size of 3 from adding a new datapoint the processor can perform the full triangulation calculation.
+The triangulation calculation can then be used to update the database entry for the corresponding ID tag by the processor.
+To avoid going to the database for realtime updates of the ID tag locations, the ID tag controller will directly query the Triangulation Processor for the most up to date location infromation, reducing latency.
+
+The existance of the Triangulation Processing subsytem is necessary, because the beacon manager will quickly become a bottleneck due to the fact that it is a singleton in a multithreaded system.
+As such, the manager should do as little direct processing and blocking operations itself and instead favor offloading the tasks to other subsystems.
 
 \bigskip
 \subsubsection{UDP Beacon Communication Subsystem}
@@ -238,18 +271,25 @@ UDP was chosen because it has less overhead than TCP, and is more suited for rea
 
 \bigskip
 % discuss database choice - sqlite and why. lead into our models
-\subsection{Database details}
+\subsection{Database}
 Akrievia requires a database to persist map, beacon, and user information.
-SQLite was chosen as our database primarily because of its simplicity to setup and minimal footprint.
-Most commonly used in phones and packaged alongside python, SQLite has a stable file format and large userbase which gives us confidence that it wont fail.
+In the time constraints of Capstone, the database will be a central location for data.
+Ideally a production system would support replication of the database to another location, but this is out of scope for the purposes of this course.
+
+\bigskip
+SQLite was chosen primarily because of its simplicity to setup and minimal footprint.
+Most commonly used in phones and packaged alongside python, SQLite has a stable file format and large userbase, and because of this has built a reputation for not failing.
+SQLite is open source, and because of this issues can directly be brought up to the developers along with help from a large amount of experience from the internet due to the large userbase.
+Open source projects are also freely available to browse to learn directly from the codebase when necessary.
+In Akriveia, the database is accesed through model objects to keep concerns local to a single set of similarily structured files, and to keep reusability up in the codebase.
 
 \bigskip
 % discuss how we plan to represent data in the database, tie back to model-view-controller(specifically models, which
 % will implement all of the database queries for the controllers to use.
-\subsubsection{Models}
+\subsection{Models}
 Models are used to group database queries and model operations into a single file for each model, increasing reusability of the system.
-Akrievia is expected to maintain three different types of model: maps, id tags, and beacons.
-The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} show their expected data entries and their type, along with each entries expected purpose.
+Akrievia is expected to maintain three different types of models: maps, ID tags, and beacons.
+The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} show expected data entries and their type for each model, along with the purpose of each entry.
 
 \begin{table}[H]
 \centering
@@ -257,9 +297,10 @@ The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} s
 	\hline
 	\multicolumn{3}{|c|}{User Model} \\
 	\hline
-	Coordinates & 2D Vector & Last known location of the user within the map. \\
-	\hline
 	Data Name & Type & Explanation \\
+
+	\hline
+	Coordinates & 2D Vector & Last known location of the user within the map. \\
 	\hline
 	Emergency Contact & ref:User & Reference to another user as an emergency contact. emergency contacts wont have an employee id or tag id. \\
 	\hline
@@ -291,6 +332,7 @@ The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} s
 	\multicolumn{3}{|c|}{Beacon Model} \\
 	\hline
 	Data Name & Type & Explanation \\
+
 	\hline
 	Mac address & String & unique device identifier for beacon, table key.\\
 	\hline
@@ -310,6 +352,7 @@ The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} s
 \begin{tabular}{| m{3cm} | m{3cm} | m{9.5cm} |}
 	\hline
 	\multicolumn{3}{|c|}{Map Model} \\
+
 	\hline
 	Data Name & Type & Explanation \\
 	\hline
@@ -317,7 +360,7 @@ The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} s
 	\hline
 	Floor number & String & Table key, unique floor number of the map, this is not an integer to accomodate the possibility of odd floor naming conventions. e.g. floor 1A, or basement. \\
 	\hline
-	Bitmap data & binary & Bitmap for the floor blueprints to view on the gui. \\
+	Bitmap data & Binary & Bitmap for the floor blueprints to view on the gui. \\
 	\hline
 \end{tabular}
 \caption{Map Model}
@@ -352,15 +395,48 @@ Table~\ref{controllers_table} shows the list of expected controllers in the DPU,
 \end{table}
 
 % describe how the view will work, but dont go into details about the GUI visuals - leaving that for the ui appendix
-% mention browser, js, html, rust -> webassembly compile
+% mention browser, js, html, Rust -> webassembly compile
 \subsection{View}
-% TODO make the ref actually point to something valid
-Please see the \ref{ui-appendix} for additional details on the UI layout.
+\label{view_section}
+The view is part of the MVC philosophy.
+The job of the view is to display data in a friendly and easy to use GUI.
+In Akriveia, the view is a static webpage served by the Actix Webserver, and is compiled seperately from the backend.
+Traditionally, the browser would render HTML and Javascript served by the backend webserver, however in this project the frontend is written entirely in Rust and compiled to a small HTML stub and webassembly which then dynamically generates more HTML for the browser to render.
+The Yew crate makes this all possible, which is a Rust package that leverages the webassembly LLVM backend for Rust.
+Yew is influenced by Facebook's React, a widely used Javascript library to generate dynamic webpages.
 
+\bigskip
+As Yew is influenced by React, it is very possible to simply write the GUI using React.
+The drawback to using React is that it is written in Javascript, meaning that an implementation using React would make the language of the backend different from the language of the frontend, incurring overhead when developing.
+An additional drawback to using React is that struct definitions and interfaces would need to be implemented twice, once in each language, adding tedious boilerplate.
+The modern Javascript development environment as a whole is also getting fairly unweildy, as of 2019 more packages are being added which each introduce transformation steps of the code.
+An example of this workflow could involve writing typescript which is transformed into Javascript, then minimizing the Javascript into unreadable but more performant minimized Javascript.
+Additional steps would similarily be added for babel scripts.
+In the example both of the steps are added to the build manually using webpack which incurs more development overhead to understand and configuration.
+Yew on the otherhand has a opaque compilation step that transforms Rust code into webassembly, which does not require any additional build steps to configure other than installing the package.
+One of the downsides to using Rust compiled to webassebly is that it simply cannot be debugged since it is more similar to binary, but this issue has not arisen yet since framework is very simple to use.
+It does seem, in theory, possible to compile Rust to Javascript which can be debugged in the browser, but debugging Javascript which was generated from another language will likely not be a very fruitful exercise.
 
-% discuss security considerations, talk about features of rust which help us in this regard.
+\bigskip
+Server Side rendering of templates using libraries such as Askama and Tera were also considered instead of creating a single page website.
+This method of rendering is fantastic for form submissions, however realtime and dynamic pages strain the abilities of server side rendering.
+Akrievia will require realtime updates of maps, which will look and perform much better when rendered on the client side rather than having the backend needlessly rerender the same page with different data.
+Typically, when realtime functionality is required for server side rendered applications, some pages are converted to using client side rendering while others remain server side rendered, requiring libraries like React or JQuery.
+By simply using client side rendering, the frontend is consistenly implemented throughout, rather than requiring more than one type of rendering.
+
+\bigskip
+Please see the UI Appendix for additional details on the UI layout.
+
+% discuss security considerations, talk about features of Rust which help us in this regard.
 \subsection{Security}
+Due to the properties of Rust, many security concerns regarding bad input data and memory issues are mitigated.
+One such migitation is built in bounds checking of all array accesses, meaning that its not possible to read or write memory that has not been properly allocated by the executing process.
+An additional level of security is that rust reduces the number of invalid computational state, removing the burden from the programmer which could potentially get it wrong, which would create vulnerabilities.
+As rust is a strongly typed language, it also benefits from static type checking which eliminates entire classes of bugs that also could lead to vulnerabilities.
 
+\bigskip
+All stored user data will be encrypted using the latest encryption algorithms, namely the sha3-512 algorithm.
+In memory data will be unencrypted for as short of a time as possible to reduce the surface area of potential attacks.
 
 \bigskip
 
