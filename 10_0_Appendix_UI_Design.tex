@@ -5,7 +5,6 @@
 \usepackage{bookmark}
 \usepackage{lipsum}
 \usepackage{graphicx}
-\usepackage[noadjust]{cite}
 \usepackage{float}
 \usepackage[numbib]{tocbibind}
 \usepackage{multirow}
@@ -30,6 +29,11 @@
 \pagestyle{logo}
 
 
+%\usepackage[noadjust]{cite}
+\usepackage[sorting=none, backend=biber]{biblatex}
+\addbibresource{bibi_uid.bib} 
+
+
 \begin{document}
 \
 
@@ -52,7 +56,7 @@
 \pagebreak
 \input{10_8_Conclusion.tex}
 \pagebreak
-\input{10_9_References.tex}
+\printbibliography[title={Appendix References},type=book]
 \pagebreak
 
 

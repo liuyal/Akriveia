@@ -11,8 +11,6 @@ Due July 07, 2019
 
 pdflatex 10_0_Appendix_UI_Design.tex
 
-bibtex 10_0_Appendix_UI_Design.aux
-
-pdflatex 10_0_Appendix_UI_Design.tex
+biber 10_0_Appendix_UI_Design
 
 pdflatex 10_0_Appendix_UI_Design.tex
