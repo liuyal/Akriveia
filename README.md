@@ -15,7 +15,7 @@ pdflatex _Design_Specification.tex
 ## To generate Reference
 pdflatex _Design_Specification.tex
 
-bibtex _Design_Specification.aux
+biber _Design_Specification
 
 pdflatex _Design_Specification.tex
 
