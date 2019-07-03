@@ -27,7 +27,7 @@ For the proof of concept, the Bluetooth modules on the ESP32 will be used as the
 
 
 \pagebreak
-In the Final design the ESP32 will be incorporated as the main controller unit for both the beacons and ID tags but with Decawave DWM1000 UWB modules as the transceiver. For the beacons the ESP32’s Serial Peripheral Interface (SPI) will be used to interact with the Decawave DWM1000 UWB modules. As for the ID Tags, the ESP32 features a deep sleep mode which reduces power consumption to about 10uA from 260mA (active operations), thus drastically increasing the battery life time. Furthermore, with its wide range of capabilities such as Wi-FI and Bluetooth, a mesh network and be implemented to extend the communication range of the Beacons. A mock-up circuit diagram presenting the SPI interface between the ESP32 and a breakout board for DWM1000 is shown in figure \ref{eps_dwm_circuit}.
+In the Final design the ESP32 will be incorporated as the main controller unit for both the beacons and ID tags but with Decawave DWM1000 UWB modules as the transceiver. For the beacons the ESP32’s Serial Peripheral Interface (SPI) will be used to interact with the Decawave DWM1000 UWB modules. As for the ID Tags, the ESP32 features a deep sleep mode which reduces power consumption to about 10uA from 260mA (active operations), thus drastically increasing the battery life time. By using a touch pin (GPIO 26-23 shown in Figure \ref{esp_pin}) the ESP32 can be woken from deep sleep and resume transmission. Furthermore, with its wide range of capabilities such as Wi-FI and Bluetooth, a mesh network and be implemented to extend the communication range of the Beacons. A mock-up circuit diagram presenting the SPI interface between the ESP32 and a breakout board for DWM1000 is shown in figure \ref{eps_dwm_circuit}.
 
 \medskip
 \begin{figure}[H]
@@ -37,6 +37,13 @@ In the Final design the ESP32 will be incorporated as the main controller unit f
     \label{eps_dwm_circuit}
 \end{figure}
 
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.5]{./images/esp32_pin.png}
+    \caption{ESP32 Pin Layout}
+    \label{esp_pin}
+\end{figure}
 
 
 \pagebreak

@@ -27,7 +27,7 @@ The Proof of concept phase demonstrates the feasibility and functionality of an 
 \bigskip
 ESP32 micro-controllers are used as the main hardware components of the Beacon and ID Tags. The ESP32 is an off the shelf, low-cost, low-power system on a chip micro-controllers with integrated Wi-Fi and dual-mode Bluetooth. Received Signal Strength Indicator (RSSI) from Bluetooth Low Energy (BLE) modules are used to estimate distance between each beacon and ID tag. Each beacon determines the MAC address and a RSSI measurement from the advertising ID Tag. The data is forwarded to the data processing unit - Raspberry Pi, via USB serial communication. The RSSI is then used to estimate distance between each ID Tag and the associating Beacon and the results are output to a simple UI. 
 
-\medskip
+\bigskip
 \begin{figure}[H]
 \centering
     \includegraphics[width=\linewidth]{./images/01_poc.png}
@@ -42,7 +42,7 @@ ESP32 micro-controllers are used as the main hardware components of the Beacon a
 \medskip
 In the Prototype development phase the transceivers will be incorporated with Decawave DWM1000 UWB modules. The DWM1000 UWB uses radio frequencies in the range of 3.5 to 6.5 GHz; this would significantly reduce issues of signal interference or multipath propagation which would occur by using RSSI with BLE. The DWM1000 will be incorporated as the transceiver with the ESP32 as the main MCU as shown in figure \ref{prototype} below. RF data communication functions will be established between four UWB modules with one as the ID Tag and three as the Locator Beacons to demonstrate distance estimation with DWM1000 UWB modules. This will be achieved by using signal fingerprinting to determine transmitter properties such as ToF and unique Tag identifier. Furthermore, trilateration algorithms will be implemented on data processing unit to determine near real time location and coordinates of ID Tags. Initial Implementation of software stack on data processing unit and development of GUI will occur during this phase as well.
 
-\medskip
+\bigskip
 \begin{figure}[H]
 \centering
     \includegraphics[width=\linewidth]{./images/02_prototype.png}
@@ -56,7 +56,7 @@ In the Prototype development phase the transceivers will be incorporated with De
 \medskip
 The final product will demonstrate the fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. Here the addition of ESP32’s Wi-Fi modules can be seen (Figure \ref{final}), as the Beacon will communicate via Wi-Fi communication with the data processing unit. The Wi-Fi network will be a closed network meaning that the network is only share between beacons and the data processing unit to ensure security, reliability and stability. Furthermore, implementation of RF harvesting circuit for ID Tag device charging during deep sleep mode will occur during this stage. All the components of the systems will be fully integrated as a close-to-production product. Component circuits and PCB footprint will be minimized and proper casing will be made to house all electronics. The data processing unit will provide the user with a full GUI to interact with the system along with the fully implemented features such as importable blueprints and multi-floor tracking.
 
-\medskip
+\bigskip
 \begin{figure}[H]
 \centering
     \includegraphics[width=\linewidth]{./images/03_final.png}
@@ -79,7 +79,7 @@ The amplitude represents the strength of an RF signal. The measure for amplitude
 \medskip
 \begin{figure}[H]
 \centering
-    \includegraphics[scale=0.75]{./images/ISL.png}
+    \includegraphics[scale=0.7]{./images/ISL.png}
     \caption{Relationship Between Signal Strength and Distance}
     \label{isl}
 \end{figure}
@@ -102,7 +102,7 @@ Besides RF signal attributes, environmental factors can also influence the integ
 \medskip
 \begin{figure}[H]
 \centering
-    \includegraphics[width=\linewidth]{./images/multipath.png}
+    \includegraphics[scale=1.2]{./images/multipath.png}
     \caption{An Example of Multipath}
     \label{multipath}
 \end{figure}
@@ -113,7 +113,7 @@ Besides RF signal attributes, environmental factors can also influence the integ
 Received Signal Strength Indicator, or RSSI describes the amount of power detected by the receiver during the reception of a packet. It is a metric measured in dBm and can be acquired through BLE API of the ESP32 module. Signal strength is influenced by the inverse square law from the previous section, which states that signal strength decreases exponentially as the distance from the transmitter increases, hence it is possible to estimate the proximity of the receiver from the transmitter based on the changes in measured RSSI value. The distance conversion formula from RSSI to distance is shown below. In the PoC phase, Akriveia uses RSSI as the distance-related metric \cite{R2-5-1}.
 
 \begin{equation*}
-    Distance = 10^{(Measured\_Power - RSSI)/(10*Environmental\_Factor)}
+    Distance = 10^{(Measured\_Power - RSSI)/(10*N)}
 \end{equation*}
 
 \medskip
@@ -123,16 +123,15 @@ Measured power is the expected RSSI at a distance of one meter. This constant va
 N, is the environmental factor constant that ranges from values 2 to 4. It is a value set to adapt to the degree of indoor attenuation, interference and multipath \cite{R2-5-3}.
 
 
-
-\pagebreak
+\medskip
 \subsection{Ultra-Wideband and Time-of-Flight}
 \medskip
 Time of flight, or ToF is a distance related metric that describes the propagation time of a radio signal between a sender and a receiver. Precisely, it is the time it takes for a radio signal to travel from a sender to receiver and back to the sender. Since radio waves are a type of electromagnetic radiation, the travel speed of a radio signal is the speed of light, which is approximately thirty centimeters per nanosecond. Given the speed of light constant and a ToF value, the distance between a sender and a receiver can be computed using the Distance Speed Time formula as shown below \cite{R2-5-1}. To measure ToF in the nanosecond scale, Akriveia will employ the Ultra-Wideband (UWB) technology by using the DWM1000 module in the prototype and final product phase.
 
+\medskip
 \begin{equation*}
     Distance = Speed\:of\:light * ToF
 \end{equation*}
-
 
 \medskip
 In narrowband systems, measuring signal arrival times with accuracy is a difficult task without complex algorithms. Due to bandwidth limitations, radios in narrowband systems cannot resolve signals influenced by multipath and may assume all received subpath signals arrived at the same time \cite{R2-5-2}. Fortunately, multipath components can be resolved using UWB radios due to larger signal bandwidth. UWB radios are formerly known as pulse radios as they send signals in short bursts called chips. The chips are radio energy pulses that carry information over a large bandwidth to counter the effects of multipath fading and interference that are present in conventional narrowband signals such as 2.4G/5G Wi-Fi. Due to the short duration of chips, the effects of multipath are also received as echoes that do not interfere with the original signal \cite{R2-5-1}. As a result, UWB provides a great solution to indoor localization by allowing high precision ToF measuring capabilities.

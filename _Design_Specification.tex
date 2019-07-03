@@ -20,9 +20,12 @@
 \usepackage{amsmath}
 \usepackage{pdfpages}
 \setcounter{secnumdepth}{4}
-
 \usepackage{fancyhdr}
-\setlength{\headheight}{50pt}
+
+%\usepackage{biblatex}
+%\addbibresource{bibi.bib}
+
+
 \fancypagestyle{logo}{
     \fancyhf{} % clears header/footer
     \renewcommand\bottomfraction{0.9}
@@ -42,17 +45,17 @@
 
 \begin{document}
 
-%\setboolean{@twoside}{false}
-%\includepdf[pages={1}]{./images/_Letter_of_transmittal.pdf}
-%\setboolean{@twoside}{false}
-%\includepdf[pages={1}]{./images/title_page_white.pdf}
+\setboolean{@twoside}{false}
+\includepdf[pages={1}]{./images/_Letter_of_transmittal.pdf}
+\setboolean{@twoside}{false}
+\includepdf[pages={1}]{./images/title_page_white.pdf}
 
 \input{00_Abstract.tex}
 \pagebreak
 \clearpage
 \printglossaries
 \pagebreak
-\begin{spacing}{0.90}
+\begin{spacing}{1}
 \tableofcontents
 \end{spacing}
 \pagebreak
@@ -76,9 +79,9 @@
 \pagebreak
 \input{08_References.tex}
 \pagebreak
- \input{09_Appendix_Test_Plan.tex}
- \pagebreak
-%\input{./03_UI_appendix/10_0_Appendix_UI_Design}
+\input{09_Appendix_Test_Plan.tex}
+\pagebreak
+\input{10_0_Appendix_UI_Design}
 
 
 \end{document}
