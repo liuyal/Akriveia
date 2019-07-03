@@ -108,6 +108,23 @@ Besides RF signal attributes, environmental factors can also influence the integ
 \end{figure}
 
 \pagebreak
+\subsection{Received Signal Strength Indicator}
+\medskip
+Received Signal Strength Indicator, or RSSI describes the amount of power detected by the receiver during the reception of a packet. It is a metric measured in dBm and can be acquired through BLE API of the ESP32 module. Signal strength is influenced by the inverse square law from the previous section, which states that signal strength decreases exponentially as the distance from the transmitter increases, hence it is possible to estimate the proximity of the receiver from the transmitter based on the changes in measured RSSI value. The distance conversion formula from RSSI to distance is shown below. In the PoC phase, Akriveia uses RSSI as the distance-related metric \cite{R2-5-1}.
+
+\begin{equation*}
+    Distance = 10^{(Measured\_Power - RSSI)/(10*Environmental\_Factor)}
+\end{equation*}
+
+\medskip
+Measured power is the expected RSSI at a distance of one meter. This constant value can be acquired by calibration through averaging sufficient number of RSSI values between transceivers placed at one meter apart \cite{R2-5-3}.
+
+\medskip
+N, is the environmental factor constant that ranges from values 2 to 4. It is a value set to adapt to the degree of indoor attenuation, interference and multipath \cite{R2-5-3}.
+
+
+
+\pagebreak
 \subsection{Ultra-Wideband and Time-of-Flight}
 \medskip
 Time of flight, or ToF is a distance related metric that describes the propagation time of a radio signal between a sender and a receiver. Precisely, it is the time it takes for a radio signal to travel from a sender to receiver and back to the sender. Since radio waves are a type of electromagnetic radiation, the travel speed of a radio signal is the speed of light, which is approximately thirty centimeters per nanosecond. Given the speed of light constant and a ToF value, the distance between a sender and a receiver can be computed using the Distance Speed Time formula as shown below \cite{R2-5-1}. To measure ToF in the nanosecond scale, Akriveia will employ the Ultra-Wideband (UWB) technology by using the DWM1000 module in the prototype and final product phase.
