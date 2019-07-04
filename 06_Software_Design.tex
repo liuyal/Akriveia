@@ -7,44 +7,44 @@
 % NOTE: future work would be to build a system to flash new beacons with firmware for the credentials to communicate with the system.
 % NOTE: assume beacons have line of sight to eachother. this allows us to make the callibration phase easier by manually measuring the distance between beacons rather than creating a callibration script.
 
-%Libraries/Packages/Frameworks
-%Software Stack
-
 % discuss the system at a high level, but leave details to subsections
 % breifly reintroduce important topics that the user will need to be reminded of
 \subsection{Software Overview}
 % TODO revise
 \medskip
-The Akriveia system is comprised of 3 different devices, namely: the data processor, beacons, and ID tags; this device diversity plays a large role in the software choice for the beacons and id tags. The Akriveia data processor is the primary access point for Administrators and First Responders, of whom will be presented a Graphical User Interface served by the data processor in addition to handling commands from the client. The software on the server is written entirely in Rust, including the static client side webpage. The requirements for each device are different, however the ID tags and beacons are able to share a similar environment.
-As such the Akriveia Beacon System will require two different software environments.
+The Akriveia system is comprised of 3 different devices, namely: the data processor, beacons, and ID tags; this device diversity plays a large role in the software choice for the beacons and ID tags.
+The Akriveia data processor is the primary access point for Administrators and First Responders, of whom will be presented a Graphical User Interface served by the data processor in addition to handling commands from the client.
+The software on the Data Processing Unit(DPU) is written entirely in Rust, including the static client side webpage.
+The requirements for each device are different, however the ID tags and beacons are able to share a similar environment; as such the Akriveia Beacon System will require two different software environments, one for the DPU and one for the ID tags and beacons.
 
 \medskip
 % language choices, formatting, standards, libraries
 \subsection{Software Stack}
 \medskip
-Akrivia is composed of two primary languages, the DPU is implemented entirely in Rust while the beacons and ID tags use Arduino language.
+Akrivia is composed of two primary languages, the DPU is implemented entirely in Rust while the beacons and ID tags use the Arduino language.
 
 \medskip
 \subsubsection{Software Environments}
 \medskip
-The data processing unit requires an operating system (\Gls{OS}) to perform CPU scheduling for the multi-threaded application, WiFi drivers, and a proper file system to handle a database. As such, the Linux or more specifically the \Gls{Debian} distribution of Linux was chosen as the DPU operating system.
+The data processing unit requires an operating system (\Gls{OS}) to perform CPU scheduling for the multi-threaded application, WiFi drivers, and a proper file system to handle a database.
+As such, Linux or more specifically the \Gls{Debian} distribution of Linux was chosen as the DPU operating system.
 
 \bigskip
-% TODO add a citation for debian stability
 Debian is widely praised for its stability, which makes it ideal for a data processing as the Akriveia Beacon System is designed to operate under emergency situations. Debian brings in the \Gls{Aptitude} package manager for dependency management, which allows for quick installation of required driver updates, operating system updates, and any additional packages required.
 Debian's Aptitude has the advantage compared to other package managers because it removes the need to worry about dependencies, manual installation, and even installation of sub dependencies.
 As Debian is a Linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily \Gls{x86-64} and \Gls{ARM64} - giving Akriveia the flexibility to run on the most basic single board computers.
 
 \bigskip
-Debian is contrasted by another Linux distribution called arch Linux which uses a different package management paradigm called \Gls{Rolling Releases}, favouring earlier adoption of newer packages to more quickly introduce features at the cost of stability. Another alternative to Debian is Windows, however Windows suffers from high power usage, poor package management, and heavy reliance on proprietary software, whereas Linux is open source, free of cost, and has a more inclusive licence.
+Linux has many different flavors, such as the Arch Linux which uses a different package management paradigm called \Gls{Rolling Releases}, favouring earlier adoption of newer packages to more quickly introduce features at the cost of stability.
+\Gls{Rolling Releases} are unsuitable for production servers due to their instability.
+Another alternative to Debian is Windows, however Windows suffers from high power usage, poor package management, and heavy reliance on proprietary software, whereas Linux is open source, free of cost, and has a more inclusive licence.
 
 \pagebreak
 \subsubsection{Software Languages}
 \medskip
-% TODO revise with word flow in mind. segmented thoughts in each sentence.
 The DPU is written in \Gls{Rust}.
-% TODO make the citation work
-Rust is a relatively new language as it was created in 2006 \cite{rust_graydon_interview} and its first stable version was released in 2015 \cite{rust_releases}. Taking inspiration from C++ and Haskell in its design,
+Rust is a relatively new language as it was created in 2006 \cite{rust_graydon_interview} and its first stable version was released in 2015 \cite{rust_releases}.
+Taking inspiration from C++ and Haskell in its design,
 Rust is a systems language designed for stability and robustness, it eliminates entire classes of errors using the borrow checking system, a feature unique to this language.
 The borrow checking system defines a strict set of rules to follow, and fails to compile if these rules are broken - even if the application is otherwise logically correct.
 As a systems language, Rust is compiled to binary rather than executed as a script through an interpreter. However, this does not stop it from being a higher order language.
@@ -142,7 +142,7 @@ By default, the number of threads in the pool is the number of cores on the CPU.
 The \Gls{Arbiter} is an environment for actors to execute, and as actors are spawned into the thread pool, they can send messages to other actors, or create other actors in response to external events such as from the file system or HTTP requests.
 As shown in Figure~\ref{actix_thread_model}, the arbitor manages its own threads, which are all spawned at startup rather than on demand.
 Within each thread, the arbitor executes the event loop, which polls its queue, and acts on any messages in the queue by delegating the task to the actor the message is bound to.
-To pass a message to another actor, the sender must have the address of the recipient so that the arbitor can determine the destination, rather than a broadcasting system; this is shown in Figure~\ref{actix_messages}. 
+To pass a message to another actor, the sender must have the address of the recipient so that the arbitor can determine the destination, rather than a broadcasting system; this is shown in Figure~\ref{actix_messages}.
 
 \bigskip
 The beacons and ID tags do not have a full operating system, so they can only rely on single threaded interrupt handling to "multitask".
