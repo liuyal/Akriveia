@@ -32,6 +32,12 @@
 \usepackage[sorting=none, backend=biber]{biblatex}
 \addbibresource{bibi_uid.bib} 
 
+% Glossary
+\usepackage[utf8]{inputenc}
+\usepackage{glossaries}
+\makeglossaries
+\input{00_Glossary.tex}
+
 \begin{document}
 \
 \setcounter{section}{9}
@@ -53,7 +59,7 @@
 \pagebreak
 \input{10_8_Conclusion.tex}
 \pagebreak
-\printbibliography[title={Appendix References},type=book]
+\printbibliography[heading=bibnumbered, title={Appendix References},type=book]
 \pagebreak
 
 
