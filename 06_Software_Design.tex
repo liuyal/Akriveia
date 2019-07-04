@@ -428,8 +428,10 @@ In Akriveia, the view is a static webpage served by the Actix Webserver, and is 
 Traditionally, the browser renders HTML and Javascript served by the backend webserver, however in this project the frontend is written entirely in Rust and compiled to a small HTML stub and webassembly which then dynamically generates more HTML for the browser to render.
 The benefit of this approach is that is creates a strong seperation between the view and controller, it also greatly reduces the number of endpoints that need to be implemented on the controller which reduces code duplication and reduces surface area of the webserver - which reduces the possiblity of exploitation by reducing exposure to a small set of well defined operations.
 % TODO
-The Yew crate makes this all possible, which is a Rust package that leverages the webassembly LLVM backend for Rust.
-Yew is influenced by Facebook's \Gls{React}, a widely used Javascript library to generate dynamic webpages.
+Client side Rust is possible via the Yew crate, which is a Rust package that leverages the webassembly LLVM backend for Rust.
+Yew adds additional facilities to Rust for webassembly generation such as macros that allow HTML to be written inlined to Rust, similar to Reacts JSX.
+Yew also supports the concept of Agents, which is their version of Actors inspired by Actix and Erlang.
+Yew also has the ability to interact with npm packages, in case the functionality is not already implemented in Rust.
 
 \bigskip
 As Yew is influenced by React, it is very possible to simply write the GUI using React.
@@ -465,13 +467,14 @@ As rust is a strongly typed language, it also benefits from static type checking
 All stored user data will be encrypted using the latest encryption algorithms, namely the sha3-512 algorithm.
 In memory data will be unencrypted for as short of a time as possible to reduce the surface area of potential attacks.
 
-
 % MOVED BEACON AND ID TAG INTO HARDWARE SECTION
 
 \pagebreak
 \subsection{Software Design Requirements}
 \medskip
-The Akriveia Beacon system is composed of an intricate software stack developed in rust. The data processing unit is the main computational unit and will be implemented with trilateration algorithms to locate ID tag positions in near real time. In order for the software system to be reliable, secure and accurate the following design specifications were made.
+The Akriveia Beacon system is composed of an intricate software stack developed in rust.
+The data processing unit is the main computational unit and will be implemented with trilateration algorithms to locate ID tag positions in near real time.
+In order for the software system to be reliable, secure and accurate the following design specifications were made.
 
 \medskip
 \bgroup
@@ -480,7 +483,7 @@ The Akriveia Beacon system is composed of an intricate software stack developed 
 \centering
 \begin{tabular}{ | m{3cm} | m{12.5cm} |}
 \hline
-\textbf{REQ.SW.1 - C} &  The DPU software stack must be implemented using RUST  \\
+\textbf{REQ.SW.1 - C} &  The DPU software stack must be implemented using Rust  \\
 \hline
 \textbf{REQ.SW.2 - C} &  The DPU must contain a Linux based operating system  \\
 \hline
