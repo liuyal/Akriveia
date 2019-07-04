@@ -5,7 +5,6 @@
 \usepackage{bookmark}
 \usepackage{lipsum}
 \usepackage{graphicx}
-\usepackage[noadjust]{cite}
 \usepackage{float}
 \usepackage[numbib]{tocbibind}
 \usepackage{multirow}
@@ -16,11 +15,14 @@
 \usepackage{longtable}
 \usepackage[table, svgnames]{xcolor}
 \usepackage{titlesec}
+\usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{pdfpages}
 \setcounter{secnumdepth}{4}
-
 \usepackage{fancyhdr}
+\usepackage[noadjust]{cite}
+ 
+
 \fancypagestyle{logo}{
     \fancyhf{} % clears header/footer
     \renewcommand\bottomfraction{0.9}
@@ -29,7 +31,6 @@
     \fancyfoot[LE,RO]{\thepage}
 }
 \pagestyle{logo}
-
 
 % Glossary
 \usepackage[utf8]{inputenc}
@@ -41,16 +42,16 @@
 \begin{document}
 
 % \setboolean{@twoside}{false}
-% \includepdf[pages={1}]{./images/__Letter_of_transmittal.pdf}
+% \includepdf[pages={1}]{./images/_Letter_of_transmittal.pdf}
 %\setboolean{@twoside}{false}
-%\includepdf[pages={1}]{./images/title_page.pdf}
+%\includepdf[pages={1}]{./images/title_page_white.pdf}
 \
 \input{00_Executive_Summary.tex}
 \pagebreak
 \clearpage
 \printglossaries
 \pagebreak
-\begin{spacing}{0.90}
+\begin{spacing}{1}
 \tableofcontents
 \end{spacing}
 \pagebreak
