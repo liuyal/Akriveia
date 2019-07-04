@@ -16,7 +16,7 @@ ESP32 is a series of low-cost, low-power system on a chip microcontrollers with 
     \label{esp_core}
 \end{figure}
 
-For the proof of concept, the Bluetooth modules on the ESP32 will be used as the communication interface between the Beacon and the ID tags. Using BLE advertising, the ID Tags ESP32 broadcasts a unique MAC address. The Beacon ESP32 can collect all assicating ID Tag ESP32s and capture the RSSI and MAC of these devices. These information are forwarded to the DPU for distances establition and location plotting.
+For the proof of concept, the Bluetooth modules on the ESP32 will be used as the communication interface between the Beacon and the ID tags. Using BLE advertising, the ID Tags ESP32 broadcasts a unique MAC address. The Beacon ESP32 can collect all assicating ID Tag ESP32s and capture the RSSI and MAC of these devices. These information are forwarded to the DPU for distances estimation and location plotting.
 
 \begin{figure}[H]
 \centering
@@ -27,7 +27,7 @@ For the proof of concept, the Bluetooth modules on the ESP32 will be used as the
 
 
 \pagebreak
-In the Final design the ESP32 will be incorporated as the main controller unit for both the beacons and ID tags but with Decawave DWM1000 UWB modules as the transceiver. For the beacons the ESP32’s Serial Peripheral Interface (SPI) will be used to interact with the Decawave DWM1000 UWB modules. As for the ID Tags, the ESP32 features a deep sleep mode which reduces power consumption to about 10uA from 260mA (active operations), thus drastically increasing the battery life time. By using a touch pin (\Gls{GPIO} 26-23 shown in Figure \ref{esp_pin}) the ESP32 can be woken from deep sleep and resume transmission. Furthermore, with its wide range of capabilities such as Wi-FI and Bluetooth, a mesh network and be implemented to extend the communication range of the Beacons. A mock-up circuit diagram presenting the SPI interface between the ESP32 and a breakout board for DWM1000 is shown in figure \ref{eps_dwm_circuit}.
+In the Final design both the Beacon and ID tags will use the ESP32 as the main controller unit but they will be also be incorporated with Decawave DWM1000 UWB modules as the transceivers. The ESP32’s Serial Peripheral Interface (SPI) will be used to interact with the Decawave DWM1000 UWB modules for sending and receiving data. A mock-up circuit diagram presenting the SPI interface between the ESP32 and a breakout board for DWM1000 is shown in figure \ref{eps_dwm_circuit}. In addition, the ESP32 features a deep sleep mode which reduces power consumption to about 10uA from 260mA (active operations), thus drastically increasing the battery life time which is an important constraint for the portable ID tags. In the event of an emergency, the ESP32 can be woken from deep sleep to start transmission by activating a touch pin (\Gls{GPIO} 26-23 shown in Figure \ref{esp_pin}). Furthermore, by utilizing the ESP32's wide range of capabilities such as WiFi or Bluetooth, a mesh network and be implemented to extend the communication range of the Beacons. 
 
 \medskip
 \begin{figure}[H]
@@ -49,7 +49,7 @@ In the Final design the ESP32 will be incorporated as the main controller unit f
 \pagebreak
 \subsection{Transceiver - DWM1000} 
 \medskip
-The Beacon and ID Tag communication will be done using ultra-wideband wireless communication. The most optimal transceiver available on the market that most fits the needs and scope of this project is the Decawave DWM1000 UWB module (Figure \ref{dwm1000}). The DWM1000 is an IEEE802.15.4-2011 UWB compliant and \Gls{FCC}/\Gls{ETSI} certified wireless transceiver module based on Decawave’s DW1000 IC \cite{R4-2-1}. This module is a combination of DW1000 IC, a built in antenna, power management system, and clock control for simple design integrations (Figure \ref{dwm1000_bd}). 
+The Beacon and ID Tag communication will be done using ultra-wideband wireless communication in the prototype phase and beyond. The most optimal transceiver available on the market that best fits the needs and scope of this project is the Decawave DWM1000 UWB module (Figure \ref{dwm1000}). The DWM1000 is an IEEE 802.15.4-2011 UWB compliant and \Gls{FCC}/\Gls{ETSI} certified wireless transceiver module based on Decawave’s DW1000 IC \cite{R4-2-1}. This module is a combination of DW1000 IC, a built in antenna, power management system, and clock control which allows for simple integrations into any system (Figure \ref{dwm1000_bd}). 
 
 \medskip
 \begin{figure}[H]
@@ -59,7 +59,7 @@ The Beacon and ID Tag communication will be done using ultra-wideband wireless c
     \label{dwm1000}
 \end{figure}
 
-The module enables the location tracking of objects in real time location systems (RTLS) to a precision of 10 cm indoors. It supports high range of communications data rates from 110 Kbps up to 6.8 Mbps, with excellent communication ranges of up to 300m. The frequencies of operation in the range of 3.5 GHz to 6.5 GHz with seven distinct channels which would significantly reduce issues of signal interference or multipath propagation. Its small physical size allows the module to be implemented in highly cost-effective solutions. By using this modul,e integration with the Akriveia Beacon system is intuitive and simple; since the DWM1000 also offers a wide range of MCU support such as Arduino MCUs or the ESP32 MCUs. 
+The module enables the location tracking of objects in real time location systems (RTLS) down to a precision of 10 cm indoors. It supports high range of communications data rates from 110 Kbps to 6.8 Mbps, with excellent communication ranges of up to 300m. The frequencies of operation in the range of 3.5 to 6.5GHz with seven distinct channels which would significantly reduce issues of signal interference or multipath propagation. Its small physical size allows the module to be implemented in highly cost-effective solutions. By using this module, integration with the Akriveia Beacon system is intuitive and simple; since the DWM1000 also offers a wide range of MCU support such as Arduino MCUs or the ESP32 MCUs. 
 
 \medskip
 \begin{figure}[H]
@@ -74,10 +74,10 @@ The module enables the location tracking of objects in real time location system
 \pagebreak
 \subsection{DPU - Raspberry Pi}
 \medskip
-The Data Processing Unit is a stand alone single board computer (SBC). For the demonstration of this project a Raspberry Pi 3 B+ is used as the DPU since it is an affordable and robust SBC, but the DPU in theory should be any electrical computer device that is capable of running a basic linux operating system; as the software stack is designed to operate on any linux based system. Since the Pi is cheap, portable and designed with an Cortex-A53 processor it meets the minimum requirements for the DPU.
+The Data Processing Unit is a stand alone single board computer (SBC). For the demonstration of this project a Raspberry Pi 3 B+ is used as the DPU since it is an affordable and robust SBC, but the DPU in theory should be any electrical computer device that is capable of running a basic linux operating system; as the software stack is designed to operate on any linux based system. The Raspberry Pi product is cheap, portable and designed with an Cortex-A53 processor it meets the minimum requirements for the DPU.
 
 \bigskip
-The Raspberry Pi 3 B+ is a single board computer with a 1.4GHz 64-bit quad-core processor, dual-band wireless LAN, and Bluetooth 4.2/BLE \cite{R3-3-1}. The Broadcom BCM2837B0, Cortex-A53 (ARMv8) 64-bit SoC at 1.4GHz quad-core processor allows complex tri or multilateration calculations done simultaneously for multiple ID Tags. With dual-band 2.4GHz and 5GHz IEEE 802.11.b/g/n/ac wireless LAN, the Pi can create a reliable network access for multiple ESP32 for data forwarding. At a power rating of 5V/2.5A \Gls{DC} the Pi requires minimal power to operate, which allows for a variety of power options during emergency disasters. Furthermore, the Pi is configured with a linux based OS, Debian which contains the software stack developed in Rust that will create a layer of user interface between the user and the Akriveia Beacon system.
+The Raspberry Pi 3 B+ is a single board computer with a 1.4GHz 64-bit quad-core processor, dual-band wireless LAN, and Bluetooth 4.2/BLE \cite{R3-3-1}. The Broadcom BCM2837B0, Cortex-A53 (ARMv8) 64-bit SoC at 1.4GHz quad-core processor allows complex tri or multilateration calculations done simultaneously for multiple ID Tags. With dual-band 2.4G and 5G IEEE 802.11.b/g/n/ac wireless LAN, the Pi can create a reliable network access for multiple ESP32 for data forwarding. At a power rating of 5V/2.5A \Gls{DC} the Pi requires minimal power to operate, which allows for a variety of power options during emergency disasters. Furthermore, the Pi is configurable with any linux based OS, such as Debian OS which is compatible with the software stack developed in Rust that will create a layer of user interface between the user and the Akriveia Beacon system.
 
 
 \medskip

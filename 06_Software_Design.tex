@@ -14,81 +14,81 @@
 % breifly reintroduce important topics that the user will need to be reminded of
 \subsection{Software Overview}
 % TODO revise
-The Akriveia system is comprised of 3 different devices, namely: the data processor, beacons, and ID tags; this device diversity plays a large role in the software choice for the beacons and id tags.The Akriveia data processor is the primary access point for Administrators and First Responders, of whom will be presented a Graphical User Interface served by the data processor in addition to handling commands from the client.The software on the server is written entirely in Rust, including the static client side webpage. The requirements for each device are different, however the id tags and beacons are able to share a similar environment.
-As such Akriveia will require two different software environments.
+\medskip
+The Akriveia system is comprised of 3 different devices, namely: the data processor, beacons, and ID tags; this device diversity plays a large role in the software choice for the beacons and id tags. The Akriveia data processor is the primary access point for Administrators and First Responders, of whom will be presented a Graphical User Interface served by the data processor in addition to handling commands from the client. The software on the server is written entirely in Rust, including the static client side webpage. The requirements for each device are different, however the ID tags and beacons are able to share a similar environment.
+As such the Akriveia Beacon System will require two different software environments.
 
 \medskip
 % language choices, formatting, standards, libraries
 \subsection{Software Stack}
-Akrivia is composed of two primary languages, the DPU is implemented entirely in Rust while the beacons and ID tags use C++.
+\medskip
+Akrivia is composed of two primary languages, the DPU is implemented entirely in Rust while the beacons and ID tags use Arduino language.
 
 \medskip
 \subsubsection{Software Environments}
-The data processing unit requires an operating system to perform mundane CPU scheduling for the multithreaded application, wifi drivers, and a proper file system to handle a database.
-As such, the linux - and more specifically the \Gls{Debian} destribution of linux - was chosen as the DPU operating system.
+\medskip
+The data processing unit requires an operating system (\Gls{OS}) to perform CPU scheduling for the multi-threaded application, WiFi drivers, and a proper file system to handle a database. As such, the Linux or more specifically the \Gls{Debian} distribution of Linux was chosen as the DPU operating system.
 
 \bigskip
 % TODO add a citation for debian stability
-Debian is widely praised for its stability, which makes it ideal for a data processing unit because Akriveia simply cannot fail as lives depend on it to work.
-Debian brings in the \Gls{Aptitude} package manager for dependency management, which allows for quick installation of required driver updates, operating system updates, and any additional packages required by Akriveia.
+Debian is widely praised for its stability, which makes it ideal for a data processing as the Akriveia Beacon System is designed to operate under emergency situations. Debian brings in the \Gls{Aptitude} package manager for dependency management, which allows for quick installation of required driver updates, operating system updates, and any additional packages required.
 Debian's Aptitude has the advantage compared to other package managers because it removes the need to worry about dependencies, manual installation, and even installation of sub dependencies.
-As Debian is a linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily \Gls{x86-64} and \Gls{ARM64} - giving Akriveia the flexibility to run almost anywhere with little cost.
+As Debian is a Linux distribution, it has widespread hardware adoption across many different hardware architectures - primarily \Gls{x86-64} and \Gls{ARM64} - giving Akriveia the flexibility to run on the most basic single board computers.
 
 \bigskip
-Debian is contrasted by another linux distribution called arch linux which uses a different package management paradigm called \Gls{Rolling Releases}, favoring earlier adoption of newer packages to more quickly introduce features at the cost of stability.
-Another alternative to Debian is Windows, however Windows suffers from high power usage, poor package management, and heavy reliance on proprietary software, whereas linux is free of cost, open source, and has a more inclusive licence.
+Debian is contrasted by another Linux distribution called arch Linux which uses a different package management paradigm called \Gls{Rolling Releases}, favouring earlier adoption of newer packages to more quickly introduce features at the cost of stability. Another alternative to Debian is Windows, however Windows suffers from high power usage, poor package management, and heavy reliance on proprietary software, whereas Linux is open source, free of cost, and has a more inclusive licence.
 
 \pagebreak
 \subsubsection{Software Languages}
+\medskip
 % TODO revise with word flow in mind. segmented thoughts in each sentence.
 The DPU is written in \Gls{Rust}.
 % TODO make the citation work
-Rust is a newer language compared to C, it was created in 2006 \cite{rust_graydon_interview} and its first stable version was released in 2015 \cite{rust_releases}, taking inspiration from C++ and Haskell in its design.
-Rust is a systems language designed for stability and robustness, it eliminates entire classes of errors using its borrow checking system, a feature unique to this language.
+Rust is a relatively new language as it was created in 2006 \cite{rust_graydon_interview} and its first stable version was released in 2015 \cite{rust_releases}. Taking inspiration from C++ and Haskell in its design,
+Rust is a systems language designed for stability and robustness, it eliminates entire classes of errors using the borrow checking system, a feature unique to this language.
 The borrow checking system defines a strict set of rules to follow, and fails to compile if these rules are broken - even if the application is otherwise logically correct.
-As a systems language, Rust is compiled to binary rather than executed as a script through an interpreter however this does not stop it from being a higher order language.
-The \Gls{Borrow Checker} statically analyzes the code being compiled, and in doing so is able to statically determine when to allocate and more importantly when to free heap allocated memory.
+As a systems language, Rust is compiled to binary rather than executed as a script through an interpreter. However, this does not stop it from being a higher order language.
+The \Gls{Borrow Checker} statically analyze the code being compiled, and in doing so is able to statically determine when to allocate, and more importantly when to free heap allocated memory.
 Fundamentally, this means that without a \Gls{Garbage Collector} and without manually managing memory, Rust provides a mechanism to manage memory without a runtime cost while behaving like a garbage collected language providing great flexibility in expressiveness and allowing higher order operations without taking brain resources.
 
 \bigskip
-The beacon and id tag are written in C++.
-Ideally, the entire project would be written in one languge, however for the case of programming embedded devices, namely arduinos, we have opted to stick wih the standard toolset shipped with the arduino tools.
-C++ is specifically designed for embedded programming, allowing use of higher level features when desired while also giving the developer absolute control over how memory is managed.
-On arduinos, memory is very limited so control is key to fit the program within the small space constraints.
+The beacon and id tag are written in Arduino language. The Arduino language is merely a set of C/C++ functions and is specifically designed for embedded programming, allowing use of higher level features when desired while also giving the developer absolute control over how memory is managed. The Arduino environment performs a few transformations to the Arduino sketch before passing it to the avr-gcc compiler. On Arduinos, memory is very limited so control is key to fit the program within the small space constraints.
 
 
 \medskip
 \subsubsection{Software Standards}
 % TODO references here
-Rust code will follow the the Rustfmt standard of source layouts, Rustfmt is a tool provided by the Rust project that automatically formats all source in the standard format. The Rust compiler also provides a few warnings for common formatting issues builtin, which will be heeded.C++ will follow the iso C++ programming standards \cite{cpp_core_guidelines}. The arduino style guide \cite{arduino_style_guide} was also considered, however the rules list they present is incomplete and more ad hoc than a full style guide.
+\medskip
+Rust code will follow the the Rustfmt standard of source layouts, Rustfmt is a tool provided by the Rust project that automatically formats all source in the standard format. The Rust compiler also provides a few warnings for common formatting issues builtin, which will be heeded. Arduino language will follow the ISO C/C++ programming standards \cite{cpp_core_guidelines}. The Arduino style guide \cite{arduino_style_guide} will also be considered, however the rules list they present is incomplete and more ad hoc than a full style guide.
 
 % introduce major libraries that largely dictate how we implement the system.
 \medskip
 \subsubsection{Frameworks}
-Akriveia's main DPU framework is called \Gls{Actix}. Actix is an \Gls{Actor} Framework that follows the \Gls{Actor Model} paradigm of multithreaded workloads. The Actor Model operates on objects called actors to orchestrate concurrent computations, it does this by treating actors as seperate entities that execute on an event loop on one or more threads, where the event loop simply looks at a list of events generated by actors and executes each event in order as long as it is not blocked by other events.
-Events are generated when actors pass messages to eachother, in response the actor that receives the message can modify its local state, create other actors, send messages to other actors, execute arbitrary logic, and finally send a response to the message. This programming paradigm prevents the need for locks (and by extension, deadlocks) because the message passing mechanism alleviates the need to manually manage concurrency, opting to use atomics instead.
+\medskip
+Akriveia Beacons' main DPU framework is called \Gls{Actix}. Actix is an \Gls{Actor} Framework that follows the \Gls{Actor Model} paradigm of multi-threaded workloads. The Actor Model operates on objects called actors to orchestrate concurrent computations, it does this by treating actors as separate entities that execute on an event loop on one or more threads, where the event loop simply looks at a list of events generated by actors and executes each event in order as long as it is not blocked by other events.
+Events are generated when actors pass messages to each other, in response the actor that receives the message can modify its local state, create other actors, send messages to other actors, execute arbitrary logic, and finally send a response to the message. This programming paradigm prevents the need for locks (and by extension, deadlocks) because the message passing mechanism alleviates the need to manually manage concurrency, opting to use atomic instead.
 
 \bigskip
-Actix was chosen as the primarily to give the flexibility of multithreading without incurring the typical thought process overhead associated with multithreading. Additionally, as a framework rather than a library, Actix serves as the basis to make REST webservers through the package \Gls{Actix Web}, which is further discussed under the \ref{software_libraries} section.
+Actix was chosen as the primarily to give the flexibility of multi-threading without incurring the typical thought process overhead associated with multi-threading. Additionally, as a framework rather than a library, Actix serves as the basis to make REST webservers through the package \Gls{Actix Web}, which is further discussed under the \ref{software_libraries} section.
 
 % discuss which libraries we are using, and how they will be used by us
 \subsubsection{Libraries}
 \label{software_libraries}
-
+\medskip
 \begin{table}[H]
 \centering
 \begin{tabular}{ | m{3.25cm} | m{12.5cm} |}
 	\hline
 	\textbf{Actix Web} & The Actix Web library is a crate that extends the functionality of the Actix framework to create \Gls{HTTP} webservers. \\
 	\hline
-	\textbf{Yew} & Yew is a crate that extends Rusts ability to compile to Web Assembly by adding the ability to dynamically generate html on the client in response to user events and DPU responses. This library is very similar to Facebook's React for javascript. \\
+	\textbf{Yew} & Yew is a crate that extends Rusts ability to compile to Web Assembly by adding the ability to dynamically generate html on the client in response to user events and DPU responses. \\
 	\hline
 	\textbf{Serial Port} & Enables serial communication over USB between the DPU and beacons.\\
 	\hline
 	\textbf{Rust Standard Libraries} & This is the standard Rust runtime library, and contains many useful boilerplate functions and generic types. This library is included with the basic installation of Rustc. \\
 	\hline
 \end{tabular}
-\caption{Akriveia Dependencies - Rust}
+\caption{Akriveia Beacon Dependencies - Rust}
 \end{table}
 
 \begin{table}[H]
@@ -99,24 +99,25 @@ Actix was chosen as the primarily to give the flexibility of multithreading with
 	\hline
 	% TODO wifi library
 \end{tabular}
-\caption{Akriveia Dependencies - C++}
+\caption{Akriveia Beacon Dependencies - Arduino}
 \end{table}
 
 \bigskip
 % discuss the model view controller paradigm, and its benefits
 \subsection{Model-View-Controller}
 % TODO glossary of mvc
-The model-view-controller(MVC) paradigm is a common method of seperating concerns between modules.
-It is an architectural pattern that seperates concerns in a general way, allowing for code reused and improving parallel developement, it is also a common practice which allows others familiar with the paradigm to ramp up quickly on the project.
+\medskip
+The model-view-controller (MVC) paradigm is a common method of separating concerns between modules.
+It is an architectural pattern that separates concerns in a general way, allowing for code reused and improving parallel development, it is also a common practice which allows others familiar with the paradigm to ramp up quickly on the project.
 The model describes data, data manipulation, as well as data storage.
 The view simply describes how to view the model.
 The controller acts as the means to communicate between the view and model based on data inputs, and is also capable of higher order operations such as between multiple models.
 
 \bigskip
-As the Actix Web library is less mature than frameworks in other languages such as Python's Django or Ruby's Rails, Akriveia's data processor will be an implementation of a large portion of manual MVC boilerplate.
-This allows for greater flexibility in implementation, at the cost of marginally higher developement time.
-A benefit is that MVC does not have a good answer for funcitonality that falls outside of the architectures coverage such as background tasks.
-Akriveia is required to maintain communication with many beacons and perform calculations asyncronously from web requests, which is the perfect usecase for the actor framework which fills the void of the model-view-controller.
+As the Actix Web library is less mature than frameworks in other languages such as Python's Django or Ruby's Rails. Akriveia Beacons' data processor will be an implementation of a large portion of manual MVC boilerplate.
+This allows for greater flexibility in implementation, at the cost of marginally higher development time.
+A benefit is that MVC does not have a good answer for functionality that falls outside of the architectures coverage such as background tasks.
+Akriveia is required to maintain communication with many beacons and perform calculations asynchronously from web requests, which is the perfect use case for the actor framework which fills the void of the model-view-controller.
 
 
 \bigskip
@@ -124,12 +125,13 @@ Akriveia is required to maintain communication with many beacons and perform cal
 % is necessary
 \pagebreak
 \subsection{Threading Model}
-The purpose of multithreading the DPU is to make use of the hardware provided, since all modern DPU and desktop processors have at least two dedicated hardware cores.
-Additionally, it is important for the DPU to have realtime responsiveness on the webserver, requiring that large computations such as triangluation for many beacons must be offloaded to other threads, keeping responsiveness high since the webserver thread is not blocked on computation while a request comes in. An additional consideration specifically for the proof of concept which uses blocking serial communication to communicate to the beacons, meaning that each beacon requires a dedicated thread to communicate with the DPU.
+\medskip
+The purpose of multi-threading the DPU is to make use of the hardware provided, since all modern DPU and desktop processors have at least two dedicated hardware cores.
+Additionally, it is important for the DPU to have realtime responsiveness on the webserver, requiring that large computations such as trilateration for many beacons must be offloaded to other threads, keeping responsiveness high since the webserver thread is not blocked on computation while a request comes in. An additional consideration specifically for the proof of concept which uses blocking serial communication to communicate to the beacons, meaning that each beacon requires a dedicated thread to communicate with the DPU.
 
 \bigskip
-Rust and Actix make multithreaded development easier by using message passing for interthread communication, at the cost of performance when compared to traditional mutexes and atomics.
-The implementation of message passing is a thread safe queue using mutexes and atomics to ensure data integrity, where multiple threads are able to send commands to another thread, which recieve the message without blocking either thread.
+Rust and Actix make multi-threaded development easier by using message passing for inter-thread communication, at the cost of performance when compared to traditional mutexes and atomics.
+The implementation of message passing is a thread safe queue using mutexes and atomics to ensure data integrity, where multiple threads are able to send commands to another thread, which receive the message without blocking either thread.
 To further discuss the Actix threading model, some definitions are required:
 \begin{enumerate}
 	\item Actor: A class that contains message handler callbacks.
@@ -146,8 +148,7 @@ To pass a message to another actor, the sender must have the address of the reci
 The beacons and ID tags do not have a full operating system, so they can only rely on single threaded interrupt handling to "multitask".
 Interrupt handling does not provide full concurrency, instead it time slices the single core to provide the illusion of multitasking.
 Interrupt handling is calling a function as a result of an event such as an external device raising a bit high on the CPU, or when a timer goes off.
-In the Proof concept, the bluetooth library uses this functionality to handle connections.
-When transitioning to wifi and UWB, similar functionality will be implemented in each respective technology's library, of which Akrievia simply relies on rather than reimplementing.
+In the Proof concept, the bluetooth library uses this functionality to handle connections. When transitioning to WiFi and UWB, similar functionality will be implemented in each respective technology's library.
 
 \pagebreak
 \begin{figure}[H]
@@ -169,43 +170,41 @@ When transitioning to wifi and UWB, similar functionality will be implemented in
 
 % discuss the data processor subsystems in detail
 \subsection{Data Processor Software Architecture}
+\medskip
 In the proof of concept, the DPU creates an HTTP server actor and a beacon manager actor.
 The HTTP server waits on web requests, delegating tasks to the beacon manager and polling it for the necessary information.
 On startup, the beacon manager queries the number of serial arduino devices, spawning a thread for each device.
 Each thread spawned by the beacon manager represents a serial connection to a beacon.
 The beacon manager sends messages using a traditional Multiple Producer Single Consumer Message Queue (\Gls{MPSC}) defined in the Rust standard library, while the each serial communcation thread returns messages back to the manager through the actix message passing system.
-Figure~\ref{software_poc_arch} gives a graphical representation of the previous description.
-As a side note, Actix uses MPSC internally for its message passing system.
+Figure~\ref{software_poc_arch} gives a graphical representation of the previous description. Actix uses MPSC internally for its message passing system.
 
 \bigskip
 The prototype and final versions bring in major changes to the software design.
-As shown in figure~\ref{software_final_arch}, a major change is the removal of the serial connection actor which is replaced with the udp actor(which tentatively may be tcp instead).
-The beacon manager remains, but instead controls the udp actor rather than the serial connections.
-An additional role of the beacon manager is to delegate computation of triangulation to the triangulation processor actor, which will save data in memory until there are at least 3 data points for a single it tag to determine its position.
-The triangluation processor makes the positional calculation and saves new position to disk via the id tag model, which abstracts the database query.
+As shown in figure~\ref{software_final_arch}, a major change is the removal of the serial connection actor which is replaced with the UDP actor.
+The beacon manager remains, but instead controls the UDP actor rather than the serial connections.
+An additional role of the beacon manager is to delegate computation of trilateration to the trilateration processor actor, which will save data in memory until there are at least 3 data points for a single ID tag to determine its position.
+The trilateration processor makes the positional calculation and saves new position to disk via the id tag model, which abstracts the database query.
 The beacon and map models perform a similar role, abstracting their associated database queries into a single location following \Gls{MVC}.
-Controllers mainly handle the model they were paired with, however the id tag controller will also query the triangulation processor for realtime positional data and the beacon controller commands beacons indirectly through the beacon manager.
+Controllers mainly handle the model they were paired with, however the id tag controller will also query the trilateration processor for real-time positional data and the beacon controller commands beacons indirectly through the beacon manager.
 
 \bigskip
 By design, the DPU is a client-server architecture, where the DPU is the server for a browser based client.
 The client-server architecture lends itself to be very flexible and is a very heavily used model for both consumer systems and emergency response systems alike.
-Once the backend starts executing, any computer able to access the IP of the DPU will have access to the system assuming the network is configured in such a way to allow this, conversely with no additional development work the same server when hooked up to a monitor can act like a client based application by simply accessing localhost on a browser.
-A client-only application lacks this deployment flexibility.
-Variations and alternatives to the client server-architecture were considered, but did not meet the needs of Akriveia, below are some of the choices considered and why they do not fit the role.
+Once the backend starts executing, any computer able to access the IP of the DPU will have access to the system assuming the network is configured in such a way to allow this. Conversely with no additional development work the same DPU when hooked up to a monitor can act like a client based application by simply accessing localhost on a browser. Variations and alternatives to the client server-architecture were considered, but did not meet the needs of the Akriveia Beacon System, below are some of the choices considered and why they do not fit the role.
 
 \bigskip
 An electron application that utilizes browser technologies merges the backend and frontend together, behaving like a client based application, which will reduce deployment flexibility because a monitor connected directly to the DPU will be the only access point to the GUI, however the display will potentially need to be accessed by multiple users at a time, and will introduce high coupling between the frontend display and backend computation.
 Electron applications are also highly single threaded, meaning that they will have higher difficulty in utilizing all cores on the CPU, wasting money on hardware that could otherwise be used.
-Electron applications are also fixed to using a single language, Javascript, for both processing and display, whereas a webserver fixes the GUI implementation to Javascript however leaves the backend to a mucher broader range of languages where processing power is required.
+Electron applications are also fixed to using a single language, Javascript, for both processing and display, whereas a webserver fixes the GUI implementation to Javascript however leaves the backend to a much broader range of languages where processing power is required.
 
 \pagebreak
-Compared to a GUI implemented using graphics driver interfaces such as OpenGL, Vulkan, DirectX, or any higher level libraries that provide interfaces to graphics drivers, a GUI implemented in HTML and Javascript will take much less time to implement because both Javascript and HTML abstract away memory concerns such as pointers, and will never have memory related runtime errors, as guaranteed by the browser. Browsers have widespread adoption, in every GUI based operating system (\Gls{OS})at least one browser is installed by default, making them widespread and widely used.
+Compared to a GUI implemented using graphics driver interfaces such as OpenGL, Vulkan, DirectX, or any higher level libraries that provide interfaces to graphics drivers, a GUI implemented in HTML and Javascript will take much less time to implement because both Javascript and HTML abstract away memory concerns such as pointers, and will never have memory related runtime errors, as guaranteed by the browser. Browsers have widespread adoption, in every GUI based operating system at least one browser is installed by default, making them widespread and widely used.
 Due to widespread adoption, browsers provide the flexibility to display the GUI either on the computer hosting the server itself, or just as easily the GUI can be accessed through another computer at the customers discretion.
 
 \bigskip
 \begin{figure}[H]
 	\centering
-    \includegraphics[scale=0.55]{images/poc_arch.png}
+    \includegraphics[scale=0.6]{images/poc_arch.png}
     \caption{Proof of Concept Software Architecture}
     \label{software_poc_arch}
 \end{figure}
@@ -221,15 +220,16 @@ Due to widespread adoption, browsers provide the flexibility to display the GUI 
 \bigskip
 % discus the purpose of the webserver, and how it will be used to control the other subsystems dictated by user command.
 \subsubsection{Webserver Subsystem}
+\medskip
 The purpose of the Webserver Subsystem is to bridge the GUI and backend by providing a data transfer interface in the form of HTTP REST calls.
 A Webserver architecture is chosen because of its simplicity to implement, widespread adoption, and flexibility.
-The view is discussed further in Section~\ref{view_section}.
+The view is discussed further in Section~\ref{view_section}: View.
 
 \bigskip
-The Webserver Subsystem will be designed to serve data to a browser, including the the HTML and Javascript files(GUI files) that are displayed by the browser.
-Once the browser has the GUI files, it will make addiitonal requests to the backend to keep updated information displayed on the GUI.
+The Webserver Subsystem will be designed to serve data to a browser, including the the HTML and Javascript files (GUI files) that are displayed by the browser.
+Once the browser has the GUI files, it will make additional requests to the backend to keep updated information displayed on the GUI.
 The Webserver Subsystem will only allow logged in users to access sensitive data, and only if they have the correct access rights.
-Electron applications and traditional rendering APIs were also considered, however they each have tradeoffs that do not fit with the design requirements of Akrievia.
+Electron applications and traditional rendering APIs were also considered, however they each have trade-offs that do not fit with the design requirements of Akrievia.
 
 \bigskip
 A direct alternative to Actix Web is a web framework called Rocket.
@@ -240,51 +240,56 @@ Rocket's additional out-of-the-box features are really just Rust crates in disgu
 
 \medskip
 \subsubsection{Beacon Manager Subsystem}
+\medskip
 The role of the beacon manager is to aggregate data from the individual beacon connections, and to give an abstraction for external systems that need not concern themselves with communication details, or how many beacons there actually are.
 The Beacon Manager is a singleton, which means there is only one of them in the entire system, and has implications on the design of the rest of the system.
 The most notable design influence is that the beacon manager can quickly become a bottleneck if it performs too much processing directly, and so to prevent this the beacon manager offloads as much work as it can to other subsystems.
 
 \medskip
 \subsubsection{Serial Beacon Communication Subsystem}
+\medskip
 In the proof of concept design, this actor deals with blocking serial communication with dedicated threads to keep the connection alive and to prevent web requests from blocking.
-This subsystem will remain as bare bones as possible, because it only serves the purpose of quickly creating a working system and will likely be discarded in future iterations of the DPU.
+This subsystem will remain as bare bones as possible, because it only serves the purpose of quickly creating a working system and will be discarded in future iterations of the DPU.
 
 \pagebreak
-\subsubsection{Triangulation Processing Subsystem}
-In the final design, the triangulation processing subsystem takes in RSSI and time of flight messages from the beacon manager.
-The triangulation processor waits until it receives enough datapoints, and once it has 3 datapoints from 3 different beacons for one id tag it can perform a location calculation
+\subsubsection{Trilateration Processing Subsystem}
+\medskip
+In the final design, the trilateration processing subsystem takes in time of flight data messages from the beacon manager.
+The trilateration processor waits until it receives enough data points, and once it has 3 data points from 3 different beacons for one id tag it can perform a location calculation
 While waiting for a full set of data, the incomplete set of data will be stored in a hash table where the mac address of each ID tag is the key and the contents are an array of data points.
-Once the array of datapoints hits the threshhold size of 3 from adding a new datapoint the processor can perform the full triangulation calculation.
-The triangulation calculation can then be used to update the database entry for the corresponding ID tag by the processor.
-To avoid going to the database for realtime updates of the ID tag locations, the ID tag controller will directly query the Triangulation Processor for the most up to date location infromation, reducing latency.
+Once the array of data points hits the threshold size of 3 from adding a new data points the processor can perform the full trilateration calculation.
+The trilateration calculation can then be used to update the database entry for the corresponding ID tag by the processor.
+To avoid going to the database for real-time updates of the ID tag locations, the ID tag controller will directly query the Trilateration Processor for the most up to date location information, reducing latency.
 
 \bigskip
-The existance of the Triangulation Processing subsytem is necessary, because the beacon manager will quickly become a bottleneck due to the fact that it is a singleton in a multithreaded system.
-As such, the manager should do as little direct processing and blocking operations itself and instead favor offloading the tasks to other subsystems.
+The existence of the Trilateration Processing subsystem is necessary, because the beacon manager will quickly become a bottleneck due to the fact that it is a singleton in a multithreaded system.
+As such, the manager should do as little direct processing and blocking operations itself and instead favour offloading the tasks to other subsystems.
 
 \medskip
 \subsubsection{UDP Beacon Communication Subsystem}
-In the final design, this actor will communicate with the beacons over the UDP networking protocol.
-UDP was chosen because it has less overhead than TCP, and is more suited for realtime applications such as Akriveia.
+\medskip
+In the final design, the UDP Beacon Communication Subsystem actor will communicate with the beacons over the UDP networking protocol.
+UDP was chosen because it has less overhead than TCP, and is more suited for real-time applications such as Akriveia.
 
 \medskip
 % discuss database choice - sqlite and why. lead into models
 \subsection{Database}
-Akrievia requires a database to persist map, beacon, and user information.
-In the time constraints of Capstone, the database will be a central location for data.
-Ideally a production system would support replication of the database to another location, but this is out of scope for the purposes of this proect.
+\medskip
+Akrievia Beacon System requires a database to persist map, beacon, and user information.
+In the time constraints of Capstone, the database will be a central location for data. Ideally a production system would support replication of the database to another location, but this is out of scope for the purposes of this project.
 
 \bigskip
-SQLite was chosen primarily because of its simplicity to setup and minimal footprint.
+SQLite was chosen primarily because of its simplicity to set up and minimal footprint.
 Most commonly used in phones and packaged alongside python, SQLite has a stable file format and large userbase, and because of this has built a reputation for not failing.
 SQLite is open source, and because of this issues can directly be brought up to the developers along with help from a large amount of experience from the internet due to the large userbase.
 Open source projects are also freely available to browse to learn directly from the codebase when necessary.
-In Akriveia, the database is accesed through model objects to keep concerns local to a single set of similarily structured files, and to keep reusability up in the codebase.
+In Akriveia, the database is accessed through model objects to keep concerns local to a single set of similarly structured files, and to keep re-usability up in the codebase.
 
 \medskip
 % discuss how we plan to represent data in the database, tie back to model-view-controller(specifically models, which
 % will implement all of the database queries for the controllers to use.
 \subsection{Models}
+\medskip
 Models are used to group database queries and model operations into a single file for each model, increasing reusability of the system.
 Akrievia is expected to maintain three different types of models: maps, ID tags, and beacons. The following tables \ref{user_model}, \ref{beacon_model}, and \ref{map_model} show expected data entries and their type for each model, along with the purpose of each entry.
 
@@ -301,17 +306,17 @@ Akrievia is expected to maintain three different types of models: maps, ID tags,
 	\hline
 	Emergency Contact & ref:User & Reference to another user as emergency contact. Emergency contacts will not have an employee id or tag id. \\
 	\hline
-	Employee Id & String & Employee id for each user, optional, for internal housekeeping of the company that purchases Akriveia. \\
+	Employee Id & String & Employee ID for each user, optional, for internal housekeeping of the company that purchases Akriveia Beacon. \\
 	\hline
 	Full Name & String & Human readable name to identify the user on lists. \\
 	\hline
-	Id Tag Number & 64bit Integer & table key, unique, id for each user. \\
+	Id Tag Number & 64 bit Integer & table key, unique, id for each user. \\
 	\hline
-	Last Seen Timestamp & Unix Timestamp & To identify the id tag data is stale. Used to determine if the employee is at work while the disaster occurs. \\
+	Last Seen Timestamps & Unix Timestamps & To identify the ID tag data is stale. Used to determine if the employee is at work while the disaster occurs. \\
 	\hline
 	Map ID & ref:Map & Last known map the user was located at. \\
 	\hline
-	Notes & String & Notes about the user, ie allergies or disabilities, etc. \\
+	Notes & String & Notes about the user, i.e. allergies or disabilities, etc. \\
 	\hline
 	Phone Number & String & Phone number to contact the user. \\
 	\hline
@@ -368,6 +373,7 @@ Akrievia is expected to maintain three different types of models: maps, ID tags,
 \pagebreak
 % discuss what each controller will do - i dont expect this one to be very meaty
 \subsection{Controllers}
+\medskip
 Controllers are part of the MVC philosophy, unfortunately actix does not directly support the idea of controllers, however this functionality can be implemented manually using Actix Web primitives.
 Each controller exposes available operations for the frontend to manipulate data in a controlled and secure manner.
 The controller manages data using the models to perform direct manipulations and can aggregate data that cannot otherwise be done by models.
@@ -395,6 +401,7 @@ Table~\ref{controllers_table} shows the list of expected controllers in the DPU,
 % describe how the view will work, but dont go into details about the GUI visuals - leaving that for the ui appendix
 % mention browser, js, html, Rust -> webassembly compile
 \subsection{View}
+\medskip
 \label{view_section}
 The view is part of the MVC philosophy.
 The job of the view is to display data in a friendly and easy to use GUI.
@@ -427,6 +434,7 @@ Please see Appendix B: User Interface and Appearance for additional details on t
 
 % discuss security considerations, talk about features of Rust which help us in this regard.
 \subsection{Security}
+\medskip
 Due to the properties of Rust, many security concerns regarding bad input data and memory issues are mitigated.
 One such migitation is built in bounds checking of all array accesses, meaning that its not possible to read or write memory that has not been properly allocated by the executing process.
 An additional level of security is that rust reduces the number of invalid computational state, removing the burden from the programmer which could potentially get it wrong, which would create vulnerabilities.
@@ -451,11 +459,15 @@ The Akriveia Beacon system is composed of an intricate software stack developed 
 \centering
 \begin{tabular}{ | m{3cm} | m{12.5cm} |}
 \hline
-\textbf{REQ.SW.1 - C} &  Each beacon must acknowledge a stop receiving command to stop sending ID tag location data to data processing unit \\
+\textbf{REQ.SW.1 - C} &  The DPU software stack must be implemented using RUST  \\
 \hline
-\textbf{REQ.SW.2 - C} &  Each beacon must acknowledge a start sending command to start sending ID tag location data to data processing unit  \\
+\textbf{REQ.SW.2 - C} &  The DPU must contain a Linux based operating system  \\
 \hline
-\textbf{REQ.SW.3 - P} &  The admin must login through credential verification system before before accessing system data \\
+\textbf{REQ.SW.3 - C} &  Each beacon must acknowledge a stop receiving command to stop sending ID tag location data to data processing unit \\
+\hline
+\textbf{REQ.SW.4 - C} &  Each beacon must acknowledge a start sending command to start sending ID tag location data to data processing unit  \\
+\hline
+\textbf{REQ.SW.5 - P} &  The admin must login through credential verification system before before accessing system data \\
 \hline
 \end{tabular}
 \caption{Software Design Specification}
