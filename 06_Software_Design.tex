@@ -10,7 +10,6 @@
 % discuss the system at a high level, but leave details to subsections
 % breifly reintroduce important topics that the user will need to be reminded of
 \subsection{Software Overview}
-% TODO revise
 \medskip
 The Akriveia system is comprised of 3 different devices, namely: the data processor, beacons, and ID tags; this device diversity plays a large role in the software choice for the beacons and ID tags.
 The Akriveia data processor is the primary access point for Administrators and First Responders, of whom will be presented a Graphical User Interface served by the data processor in addition to handling commands from the client.
@@ -21,7 +20,7 @@ The requirements for each device are different, however the ID tags and beacons 
 % language choices, formatting, standards, libraries
 \subsection{Software Stack}
 \medskip
-Akrivia is composed of two primary languages, the DPU is implemented entirely in Rust while the beacons and ID tags use the Arduino language.
+Akrivia Beacon is composed of two primary languages, the DPU is implemented entirely in Rust while the beacons and ID tags use the Arduino language.
 
 \medskip
 \subsubsection{Software Environments}
@@ -44,13 +43,10 @@ Another alternative to Debian is Windows, however Windows suffers from high powe
 \medskip
 The DPU is written in \Gls{Rust}.
 Rust is a relatively new language as it was created in 2006 \cite{rust_graydon_interview} and its first stable version was released in 2015 \cite{rust_releases}.
-Taking inspiration from C++ and Haskell in its design, Rust is a systems language designed for stability and robustness, it eliminates entire classes of errors using the borrow checking system, a feature unique to this language.
+Taking inspiration from C++ and Haskell in its design, Rust is a systems language designed for stability and robustness. Rust eliminates entire classes of errors using the borrow checking system, a feature unique to this language.
 The borrow checking system defines a strict set of rules to follow, and fails to compile if these rules are broken - even if the application is otherwise logically and syntactically correct.
 As a systems language, Rust is compiled to binary rather than executed as a script through an interpreter, however, this does not stop it from being a higher order language.
-Rust does not expect developers to manage allocation and deallocation of memory directly, nor does it have a runtime \Gls{Garbage Collector}; rust relies on the \Gls{Borrow Checker} and lifetime system at compile time to statically analyze memory usage and automatically places the allocations and deallocations as needed.
-The benefits of the \Gls{Borrow Checker} do have a cost: Rusts compile times are very slow and the learning curve is very high.
-Fundamentally, the borrow checker changes how Rust is perceived in the software ecosystem as it writes like a very high level language but it behaves like an embedded or systems language.
-For Akrievia, the features of Rust allow it to be used throughout the DPU, as the backend webserver, the data processor, as well as the on the browser in the form of webassembly.
+Rust does not expect developers to manage allocation and deallocation of memory directly, nor does it have a runtime \Gls{Garbage Collector}; rust relies on the \Gls{Borrow Checker} and lifetime system at compile time to statically analyze memory usage and automatically places the allocations and deallocations as needed. The benefits of the \Gls{Borrow Checker} do come at a cost, resulting in slow compile time and high learning curve. The features of Rust will be used throughout the DPU, as the backend webserver, the data processor, as well as the on the browser in the form of webassembly. 
 
 \bigskip
 The beacons and ID tags are written in Arduino language.
@@ -66,7 +62,7 @@ On Arduinos, memory is very limited so control is key to fit the program within 
 Rust code will follow the the Rustfmt standard of source layouts, Rustfmt is a tool provided by the Rust project that automatically formats all source in the standard format.
 The Rust compiler also provides a few warnings for common formatting issues builtin, which will be heeded.
 Arduino language will follow the ISO C/C++ programming standards \cite{cpp_core_guidelines}.
-The Arduino style guide \cite{arduino_style_guide} was considered, however the rules list they present are incomplete and more ad hoc than a full style guide, so it has been left out.
+The Arduino style guide \cite{arduino_style_guide} presented are more ad hoc than a full style guide.
 
 % introduce major libraries that largely dictate how we implement the system.
 \medskip
@@ -76,15 +72,18 @@ Akriveia Beacons' main DPU framework is called \Gls{Actix}.
 Actix is an \Gls{Actor} Framework that follows the \Gls{Actor Model} paradigm of multi-threaded workloads.
 The Actor Model operates on objects called actors to orchestrate concurrent computations, it does this by treating actors as separate entities that execute on an event loop on one or more threads, where the event loop simply looks at a list of events generated by actors and executes each event in order as long as it is not blocked by other events.
 Events are generated when actors pass messages to each other, in response the actor that receives the message can modify its local state, create other actors, send messages to other actors, execute arbitrary logic, and finally send a response to the message.
-This programming paradigm prevents the need for locks (and by extension, deadlocks) because the message passing mechanism alleviates the need to manually manage concurrency, opting to use the abstractions instead.
+This programming paradigm prevents the need for locks (and by extension, deadlocks) because the message passing mechanism alleviates the need to manually manage concurrency, opting to use the abstractions instead. 
 
 \bigskip
 Actix was chosen primarily to give the flexibility of multi-threading without incurring the typical thought process overhead associated with multi-threading.
 Additionally, as a framework rather than a library, Actix serves as the basis to make REST webservers through the package \Gls{Actix Web}, which is further discussed under the sections \ref{software_libraries} and \ref{webserver_section}.
 
+\pagebreak
 % discuss which libraries we are using, and how they will be used by us
 \subsubsection{Libraries}
 \label{software_libraries}
+\medskip
+The Akriveia Beacon system will contain the following libraries.
 \medskip
 \begin{table}[H]
 \centering
@@ -106,9 +105,12 @@ Additionally, as a framework rather than a library, Actix serves as the basis to
 \centering
 \begin{tabular}{ | m{3.25cm} | m{12.5cm} |}
 	\hline
-	\textbf{Arduino Runtime} & This is the standard set of arduino runtime libraries based off of the clib standard library tailored specifically for Atmel Atmega microcontroller chips. \\
+	\textbf{Arduino} & The standard set of Arduino libraries based off of the standard C library tailored specifically for Atmel Atmega AVR  microcontroller chips. \\
 	\hline
-	% TODO wifi library
+	\textbf{ESP32 WiFi} &  Arduino core for ESP32 WiFi/BLE chip\\
+	\hline
+	\textbf{DWM1000} & A library that offers basic functionality to use Decawave's DW1000 chips/modules with Arduino \\
+	\hline
 \end{tabular}
 \caption{Akriveia Beacon Dependencies - Arduino}
 \end{table}
@@ -277,10 +279,9 @@ The trilateration processor waits until it receives enough data points, and once
 While waiting for a full set of data, the incomplete set of data will be stored in a hash table where the mac address of each ID tag is the key and the contents are the array of data points.
 Once the array of data points hits the threshold size of 3 from adding a new data point, the processor can perform the trilateration calculation.
 The trilateration calculation can then be used to update the database entry for the corresponding ID tag by the processor.
-To avoid going to the database for real-time updates of the ID tag locations, the ID tag controller will directly query the Trilateration Processor for the most up to date location information, reducing latency.
 
 \bigskip
-The existence of the Trilateration Processing subsystem is necessary, because the beacon manager will quickly become a bottleneck due to the fact that it is a singleton in a multithreaded system.
+To avoid going to the database for real-time updates of the ID tag locations, the ID tag controller will directly query the Trilateration Processor for the most up to date location information, reducing latency. The existence of the Trilateration Processing subsystem is necessary, because the beacon manager will quickly become a bottleneck due to the fact that it is a singleton in a multithreaded system.
 As such, the manager should do as little direct processing and blocking operations itself and instead favour offloading the tasks to other subsystems.
 
 \medskip
@@ -296,10 +297,10 @@ UDP was chosen because it has less overhead than TCP, and is more suited for rea
 Akrievia Beacon System requires a database to persist map, beacon, and user information.
 In the time constraints of Capstone, the database will be a central location for data.
 Ideally a production system would support replication of the database to another location, but this is out of scope for the purposes of this project.
-
-\bigskip
 SQLite was chosen primarily because of its simplicity to set up and minimal footprint.
 Most commonly used in phones and packaged alongside python, SQLite has a stable file format and large userbase, and because of this has built a reputation for not failing.
+
+\bigskip
 SQLite is open source, and because of this issues can directly be brought up to the developers along with help from a large amount of experience from the internet due to the large userbase.
 Open source projects are also freely available to browse to learn directly from the codebase when necessary.
 In Akriveia, the database is accessed through model objects to keep concerns local to a single set of similarly structured files, and to keep re-usability up in the codebase.
@@ -314,32 +315,32 @@ Akrievia is expected to maintain three different types of models: maps, ID tags,
 
 \begin{table}[H]
 \centering
+\def\arraystretch{1.4}
 \begin{tabular}{| m{3cm} | m{3cm} | m{9.5cm} |}
 	\hline
 	\multicolumn{3}{|c|}{User Model} \\
 	\hline
 	Data Name & Type & Explanation \\
-
 	\hline
-	Coordinates & 2D Vector & Last known location of the user within the map. \\
+	User Type & String & Indicates the type of user, either admin, employee, emergency contact, or first responder. \\
 	\hline
-	Emergency Contact & ref:User & Reference to another user as emergency contact. Emergency contacts will not have an employee id or tag id. \\
-	\hline
-	Employee Id & String & Employee ID for each user, optional, for internal housekeeping of the company that purchases Akriveia Beacon. \\
+	Employee Id & String & Employee ID for each user, for internal housekeeping of the company that purchases Akriveia Beacon. \\
 	\hline
 	Full Name & String & Human readable name to identify the user on lists. \\
 	\hline
+	Phone Number & String & Phone number to contact the user. \\
+	\hline
+	Emergency Contact & ref:User & Reference to another user as emergency contact. Emergency contacts will not have an employee id or tag id. \\
+	\hline
+	Notes & String & Notes about the user, i.e. allergies or disabilities, etc. \\
+	\hline
 	Id Tag Number & 64 bit Integer & table key, unique, id for each user. \\
+	\hline
+	Coordinates & 2D Vector & Last known location of the user within the map. \\
 	\hline
 	Last Seen Timestamps & Unix Timestamps & To identify the ID tag data is stale. Used to determine if the employee is at work while the disaster occurs. \\
 	\hline
 	Map ID & ref:Map & Last known map the user was located at. \\
-	\hline
-	Notes & String & Notes about the user, i.e. allergies or disabilities, etc. \\
-	\hline
-	Phone Number & String & Phone number to contact the user. \\
-	\hline
-	User Type & String & Indicates the type of user, either admin, employee, emergency contact, or first responder. \\
 	\hline
 \end{tabular}
 \caption{User Model}
@@ -348,18 +349,18 @@ Akrievia is expected to maintain three different types of models: maps, ID tags,
 
 \begin{table}[H]
 \centering
+\def\arraystretch{1.4}
 \begin{tabular}{ | m{3cm} | m{3cm} | m{9.5cm} |}
 	\hline
 	\multicolumn{3}{|c|}{Beacon Model} \\
-	\hline
+		\hline
 	Data Name & Type & Explanation \\
-
 	\hline
-	Mac address & String & unique device identifier for beacon, table key.\\
-	\hline
-	Map id & ref:Map & Reference to a floor/map - this is really just the floor number. Shows the many-to-one relationship between beacons and floors. \\
+	MAV address & String & unique device identifier for beacon, table key.\\
 	\hline
 	Name & String & Human readable String for the device. \\
+	\hline
+	Map ID & ref:Map & Reference to a floor/map - this is really just the floor number. Shows the many-to-one relationship between beacons and floors. \\
 	\hline
 	Notes & String & Additional Beacon information (i.e. floor and location). \\
 	\hline
@@ -370,16 +371,16 @@ Akrievia is expected to maintain three different types of models: maps, ID tags,
 
 \begin{table}[H]
 \centering
+\def\arraystretch{1.4}
 \begin{tabular}{| m{3cm} | m{3cm} | m{9.5cm} |}
 	\hline
 	\multicolumn{3}{|c|}{Map Model} \\
-
 	\hline
 	Data Name & Type & Explanation \\
 	\hline
 	Name & String & Human readable floor name for gui. \\
 	\hline
-	Floor number & String & Table key, unique floor number of the map, this is not an integer to accomodate the possibility of odd floor naming conventions. e.g. floor 1A, or basement. \\
+	Floor ID & String & Table key, unique floor number of the map, this is not an integer to accomodate the possibility of odd floor naming conventions. e.g. floor 1A, or basement. \\
 	\hline
 	Bitmap data & Binary & Bitmap for the floor blueprints to view on the gui. \\
 	\hline
@@ -387,7 +388,6 @@ Akrievia is expected to maintain three different types of models: maps, ID tags,
 \caption{Map Model}
 \label{map_model}
 \end{table}
-
 
 \pagebreak
 % discuss what each controller will do - i dont expect this one to be very meaty
@@ -398,6 +398,7 @@ Each controller exposes available operations for the frontend to manipulate data
 The controller manages data using the models to perform direct manipulations and can aggregate data that cannot otherwise be done by models.
 Table~\ref{controllers_table} shows the list of expected controllers in the DPU, one to match each model.
 
+\medskip
 \begin{table}[H]
 \centering
 \begin{tabular}{| m{3cm} | m{9.5cm} |}
@@ -416,45 +417,31 @@ Table~\ref{controllers_table} shows the list of expected controllers in the DPU,
 \caption{Controllers list}
 \label{controllers_table}
 \end{table}
+\medskip
 
 % describe how the view will work, but dont go into details about the GUI visuals - leaving that for the ui appendix
 % mention browser, js, html, Rust -> webassembly compile
 \subsection{View}
 \medskip
 \label{view_section}
-The view is part of the MVC philosophy.
-The job of the view is to display data in a friendly and easy to use GUI.
-In Akriveia, the view is a static webpage served by the Actix Webserver, and is compiled seperately from the backend.
-Traditionally, the browser renders HTML and Javascript served by the backend webserver, however in this project the frontend is written entirely in Rust and compiled to a small HTML stub and webassembly which then dynamically generates more HTML for the browser to render.
-The benefit of this approach is that is creates a strong seperation between the view and controller, it also greatly reduces the number of endpoints that need to be implemented on the controller which reduces code duplication and reduces surface area of the webserver - which reduces the possiblity of exploitation by reducing exposure to a small set of well defined operations.
-% TODO
-Client side Rust is possible via the Yew crate, which is a Rust package that leverages the webassembly LLVM backend for Rust.
-Yew adds additional facilities to Rust for webassembly generation such as macros that allow HTML to be written inlined to Rust, similar to Reacts JSX.
-Yew also supports the concept of Agents, which is their version of Actors inspired by Actix and Erlang.
-Yew also has the ability to interact with npm packages, in case the functionality is not already implemented in Rust.
+\medskip
+The view is part of the MVC philosophy, since its main job is to display data to the GUI in an intuitive way. In Akriveia Beacon, the view is a static webpage served by the Actix Webserver, and compiled from the backend. Traditionally, browsers render HTML and Javascript served by the backend webserver, however, in this project the frontend is written entirely in Rust and compiled to a small HTML stub and webassembly which then dynamically generates more HTML for the browser to render. The benefit of this approach is that it creates strong separation between the view and controller, and also greatly reduces the number of endpoints that need to be implemented on the controller. This way it can reduce code duplication and surface area of the webserver, which lower the possibility of exploitation by reducing exposure to a small set of well defined operations. 
 
 \bigskip
-As Yew is influenced by React, it is very possible to simply write the GUI using React.
-The drawback to using React is that it is written in Javascript, meaning that an implementation using React would make the language of the backend different from the language of the frontend, incurring overhead when developing.
-An additional drawback to using React is that struct definitions and interfaces would need to be implemented twice, once in each language, adding tedious boilerplate.
-The modern Javascript development environment as a whole is also getting fairly unweildy, as of 2019 more packages are being added which each introduce transformation steps of the code.
-An example of this workflow could involve writing typescript which is transformed into Javascript, then minimizing the Javascript into unreadable but more performant minimized Javascript.
-Additional steps would similarily be added for \Gls{Babel} scripts.
-In the example both of the steps are added to the build manually using webpack which incurs more development overhead to understand and configuration.
-Yew on the otherhand has a opaque compilation step that transforms Rust code into webassembly, which does not require any additional build steps to configure other than installing the package.
-One of the downsides to using Rust compiled to webassebly is that it simply cannot be debugged since it is more similar to binary, but this issue has not arisen yet since framework is very simple to use.
-It does seem, in theory, possible to compile Rust to Javascript which can be debugged in the browser, but debugging Javascript which was generated from another language will likely not be a very fruitful exercise.
+Client side Rust is possible via the Yew crate, which is a Rust package that leverage the web assembly LLVM backend for Rust. Yew adds additional facilities to Rust for webassembly generation such as macros that allow HTML to be written in lined to Rust, similar to Reacts JSX. Yew also supports the concept of Agents, which is their version of Actors inspired by Actix and Erlang. Yew also has the ability to interact with npm packages, in case the functionality is not already implemented in Rust. As Yew is influenced by React, it is very possible to simply write the GUI using React. 
 
 \pagebreak
-Server Side rendering of templates using libraries such as Askama and Tera were also considered instead of creating a single page website.
-This method of rendering is fantastic for form submissions, however realtime and dynamic pages strain the abilities of server side rendering.
-Akrievia will require realtime updates of maps, which will look and perform much better when rendered on the client side rather than having the backend needlessly rerender the same page with different data.
-Typically, when realtime functionality is required for server side rendered applications, some pages are converted to using client side rendering while others remain server side rendered, requiring libraries like React or \Gls{JQuery}.
-By simply using client side rendering, the frontend is consistenly implemented throughout, rather than requiring more than one type of rendering.
+The drawback of using React is that it is written in Javascript, meaning that an implementation using React would make the language of the backend different from the language of the frontend creating overhead in development. Furthermore, react contains strict definitions and interfaces which would need to be implemented twice, once in each language adding tedious boilerplate. The modern Javascript development environment as a whole is also getting fairly unwieldy, as of 2019 more packages are being added which each introduce transformation steps of the code. An example of this workflow could involve writing typescript which is transformed into Javascript, then minimizing the Javascript into unreadable but more performant minimized Javascript. Additional steps would similarly be added for \Gls{Babel} scripts. In the example both of the steps are added to the build manually using webpack which incurs more development overhead to understand and configuration.
 
+\bigskip
+Yew on the other hand has an opaque compilation step that transforms Rust code into webassembly, which does not require any additional build steps to configure other than installing the package. One of the downsides to using Rust compiled to webassebly is that it simply cannot be debugged since it is more similar to binary, but this issue has not arisen yet since framework is very simple to use. It does seem, in theory, possible to compile Rust to Javascript which can be debugged in the browser, but debugging Javascript which was generated from another language will likely not be a very fruitful exercise.
+
+\bigskip
+Server Side rendering of templates using libraries such as Askama and Tera were also considered instead of creating a single page website. This method of rendering is fantastic for form submissions, however real time and dynamic pages strain the abilities of server side rendering. Akrievia will require real time updates of maps, which will look and perform much better when rendered on the client side rather than having the backend needlessly re-render the same page with different data. Typically, when real time functionality is required for server side rendered applications, some pages are converted to using client side rendering while others remain server side rendered, requiring libraries like React or \Gls{JQuery}. By simply using client side rendering, the frontend is consistently implemented throughout, rather than requiring more than one type of rendering.
 \bigskip
 Please see Appendix B: User Interface and Appearance for additional details on the UI layout.
 
+\medskip
 % discuss security considerations, talk about features of Rust which help us in this regard.
 \subsection{Security}
 \medskip
@@ -468,7 +455,6 @@ All stored user data will be encrypted using the latest encryption algorithms, n
 In memory data will be unencrypted for as short of a time as possible to reduce the surface area of potential attacks.
 
 % MOVED BEACON AND ID TAG INTO HARDWARE SECTION
-
 \pagebreak
 \subsection{Software Design Requirements}
 \medskip
@@ -496,4 +482,6 @@ In order for the software system to be reliable, secure and accurate the followi
 \end{tabular}
 \caption{Software Design Specification}
 \end{table}
+
+
 

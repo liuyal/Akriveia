@@ -56,6 +56,7 @@ For the proof of concept and prototype, data-pipeline is a simple implementation
 
 \pagebreak
 \subsection{Beacon Design}
+\medskip
 To control the beacons the DPU will send a command to the beacon and the ESP32 will evaluate the command and execute accordingly as shown in the beacon flow diagram in figure \ref{bcn_flow}. When system is under emergency mode, the DPU initiates a start command to the Beacons. Once the Beacons acknowledges the start request, it attempts to establish data pipelines to each of the ID Tags in range of the UWB transceiver. After a successful connection, ToF data between beacon and ID tag will be collected and forwarded to the data processing unit for trilateration calculation and error processing before displaying to the user via GUI. On the DPU data of each id tag encountered will be stored in a hash table entry, with the \Gls{MAC} address of each ID tag as the key. The distance measurement are store a rolling buffer for each id tag so that data points can be averaged, reducing estimation error.\\
 
 \bigskip
@@ -82,6 +83,7 @@ A 3D appearance mock-ups of the ID Tag was done in Solidworks and can be seen in
 
 \pagebreak
 \subsection{ID Tag Design}
+\medskip
 The ESP32 is used in the ID tag as it contains a function called deep sleep mode, in which the ID Tag has minimum power consumption and does not transmit data for location tracking. During idle mode, the ID tags are operating under deep sleep mode for power conservation drawing only 10uA of current. Therefore, real time tracking outside of emergency mode is not possible as insufficient power is provided to the DWM1000 modules. The ID Tag will be activated in an emergency situation via capacitive touch button located on the device. As user wake the ID tags by triggering the touch button the ID tags will attempt to connect to the Beacons. If the system is not in an emergency state, the ID Tag will fail to establish a connection and briefly show the charge level before returning to deep sleep mode. If system is under the emergency mode, the MCU on ID tags will be able to establish a data pipeline with the beacons on specified UWB channel, and the ID tag will then transmit an acknowledge packet back to the beacon to produce location data as described in the system flow diagram in figure \ref{id_flow}. Only during active emergency mode will the beacons be requesting for establishment of data pipeline and to initiate DWM1000 Ranging state.
 
 \bigskip
