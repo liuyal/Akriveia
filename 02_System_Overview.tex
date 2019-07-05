@@ -70,7 +70,7 @@ The final product will demonstrate the fully functional indoor rescue system tha
 \medskip
 Radio Frequencies (\Gls{RF}) is a common electromagnetic medium for communication systems to deliver digital information over the air from one point to another. Today, RF is used in many daily applications, such as \Gls{FM} radios and telecommunications. In fact, it is the discovery of RF signals that enables the deployment of many commercial wireless networks \cite{R2-4-1}.
 
-\medskip
+\bigskip
 On the electromagnetic spectrum, RF spans from 30Hz to 300GHz in frequency. More specifically, Bluetooth ranges from 2.40 to 2.48GHz and UWB ranges from 3.1 to 10.6GHz. RF has two main attributes: amplitude and frequency \cite{R2-4-1}. The amplitude represents the strength of an RF signal. The measurement of amplitude is power which indicates the amount of energy required for a signal to propagate over a given distance. The amplitude of an RF signal is susceptible to degradation as it travels over a distance in air \cite{R2-4-1}. The rate at which an RF signal degrades follows the inverse square law shown in Figure \ref{isl} , which states that generally signal strength decreases exponentially as distance increases. In theory, the degree of strength loss can be mitigated by having a more powerful signal to begin with provided that there is minimal obstacle against the signal on the way to its destination \cite{R2-4-2}.
 
 \medskip
@@ -109,6 +109,7 @@ Besides RF signal attributes, environmental factors can also influence the integ
 \medskip
 Received Signal Strength Indicator, or RSSI describes the amount of power detected by the receiver during the reception of a packet. It is a metric measured in dBm and can be acquired through BLE API of the ESP32 module. Signal strength is influenced by the inverse square law from the previous section, which states that signal strength decreases exponentially as the distance from the transmitter increases, hence it is possible to estimate the proximity of the receiver from the transmitter based on the changes in measured RSSI value. The distance conversion formula from RSSI to distance is shown below. In the PoC phase, Akriveia uses RSSI as the distance-related metric \cite{R2-5-1}.
 
+\medskip
 \begin{equation*}
     Distance = 10^{(Measured\_Power - RSSI)/(10*N)}
 \end{equation*}
@@ -124,10 +125,12 @@ N, is the environmental factor constant that ranges from values 2 to 4. It is a 
 \medskip
 Time of flight, or ToF is a distance related metric that describes the propagation time of a radio signal between a sender and a receiver. Precisely, it is the time it takes for a radio signal to travel from a sender to receiver and back to the sender. Since radio waves are a type of electromagnetic radiation, the travel speed of a radio signal is the speed of light, which is approximately thirty centimeters per nanosecond. Given the speed of light constant and a ToF value, the distance between a sender and a receiver can be computed using the Distance Speed Time formula as shown below \cite{R2-5-1}. To measure ToF in the nanosecond scale, Akriveia will employ the Ultra-Wideband (UWB) technology by using the DWM1000 module in the prototype and final product phase.
 
+\medskip
 \begin{equation*}
     Distance = Speed\:of\:light * ToF
 \end{equation*}
 
+\medskip
 In narrowband systems, measuring signal arrival times with accuracy is a difficult task without complex algorithms. Due to bandwidth limitations, radios in narrowband systems cannot resolve signals influenced by multipath and may assume all received subpath signals arrived at the same time \cite{R2-5-2}. Fortunately, multipath components can be resolved using UWB radios due to larger signal bandwidth. UWB radios are formerly known as pulse radios as they send signals in short bursts called chips. The chips are radio energy pulses that carry information over a large bandwidth to counter the effects of multipath fading and interference that are present in conventional narrowband signals such as 2.4G/5G WiFi. Due to the short duration of chips, the effects of multipath are also received as echoes that do not interfere with the original signal \cite{R2-5-1}. As a result, UWB provides a great solution to indoor localization by allowing high precision ToF measuring capabilities.
 
 
@@ -146,6 +149,7 @@ The Akriveia 2-D indoor localization solution determines the x-y coordinates of 
 \medskip
 
 Such a circle takes on a standard mathematical form as shown in the equation below, where the variables $x_0$ and $y_0$ are the 2-D coordinates of the beacon position relative to its environment, and $r_0$ is the distance between the beacon and the ID tag. 
+
 \medskip
 \begin{equation*}
 	(x-x_{0})^2 + (y-y_{0})^2 = r_{0}^2
