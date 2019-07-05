@@ -123,10 +123,11 @@ N, is the environmental factor constant that ranges from values 2 to 4. It is a 
 \subsection{Ultra-Wideband and Time-of-Flight}
 \medskip
 Time of flight, or ToF is a distance related metric that describes the propagation time of a radio signal between a sender and a receiver. Precisely, it is the time it takes for a radio signal to travel from a sender to receiver and back to the sender. Since radio waves are a type of electromagnetic radiation, the travel speed of a radio signal is the speed of light, which is approximately thirty centimeters per nanosecond. Given the speed of light constant and a ToF value, the distance between a sender and a receiver can be computed using the Distance Speed Time formula as shown below \cite{R2-5-1}. To measure ToF in the nanosecond scale, Akriveia will employ the Ultra-Wideband (UWB) technology by using the DWM1000 module in the prototype and final product phase.
+
 \begin{equation*}
     Distance = Speed\:of\:light * ToF
 \end{equation*}
-\medskip
+
 In narrowband systems, measuring signal arrival times with accuracy is a difficult task without complex algorithms. Due to bandwidth limitations, radios in narrowband systems cannot resolve signals influenced by multipath and may assume all received subpath signals arrived at the same time \cite{R2-5-2}. Fortunately, multipath components can be resolved using UWB radios due to larger signal bandwidth. UWB radios are formerly known as pulse radios as they send signals in short bursts called chips. The chips are radio energy pulses that carry information over a large bandwidth to counter the effects of multipath fading and interference that are present in conventional narrowband signals such as 2.4G/5G WiFi. Due to the short duration of chips, the effects of multipath are also received as echoes that do not interfere with the original signal \cite{R2-5-1}. As a result, UWB provides a great solution to indoor localization by allowing high precision ToF measuring capabilities.
 
 
