@@ -4,6 +4,7 @@
 \section{System Overview}
 \bigskip
 \subsection{System Layout}
+\medskip
 The Akriveia Beacon indoor locating rescue system combines electrical, hardware and software systems to detect and locate multiple occupants within a building during an emergency disaster situation. Each component of the system is developed separately in the PoC (Proof of Concept) phase; then partially integrated in the Prototype phase and fully integrated in the Final Product phase.
 
 \bigskip
@@ -19,6 +20,7 @@ A high-level system overview displays three Locator Beacons, an ID tag, a data p
 
 \break
 \subsubsection{Proof Of Concept (PoC)}
+\medskip
 The Proof of Concept (\Gls{PoC}) demonstrates the feasibility of the location determination system using Beacon to ID tag distance estimation along with trilateration. Such a system should show the effectiveness of a trilateration algorithm for determining distance and location of the ID tag in two dimensional space. For the PoC, all equipment will be powered by an external power supply; as the main goal of the PoC is to demonstrate the feasibility of the main function of the system; locating ID tags with trilateration algorithms.
 
 \begin{figure}[h!]
@@ -41,6 +43,7 @@ This system will use four 2.4 GHz \Gls{RF} modules, four micro-controller units 
 
 \break
 \subsubsection{Prototype}
+\medskip
 The Prototype demonstrates the same objectives from the PoC except the transceivers will be using Ultra-wideband (UWB) signals instead of 2.4 GHz signals. UWB uses the radio frequencies of 3.5 to 6.5 GHz and would significantly reduce the issue of signal interference or multipath propagation. Although 2.4 GHz is more widely used for its versatility, UWB is more well suited for the Akriveia Beacon system. Selecting UWB chips would result in a higher wave propagation effect, lower signal interference and signal multipath \cite{R4}. In addition, an early prototype RF harvesting circuit would be implemented during the prototype phase to test the feasibility of the concept.
 
 \begin{figure}[h!]
@@ -66,6 +69,7 @@ chips and developing RF harvester circuit. Prototype phase objectives are stated
 
 \break
 \subsubsection{RF Harvester Prototype Design}
+\medskip
 RF is an abundant source for energy harvesting especially in a radio wave rich environment. When Radio Waves reach an antenna it causes a changing potential difference across the antenna. The potential difference causes charge carriers to move along the length of the antenna in an attempt to equalize the field, and the RF to \Gls{DC} integrated circuit (Figure \ref{fig:rfh}) is able to capture energy from the movement of those charge carriers. The energy is stored temporarily in a capacitor and then used to create a desired potential difference at the load \cite{R5}.
 \begin{figure}[h!]
     \centering
@@ -79,6 +83,7 @@ There will be a demonstrable RF harvester circuit similar to Figure \ref{fig:rfh
 
 \break
 \subsubsection{Final Product}
+\medskip
 The final product will demonstrate the final fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. Here the additon of Wi-Fi modules can be seen, as the Beacon will use wireless Wi-Fi communication with the data processing unit. The Wi-Fi network will be a closed network meaning that the network is only share between beacons and the data processing unit to ensure reliability and stability. All the components of the systems will be fully integrated as a close-to-production product. Component circuits and \Gls{PCB} footprint will be minimized and proper casing will be made to house all electronics. The data processing unit will provide the user with a full GUI to interact with the system along with the fully implemented features such as importable blueprints and multi-floor tacking.
 \medskip
 \begin{figure}[h!]
@@ -104,6 +109,7 @@ The final product should satisfy these objectives below:
 
 \break
 \subsubsection{RF Harvester Final Design}
+\medskip
 Once the RF harvester test circuit produces adequate results in the prototype phase, there will be two RF harvester circuits implemented on the ID tags in the final design. The first will act as a RF trigger switch to activating the RF module in case of an emergency, the second will be for charging the ID tags using ambient RF signals.
 
 \bigskip

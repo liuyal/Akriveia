@@ -10,20 +10,20 @@ Due June 09, 2019
 
 ## To generate Glossary
 
-pdflatex __Requirements_Specification.tex
+pdflatex _Requirements_Specification.tex
 
-makeindex -s __Requirements_Specification.ist -o __Requirements_Specification.gls __Requirements_Specification.glo
+makeindex -s _Requirements_Specification.ist -o _Requirements_Specification.gls _Requirements_Specification.glo
 
-pdflatex __Requirements_Specification.tex
+pdflatex _Requirements_Specification.tex
 
 
 
 ## To generate Reference
 
-pdflatex __Requirements_Specification.tex
+pdflatex _Requirements_Specification.tex
 
-bibtex __Requirements_Specification.aux
+bibtex _Requirements_Specification.aux
 
-pdflatex __Requirements_Specification.tex
+pdflatex _Requirements_Specification.tex
 
-pdflatex __Requirements_Specification.tex
+pdflatex _Requirements_Specification.tex
