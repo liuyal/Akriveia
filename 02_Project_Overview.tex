@@ -3,11 +3,112 @@
 \setcounter{section}{1}
 \section{Project Overview}
 \bigskip
-
 \subsection{System Overview}
+\medskip
+The Akriveia Beacon indoor locating rescue system combines hardware, electrical, and software systems to detect and locate multiple occupants within a building during an emergency disaster situation. Each individual component of the system is developed separately in the PoC (Proof of Concept) phase, partially integrated in the Prototype phase and fully integrated in the Final Product phase. 
 
+\bigskip
+A high-level system overview presents three Locator Beacons, an ID tag, a data processing unit, and a graphical user interface (Figure \ref{sys_arch}). Using the Time-of-Flight principle (ToF) which is a method for measuring distances between transceivers. Based on the time difference between the emission of a signal after being reflected by an object and its return to the sensor, the distance between a beacon and an ID tag can be estimated r\cite{R2-0}. 
+
+\bigskip
+The Locator Beacons transmit ultra-wideband (UWB) signals in the frequency of 3.5-6.5GHz to the ID tag to acquire a response. When the response returns back to the Beacon a ToF measurement is acquired. The ToF data captured by ESP32 (MCU) will be forwarded to a portable data processing unit, a Raspberry Pi, via closed Wi-Fi network with User Datagram Protocol (UDP). Then the processing unit will calculate the distance and coordinates of the ID tags using a trilateration algorithm , then the coordinates results are displayed on a GUI for operators.
+
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.60]{./images/00_sys_arch.png}
+    \caption{High Level System Layout}
+    \label{sys_arch}
+\end{figure}
+\pagebreak
+
+The final product will demonstrate the fully functional indoor rescue system that detects the location of the ID tags and displays it accordingly on a GUI. Here the of ESP32’s WiFi modules for Beacon to DPU communications can be seen (Figure \ref{final}), as the Beacon will communicate via WiFi communication with the data processing unit. The WiFi network will be a closed private network meaning that the network is only share between beacons and the data processing unit to ensure security, reliability and stability. Furthermore, implementation of a RF harvesting circuit for charging the ID Tag device during deep sleep mode will occur throughout this stage. All the components of the systems will be fully integrated as a close-to-production product. Component circuits and {PCB} footprint will be minimized and proper casing will be made to house all electronics. The data processing unit will provide the user with a full GUI to interact with along with fully implemented features such as importable blueprints and system configurations.
+
+\bigskip
+\begin{figure}[H]
+\centering
+    \includegraphics[width=\linewidth]{./images/03_final.png}
+    \caption{Final System Block Diagram}
+    \label{final}
+\end{figure}
+
+\pagebreak
+\subsubsection{System Components}
+\medskip
+The Beacon and ID tags are composed of Decawave DWM1000 \Gls{UWB} module (Figure \ref{dwm_esp} right) and a Espressif ESP32 microcontroller (Figure \ref{dwm_esp} left). The ESP32 contains a Tensilica Xtensa LX6 microprocessor in both dual-core and single-core variations and includes a in-built antenna, power amplifier, low-noise receive amplifier, filters, and power-management modules. The DWM1000 is an IEEE802.15.4-2011 UWB compliant and \Gls{FCC}/\Gls{ETSI} certified wireless transceiver module based on Decawave’s DW1000 IC \cite{R4-2-1}. This module is a combination of DW1000 IC, a built in antenna, power management system, and clock control for simple design integrations. 
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.75]{./images/dwm_esp.png}
+    \caption{Left ESP32, Right DWM1000}
+    \label{dwm_esp}
+\end{figure}
+
+The Data Processing Unit is a stand alone single board computer (SBC). For the demonstration of this project a Raspberry Pi 3 B+ is used as the DPU since it is an affordable and robust SBC, but the DPU in theory should be any electrical computer device that is capable of running a basic linux operating system; as the software stack is designed to operate on any linux based system. Since the Pi is cheap, portable and designed with an Cortex-A53 processor it meets the minimum requirements for the DPU.
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=1]{./images/pi.jpg}
+    \caption{Raspberry Pi 3 B+ Model}
+    \label{pi}
+\end{figure}
+
+
+
+\pagebreak
+\subsubsection{Trilateration Method}
+\medskip
+The Akriveia Beacon 2-D indoor localization solution determines the X-Y coordinates of ID tags by trilateration. The method follows a lateration scheme with absolute distances, which uses distance related metrics such as ToF to determine the distance between a sender and a receiver. In the case where there is a single beacon and ID tag, the distance between the two entities can be interpreted as the radius of a circle traced with the beacon centered as shown in figure \ref{tri}. 
+
+\medskip
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.55]{./images/Tri.png}
+    \caption{Trilateration Diagram}
+    \label{tri}
+\end{figure}
+
+
+\medskip
+Such a circle takes on a standard mathematical form as shown in equation (1) below, where variables $x_0$ and $y_0$ are the 2-D coordinates of the beacon position relative to its environment, and $r_0$ is the distance between the beacon and the ID tag. Given the 2-D coordinates the three beacons and their individual distance with respect to the ID tag, three circles can be traced to form an intersection point at the location of the ID tag. Hence, three standard form circle equations are generated to form a system of equations with two unknowns as shown in equation (2). The solution to the unknowns, or the intersection coordinates of the ID tag can be obtained by solving the system.
+
+
+\medskip
+\begin{equation}
+	(x-x_{1})^2 + (y-y_{1})^2 = r_{0}^2
+\end{equation}
+
+\begin{gather}
+	(x-x_1)^2 + (y-y_1)^2 = {r_1}^2 \\
+	\nonumber (x-x_2)^2 + (y-y_2)^2 = {r_2}^2 \\
+	\nonumber (x-x_3)^2 + (y-y_3)^2 = {r_3}^2  
+\end{gather}
+
+
+\pagebreak
 \subsection{Project Scope}
 
+
+
+
+
+
+
+
+
+\pagebreak
 \subsection{Risks}
 
+
+
+
+
+
+\pagebreak
 \subsection{Benefits}
+\medskip
+
+
