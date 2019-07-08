@@ -36,13 +36,13 @@ The final product will demonstrate the fully functional indoor rescue system tha
 \pagebreak
 \subsubsection{System Components}
 \medskip
-The Beacon and ID tags are composed of Decawave DWM1000 \Gls{UWB} module (Figure \ref{dwm_esp} right) and a Espressif ESP32 microcontroller (Figure \ref{dwm_esp} left). The ESP32 contains a Tensilica Xtensa LX6 microprocessor in both dual-core and single-core variations and includes a in-built antenna, power amplifier, low-noise receive amplifier, filters, and power-management modules. The DWM1000 is an IEEE802.15.4-2011 UWB compliant and \Gls{FCC}/\Gls{ETSI} certified wireless transceiver module based on Decawave’s DW1000 IC \cite{R4-2-1}. This module is a combination of DW1000 IC, a built in antenna, power management system, and clock control for simple design integrations. 
+The Beacon and ID tags are composed of Decawave DWM1000 \Gls{UWB} module (Figure \ref{dwm_esp} right) and a Espressif ESP32 microcontroller (Figure \ref{dwm_esp} left). The ESP32 contains a Tensilica Xtensa LX6 microprocessor in both dual-core and single-core variations and includes a in-built antenna, power amplifier, low-noise receive amplifier, filters, and power-management modules. The DWM1000 is an IEEE802.15.4-2011 UWB compliant and \Gls{FCC}/\Gls{ETSI} certified wireless transceiver module based on Decawave’s DW1000 IC \cite{R2-1-1-1}. This module is a combination of DW1000 IC, a built in antenna, power management system, and clock control for simple design integrations. 
 
 \medskip
 \begin{figure}[H]
 \centering
     \includegraphics[scale=0.75]{./images/dwm_esp.png}
-    \caption{Left ESP32, Right DWM1000}
+    \caption{Left ESP32 \cite{R2-1-1-2}, Right DWM1000}
     \label{dwm_esp}
 \end{figure}
 
@@ -52,7 +52,7 @@ The Data Processing Unit is a stand alone single board computer (SBC). For the d
 \begin{figure}[H]
 \centering
     \includegraphics[scale=1]{./images/pi.jpg}
-    \caption{Raspberry Pi 3 B+ Model}
+    \caption{Raspberry Pi 3 B+ Model \cite{R2-1-1-3}}
     \label{pi}
 \end{figure}
 
@@ -73,7 +73,7 @@ The Akriveia Beacon 2-D indoor localization solution determines the X-Y coordina
 
 
 \medskip
-Such a circle takes on a standard mathematical form as shown in equation (1) below, where variables $x_0$ and $y_0$ are the 2-D coordinates of the beacon position relative to its environment, and $r_0$ is the distance between the beacon and the ID tag. Given the 2-D coordinates the three beacons and their individual distance with respect to the ID tag, three circles can be traced to form an intersection point at the location of the ID tag. Hence, three standard form circle equations are generated to form a system of equations with two unknowns as shown in equation (2). The solution to the unknowns, or the intersection coordinates of the ID tag can be obtained by solving the system.
+Such a circle takes on a standard mathematical form as shown in equation (1) below \cite{R2-1-2-1}, where variables $x_0$ and $y_0$ are the 2-D coordinates of the beacon position relative to its environment, and $r_0$ is the distance between the beacon and the ID tag. Given the 2-D coordinates the three beacons and their individual distance with respect to the ID tag, three circles can be traced to form an intersection point at the location of the ID tag. Hence, three standard form circle equations are generated to form a system of equations with two unknowns as shown in equation (2). The solution to the unknowns, or the intersection coordinates of the ID tag can be obtained by solving the system.
 
 
 \medskip
@@ -95,19 +95,19 @@ Such a circle takes on a standard mathematical form as shown in equation (1) bel
 \textbf{Goal}
 
 \medskip
-The goal of the Akriveia Beacon system is to provide accurate and reliable indoor location tracking of trapping personnel during small scale emergency disaster in near real time. The location information will be complied to aid first responders on locating trapped victims during any emergency disaster situations. Therefore, lowering the search and rescue time for first responders and limiting their exposure to potentially dangerous environments, as well as increasing the chances of survival of trapped victims.
+The goal of the Akriveia Beacon system is to provide accurate and reliable indoor location tracking of trapping personnel during small scale emergency disaster in near real time. The location information will be complied to aid first responders on locating trapped victims during any emergency disaster situations. By doing so, the search and rescue time for first responders can be lowered, and therefore, limiting their exposure to potentially dangerous environments and increasing the chances of survival of trapped victims.
 
 \bigskip
 \textbf{Justification}
 
 \medskip
-Emergency disasters which occur in urban commercial builds creates extremely dangerous and complex environments for first responders to operate in. One of the most important aspects of any search and rescue operations in emergency disasters is the timely locating of trapped victims. By limiting operator exposure to potentially dangerous environments the Akriveia Beacon system minimize the time spent locating victims.
+The Akriveia Beacon system must maintain critical functions under emergency disaster situations such as fires and low magnitude earthquakes. System components must design to be durable and initiative to use for all end users. Each beacon and ID tag must be designed to withstand various environmental factors such as high temperature, low visibility, and other dangerous factors. The users of the system must have some form of knowledge of the system prior to operating. Lastly, as an indoor tracking tag device the ID tags must be worn at all times by all personnel associated.
 
 \bigskip
 \textbf{Assumptions}
 
 \medskip
-The Akriveia Beacon system must maintain critical functions under emergency disaster situations such as fires and low magnitude earthquakes. Each beacon and ID tag must be designed to withstand various environmental factors such as high temperature, fragile structural integrity, and other dangerous factors. The users of the system must have some form of knowledge of the system prior to operating. Lasty, as an indoor tracking tag device the ID tags must be worn at all times by all personnel associated.
+The Akriveia Beacon system must maintain critical functions under emergency disaster situations such as fires and low magnitude earthquakes. Each beacon and ID tag must be designed to withstand various environmental factors such as high temperature, fragile structural integrity, and other dangerous factors. The users of the system must have some form of knowledge of the system prior to operating. Lastly, as an indoor tracking tag device the ID tags must be worn at all times by all personnel associated.
 
 \bigskip
 \textbf{Deliverables}
@@ -119,12 +119,14 @@ The Akriveia Beacon is designed as a system of anchor beacons and wearable ID ta
 \textbf{Constraints}
 
 \medskip
-The system as a whole must remain operational throughout the event of a disaster as the search and rescue effort will rely on the information generated by the system. Each component of the system will need a battery backup to maintain functionality if the primary power source is unavailable. As an indoor location tracking system a tag device must be worn by personnel being tracked at all times while in proximity of beacons in a building. As a wearable electronics, the size of the ID tags must be optimized in its design so it is ergonomical as an everyday carry. With all wearable electronics power consumption will be another important aspect to focus on. To reduce maintenance costs the device battery must maintain charge over prolonged periods of time or have methods of wireless charging. 
+The system as a whole must remain operational throughout the event of a disaster as the search and rescue effort rely on information generated by the system. Each component of the system will need a battery backup to maintain functionality if the primary power source is unavailable. As an indoor location tracking system a tag device must be worn by personnel being tracked at all times while in proximity of the beacons. As wearable electronics, the size of the ID tags must be optimized in its design so it is ergonomical as an everyday carry item. Power consumption will be another important aspect to focus on as with all wearable electronics. To reduce maintenance costs the device battery must maintain charge over prolonged periods of time or have methods of wireless charging. 
 
 
 
 \pagebreak
 \subsection{Risks}
+
+
 
 
 
