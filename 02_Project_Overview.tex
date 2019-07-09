@@ -11,7 +11,7 @@ The Akriveia Beacon indoor locating rescue system combines hardware, electrical,
 A high-level system overview presents three Locator Beacons, an ID tag, a data processing unit, and a graphical user interface (Figure \ref{sys_arch}). Using the Time-of-Flight principle (ToF) which is a method for measuring distances between transceivers. Based on the time difference between the emission of a signal after being reflected by an object and its return to the sensor, the distance between a beacon and an ID tag can be estimated r\cite{R2-0}. 
 
 \bigskip
-The Locator Beacons transmit ultra-wideband (UWB) signals in the frequency of 3.5-6.5GHz to the ID tag to acquire a response. When the response returns back to the Beacon a ToF measurement is acquired. The ToF data captured by ESP32 (MCU) will be forwarded to a portable data processing unit, a Raspberry Pi, via closed Wi-Fi network with User Datagram Protocol (UDP). Then the processing unit will calculate the distance and coordinates of the ID tags using a trilateration algorithm , then the coordinates results are displayed on a GUI for operators.
+The Locator Beacons transmit ultra-wideband (UWB) signals in the frequency of 3.5-6.5GHz to the ID tag to acquire a response. When the response returns back to the Beacon a ToF measurement is acquired. The ToF data captured by ESP32 (MCU) will be forwarded to a portable data processing unit, a Raspberry Pi, via closed Wi-Fi network with User Datagram Protocol (UDP). Then the processing unit will calculate the distance and coordinates of the ID tags using a trilateration algorithm , then the coordinates results are displayed on a Graphical User Interface (\Gls{GUI})  for operators.
 
 
 \medskip
@@ -125,16 +125,96 @@ The system as a whole must remain operational throughout the event of a disaster
 
 \pagebreak
 \subsection{Risks}
+\medskip
+As a system that will operate in potentially dangerous environments during disasters the Akriveia Beacon system faces various boundaries, which can be a source of risk and thus should be defined further. 
 
+\bigskip
+Most Common Project Risks are:
 
+\begin{itemize}
+\setlength\itemsep{0.1mm}
+	\item \textbf{Cost Risk:} Typically escalation of project costs due to poor cost estimating accuracy and scope creep.
+	\item \textbf{Schedule Risk:} The risk that activities will take longer than expected. Slippages in schedule typically increase costs and delay the receipt of project benefits, with possible loss of competitive advantage.
+	\item \textbf{Performance Risk:} The risk that the project will fail to produce results consistent with project specifications.
+	\item \textbf{Governance Risk:} Relates to board and management performance with regard to ethics, community stewardship, and company reputation.
+	\item \textbf{Strategic Risks:} From errors in strategy, such as choosing a technology that cannot be made to work.
+	\item \textbf{Operational Risk:} includes risks from poor implementation and process problems such as procurement, production, and distribution.
+	\item \textbf{Market Risks:} include competition, foreign exchange, commodity markets, and interest rate risk, as well as liquidity and credit risks.
+	\item \textbf{Legal Risks:} arise from legal and regulatory obligations, including contract risks and litigation brought against the organization.
+	\item \textbf{External Hazards Risks:} Including fire, storms, floods, earthquakes; vandalism, and sabotage.
+\end{itemize}
 
+Some important physical and operational risks with the Akriveia Beacon system highlighted are, the resolution accuracy of the indoor location system, failure to carry ID tag during disasters, system integrity during hazardous environments. These risks are associated with system operation and mitigation strategies are developed to reduce the occurrence and impact of these types of risks. Risks relating to the overall project are considered and analyzed in the tables below. The team at TRIWAVE SYSTEMS will perform in depth analysis of all possible risk of the project and create mitigation strategies to best minimize these risks of the project.
 
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\def\arraystretch{1.2}
+\begin{tabular}{ | m{1.5cm} | m{4cm}| m{2cm} | m{7.5cm}|}
+\hline
+\rowcolor{lightgray} \textbf{Severity} & \textbf{Risk} & \textbf{Likelihood} & \textbf{Mitigation Strategy}\\
+\hline
+Low & Feature creeping inflates the scope of the project. & Medium & Team members all agree on the scope of the product and new features will be further analysed on feasibility and cost/benefit ratio before adding to project.\\
+\hline 
+Low & Team members misinterpret projects requirements. & Low & Requirement documents details concise and clear requirements of the project to minimize misinterpretation during development.\\
+\hline
+Low & Insufficient project funding & Medium & A self-funded budget has been established and if needed each member can provide additional funding for the project.\\
+\hline
+\end{tabular}
+\caption{Project Risk Assessment Table - Part 1}
+\end{table}	
 
+\pagebreak
 
+\bgroup
+\def\arraystretch{1.5}
+\begin{table}[H]
+\centering
+\def\arraystretch{1.3}
+\begin{tabular}{ | m{1.6cm} | m{4cm}| m{2cm} | m{7.4cm}|}
+\hline
+\rowcolor{lightgray} \textbf{Severity} & \textbf{Risk} & \textbf{Likelihood} & \textbf{Mitigation Strategy}\\
+\hline
+Moderate & Targeted end users have difficulties interacting the system user interface. & Medium & The project will include two phases of usability testing to ensure UI interaction is intuitive. The first with team members as the evaluators and the second with external evaluators. \\
+\hline
+Moderate & Team member unavailable to perform duties due to illness or unforeseen circumstances. & Medium & Team members are familiar with the core architecture of the system, and with difference domain of expertise all member can be covered by each other, in case of illness or unforeseen circumstances. \\
+\hline
+Moderate & Miscalculate Project time line, failure to meet project deadlines & Low & Proper project planning strategies such as grant charts and project management techniques will mitigate delays and other unforeseen circumstances. \\
+\hline
+Moderate & Target audience may not find final product as initiative or easy to use. & Low & Constant communication and feedback between team members and stakeholders can mitigate this risk. \\
+\hline
+Moderate & System cost may be too expensive for consumers to consider to purchase. & High & As this technology is still in its infancy cost is a major concern, in the future with more refined technology can lower cost along with government incentive for more potential consumers. \\
+\hline
+Significant & Delay of project due to delay in component purchasing, manufacturing, and shipping. & Medium & Plan purchase dates as early as possible, research multiple vendors and backup component sources. \\
+\hline
+Significant & Stakeholders incoherent with project definition and scope. & Low & The team will provide clear and coherent communication and project description with shareholders to avoid misinterpreted ideas. \\
+\hline
+Significant & Targeted location resolution accuracy of 50 cm cannot be achieved. & Low & Create alternative solution to best fit the scope of the project without compromising the integrity of the core system. Such as lowering resolution to 5m zone instead.\\
+\hline
+Significant & Beacon is destroyed or is offline due to external hazards during emergency disaster after system deployment. & High & The system needs minimal three beacons to operate, in ideals situation there are multiple redundant backup beacons to keep system operational during disasters. \\
+\hline
+Significant & Location of ID tags generate inaccurate data and increase  search and rescue time & Low & The system will be calibrated for each environment and system test drills can be performed to ensure that the system can produce accurate and reliable data. \\
+\hline
+\end{tabular}
+\caption{Project Risk Assessment Table - Part 2}
+\end{table}	
 
 
 \pagebreak
 \subsection{Benefits}
 \medskip
+The Akriveia Beacon was envisioned as a system to aid first responders in search and rescue operation during small scale disaster situations. As an indoor location tracking system designed for emergency search and rescue operations, the Akriveia Beacon is the first of its kind. The core feature is the near real time tracking of ID tags upto a distance resolution of 50 cm, which is substantial since no system exists with a similar purpose. One major benefit of the system is to reduce search and rescue operation time. In dangerous environments during an emergency disaster first responders are exposed to various hazards which creates considerable amount of risk to their lives. To minimize the first responders’ and the trapped victims' exposure to these environments is critical. By providing near real time location of trapped victiums the search time is significantly reduced allowing for quicker rescue procedures to be carried out.
+
+\bigskip
+Another advantage of the Akriveia Beacon system for the end users is that it provides a simple and intuitive graphical user interface. A clear and intuitive GUI allows for the first responders to quickly understand and interpolate location coordinates of trapped victims and relay this important information directly to the first line of fire fighters heading into the targeted building. Clarity minimized potential mistakes and error which is pivotal in search and rescue operations.
+
+\bigskip
+The Akriveia Beacon system could also generate substantial economic benefits if it were to become a successful product. Successful sales of this product would generate profit which allows for the growth of TRIWAVE SYSTEMS. As well as the build up a brand and company reputation in the industry to further create a multitude of business opportunities. This growth will allow the Akriveia Beacon system to be further refined and improved upon to become an even more robust and reliable system which would revolutionize emergency search and rescue operations.
+
+\bigskip
+The final product version of Akriveia Beacon can be further be improved upon to include a vast range of potentials. One major implementation for the system considered was a central cloud management system. Since each beacon has the capability to access any WiFi network, a central cloud server could utilize this feature to create a management system for each individual build installed with the Akriveia Beacon system. A central management system allows for scalability and improved system access and maintenance.
+
+
 
 
