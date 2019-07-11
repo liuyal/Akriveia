@@ -16,7 +16,7 @@ pdflatex _Project_Proposal.tex
 ## To generate Reference
 pdflatex _Project_Proposal.tex
 
-biber _Project_Proposal
+bibtex _Project_Proposal
 
 pdflatex _Project_Proposal.tex
 
