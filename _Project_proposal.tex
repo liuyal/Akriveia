@@ -21,6 +21,21 @@
 \setcounter{secnumdepth}{4}
 \usepackage{fancyhdr}
 \usepackage[noadjust]{cite} 
+\usepackage{pdflscape}
+\usepackage{caption}
+\DeclareCaptionLabelFormat{blank}{}
+\usepackage{everypage}
+
+\newcommand{\Lpagenumber}{\ifdim\textwidth=\linewidth\else\bgroup
+  \dimendef\margin=0 %use \margin instead of \dimen0
+  \ifodd\value{page}\margin=\oddsidemargin
+  \else\margin=\evensidemargin
+  \fi
+  \raisebox{\dimexpr -\topmargin-\headheight-\headsep-0.5\linewidth}[0pt][0pt]{%
+    \rlap{\hspace{\dimexpr \margin+\textheight+\footskip}%
+    \llap{\rotatebox{90}{\thepage}}}}%
+\egroup\fi}
+\AddEverypageHook{\Lpagenumber}%
 
 \fancypagestyle{logo}{
     \fancyhf{} % clears header/footer
@@ -37,8 +52,8 @@
 \makeglossaries
 \input{00_Glossary.tex}
 
-
 \begin{document}
+
 
 % \setboolean{@twoside}{false}
 % \includepdf[pages={1}]{./images/_Letter_of_transmittal.pdf}
