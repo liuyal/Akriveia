@@ -9,7 +9,7 @@ Due July 21, 2019
 ## To generate Glossary
 pdflatex _Project_Proposal.tex
 
-makeindex -s _Project_Proposal-o _Project_Proposal.gls _Project_Proposal.glo
+makeindex -s _Project_Proposal -o _Project_Proposal.gls _Project_Proposal.glo
 
 pdflatex _Project_Proposal.tex
 
