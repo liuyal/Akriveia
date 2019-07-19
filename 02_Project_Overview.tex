@@ -11,7 +11,7 @@ The Akriveia Beacon indoor locating rescue system combines hardware, electrical,
 A high-level system overview presents three Locator Beacons, an ID tag, a data processing unit, and a graphical user interface (Figure \ref{sys_arch}). Using the Time-of-Flight principle (\Gls{ToF}) which is a method for measuring distances between transceivers. Based on the time difference between the emission of a signal after being reflected by an object and its return to the sensor, the distance between a beacon and an ID tag can be estimated r\cite{R2-0}. 
 
 \bigskip
-The Locator Beacons transmit ultra-wideband (UWB) signals in the frequency of 3.5-6.5GHz to the ID tag to acquire a response. When the response returns back to the Beacon a ToF measurement is acquired. The ToF data captured by ESP32 microcontroller unit(\Gls{MCU}) will be forwarded to a portable data processing unit, a Raspberry Pi, via closed WiFi network with User Datagram Protocol (\Gls{UDP}). Then the processing unit will calculate the distance and coordinates of the ID tags using a trilateration algorithm , then the coordinates results are displayed on a Graphical User Interface (\Gls{GUI}) for operators.
+The Locator Beacons transmit ultra-wideband (UWB) signals in the frequency of 3.5-6.5GHz to the ID tag to acquire a response. When the response returns back to the Beacon a ToF measurement is acquired. The ToF data captured by ESP32 microcontroller unit(\Gls{MCU}) will be forwarded to a portable data processing unit, a Raspberry Pi, via private WiFi network with User Datagram Protocol (\Gls{UDP}). Then the processing unit will calculate the distance and coordinates of the ID tags using a trilateration algorithm, then the coordinates results are displayed on a Graphical User Interface (\Gls{GUI}) for operators.
 
 
 \medskip
@@ -46,7 +46,7 @@ The Beacon and ID tags are composed of Decawave DWM1000 \Gls{UWB} module (Figure
     \label{dwm_esp}
 \end{figure}
 
-The Data Processing Unit is a stand alone single board computer (\Gls{SBC}). For the demonstration of this project a Raspberry Pi 3 B+ is used as the data processing unit (\Gls{DPU}) since it is an affordable and robust SBC, but the DPU in theory should be any electrical computer device that is capable of running a basic linux operating system; as the software stack is designed to operate on any linux based system. Since the Pi is cheap, portable and designed with an Cortex-A53 processor it meets the minimum requirements for the DPU.
+The Data Processing Unit is a stand alone single board computer (\Gls{SBC}). For the demonstration of this project a Raspberry Pi 3 B+ is used as the data processing unit (\Gls{DPU}) since it is an affordable and robust SBC, but the DPU in theory could be any electrical computer device that is capable of running a basic linux operating system; as the software stack for the DPU is designed to operate on any linux based system. The Raspberry Pi 3 B+ is affordable, portable, and designed with an Cortex-A53 processor, it satisfy the minimum requirements for the DPU.
 
 \medskip
 \begin{figure}[H]
@@ -61,7 +61,7 @@ The Data Processing Unit is a stand alone single board computer (\Gls{SBC}). For
 \pagebreak
 \subsubsection{Trilateration Method}
 \medskip
-The Akriveia Beacon 2-D indoor localization solution determines the X-Y coordinates of ID tags by trilateration. The method follows a lateration scheme with absolute distances, which uses distance related metrics such as ToF to determine the distance between a sender and a receiver. In the case where there is a single beacon and ID tag, the distance between the two entities can be interpreted as the radius of a circle traced with the beacon centered as shown in figure \ref{tri}. 
+The Akriveia Beacon 2-D indoor localization solution determines the X-Y coordinates of ID tags using basic trilateration methods. The trilateration method follows a lateration scheme with absolute distances, which uses distance related metrics such as ToF to determine the distance between a sender and a receiver. In the case where there is a single beacon and ID tag, the distance between the two entities can be interpreted as the radius of a circle traced with the beacon centered as demonstrated in figure \ref{tri} with D is the distance between any given ID Tag and Beacon. 
 
 \medskip
 \begin{figure}[H]
@@ -73,7 +73,7 @@ The Akriveia Beacon 2-D indoor localization solution determines the X-Y coordina
 
 
 \medskip
-Such a circle takes on a standard mathematical form as shown in equation (1) below \cite{R2-1-2-1}, where variables $x_0$ and $y_0$ are the 2-D coordinates of the beacon position relative to its environment, and $r_0$ is the distance between the beacon and the ID tag. Given the 2-D coordinates the three beacons and their individual distance with respect to the ID tag, three circles can be traced to form an intersection point at the location of the ID tag. Hence, three standard form circle equations are generated to form a system of equations with two unknowns as shown in equation (2). The solution to the unknowns, or the intersection coordinates of the ID tag can be obtained by solving the system.
+Such a circle takes on a standard mathematical form as shown in equation (1) below \cite{R2-1-2-1}, where variables $x_0$ and $y_0$ are the 2-D coordinates of the beacon position relative to its environment, and $r_0$ is the distance between the beacon and the ID tag. Given the 2-D coordinates the three beacons and their individual distance with respect to the ID tag, three circles can be traced to form an intersection point at the location of the ID tag. Hence, three standard form circle equations are generated to form a system of equations with two unknowns as shown in equation (2). The solution to the unknowns, or the intersection coordinates of the ID tag can be obtained by solving the system in equation (2).
 
 
 \medskip
@@ -95,7 +95,7 @@ Such a circle takes on a standard mathematical form as shown in equation (1) bel
 \textbf{Goal}
 
 \medskip
-The goal of the Akriveia Beacon system is to provide accurate and reliable indoor location tracking of trapping personnel during small scale emergency disaster in near real time. The location information will be complied to aid first responders on locating trapped victims during any emergency disaster situations. By doing so, the search and rescue time for first responders can be lowered, and therefore, limiting their exposure to potentially dangerous environments and increasing the chances of survival of trapped victims.
+The goal of the Akriveia Beacon system is to provide accurate and reliable indoor location tracking of trapping personnel during small scale emergency disaster in near real time. The location information will be complied and presented to aid first responders on locating trapped victims during any emergency disaster situations. By providing accurate location data of trapped victims, the search and rescue time for first responders can be drastically lowered, and therefore, limit first responder exposure to potentially dangerous environments and increase the chances of survival of trapped victims.
 
 \bigskip
 \textbf{Justification}
@@ -107,13 +107,13 @@ The Akriveia Beacon system must maintain critical functions under emergency disa
 \textbf{Assumptions}
 
 \medskip
-The Akriveia Beacon system must maintain critical functions under emergency disaster situations such as fires and low magnitude earthquakes. Each beacon and ID tag must be designed to withstand various environmental factors such as high temperature, fragile structural integrity, and other dangerous factors. The users of the system must have some form of knowledge of the system prior to operating. Lastly, as an indoor tracking tag device the ID tags must be worn at all times by all personnel associated.
+The Akriveia Beacon system must maintain critical functions under emergency disaster situations such as fires and low magnitude earthquakes (less than 6.9 on Richter magnitude scale). Each beacon and ID tag must be designed to withstand various environmental factors such as high temperature, low oxygen, fragile structural integrity, and other dangerous factors. The users of the system must have some basic form of technical and operational knowledge of the system prior to operating. Lastly, as an indoor tracking tag device the ID tags must be worn at all times by all personnel associated within the intended area of operations.
 
 \bigskip
 \textbf{Deliverables}
 
 \medskip
-The Akriveia Beacon is designed as a system of anchor beacons and wearable ID tags composed of Espressif ESP32s MCUs and Decawave DWM1000 UWB transceiver modules. A minimum of three beacons are needed for trilateration to function. A portable data processing unit will also be part of the system and be implemented in Rust to create a layer of interaction between the users and the system. For the purpose of the demonstration a Raspberry Pi will be the DPU. In theory, any single board computer which meets the minimal specification can be used as the DPU.
+The Akriveia Beacon is designed as a system of anchor beacons and wearable ID tags composed of Espressif ESP32s MCUs and Decawave DWM1000 UWB transceiver modules. A minimum of three beacons are needed for trilateration to function. A portable data processing unit will also be part of the system and be implemented in Rust to create a layer of control and interaction between the users and the system. For the purpose of the demonstration a Raspberry Pi 3 B+ will be used as the DPU. In theory, any single board computer which meets the minimal specification can be used as the DPU.
 
 \bigskip
 \textbf{Constraints}
@@ -126,10 +126,10 @@ The system as a whole must remain operational throughout the event of a disaster
 \pagebreak
 \subsection{Risks}
 \medskip
-As a system that will operate in potentially dangerous environments during disasters the Akriveia Beacon system faces various boundaries, which can be a source of risk and thus should be defined further. 
+As a system that will operate in potentially dangerous environments during disasters the Akriveia Beacon system faces various boundaries, which can be a source of risk and thus potential risks and boundaries should be defined further. 
 
 \bigskip
-Most Common Project Risks are:
+Most common risks for this project are:
 
 \begin{itemize}
 \setlength\itemsep{0.1mm}
@@ -146,7 +146,7 @@ Most Common Project Risks are:
 
 Some important physical and operational risks with the Akriveia Beacon system highlighted are, the resolution accuracy of the indoor location system, failure to carry ID tag during disasters, system integrity during hazardous environments. These risks are associated with system operation and mitigation strategies are developed to reduce the occurrence and impact of these types of risks. Risks relating to the overall project are considered and analyzed in the tables below. The team at TRIWAVE SYSTEMS will perform in depth analysis of all possible risk of the project and create mitigation strategies to best minimize these risks of the project.
 
-
+\medskip
 \begin{table}[H]
 \centering
 \def\arraystretch{1.2}
@@ -200,7 +200,7 @@ Significant & Location of ID tags generate inaccurate data and increase  search 
 \pagebreak
 \subsection{Benefits}
 \medskip
-The Akriveia Beacon was envisioned as a system to aid first responders in search and rescue operation during small scale disaster situations. As an indoor location tracking system designed for emergency search and rescue operations, the Akriveia Beacon is the first of its kind. The core feature is the near real time tracking of ID tags upto a distance resolution of 50 cm, which is substantial since no system exists with a similar purpose. One major benefit of the system is to reduce search and rescue operation time. In dangerous environments during an emergency disaster first responders are exposed to various hazards which creates considerable amount of risk to their lives. To minimize the first responders’ and the trapped victims' exposure to these environments is critical. By providing near real time location of trapped victiums the search time is significantly reduced allowing for quicker rescue procedures to be carried out.
+The Akriveia Beacon was envisioned as a system to aid first responders in search and rescue operation during small scale disaster situations. As an indoor location tracking system designed for emergency search and rescue operations, the Akriveia Beacon is the first of its kind. The core feature is the near real time tracking of ID tags upto a distance resolution of 50 cm, which is substantial since no system exists with a similar purpose and application. One major benefit of the system is to reduce search and rescue operation time. In dangerous environments during an emergency disaster first responders are exposed to various hazards which creates considerable amount of risk to their lives. To minimize the first responders’ and the trapped victims' exposure to these environments is critical. By providing near real time location of trapped victiums the search time is significantly reduced allowing for quicker rescue procedures to be carried out.
 
 \bigskip
 Another advantage of the Akriveia Beacon system for the end users is that it provides a simple and intuitive graphical user interface. A clear and intuitive Graphical User Interface (\Gls{GUI}) allows for the first responders to quickly understand and interpolate location coordinates of trapped victims and relay this important information directly to the first line of fire fighters heading into the targeted building. Clarity minimized potential mistakes and error which is pivotal in search and rescue operations.
@@ -209,7 +209,7 @@ Another advantage of the Akriveia Beacon system for the end users is that it pro
 The Akriveia Beacon system could also generate substantial economic benefits if it were to become a successful product. Successful sales of this product would generate profit which allows for the growth of TRIWAVE SYSTEMS. As well as the build up a brand and company reputation in the industry to further create a multitude of business opportunities. This growth will allow the Akriveia Beacon system to be further refined and improved upon to become an even more robust and reliable system which would revolutionize emergency search and rescue operations.
 
 \bigskip
-The final product version of Akriveia Beacon can be further be improved upon to include a vast range of potentials. One major implementation for the system considered was a central cloud management system. Since each beacon has the capability to access any WiFi network, a central cloud server could utilize this feature to create a management system for each individual build installed with the Akriveia Beacon system. A central management system allows for scalability and improved system access and maintenance.
+The final product version of Akriveia Beacon can be further be improved upon to include a vast range of potentials. One major implementation for the system considered was a central cloud management system. Since each beacon has the capability to access any WiFi network, a central cloud server could utilize this feature to create a management system for each individual building installed with the Akriveia Beacon system. A central management system allows for upwards scalability and improved process for system access and maintenance.
 
 
 
