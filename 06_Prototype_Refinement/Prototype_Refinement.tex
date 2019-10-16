@@ -48,25 +48,17 @@
 \pagestyle{logo}
 
 % Glossary
-\usepackage[utf8]{inputenc}
-\usepackage{glossaries}
-\makeglossaries
-\input{00_Glossary.tex}
-
 \begin{document}
 
-
-\setboolean{@twoside}{false}
-\includepdf[pages={1}]{./images/_Letter_of_transmittal.pdf}
 \setboolean{@twoside}{false}
 \includepdf[pages={1}]{./images/title_page_white.pdf}
-\
-\input{00_Executive_Summary.tex}
+
+
 \pagebreak
 \clearpage
-\printglossaries
 \pagebreak
 \begin{spacing}{1}
+\
 \tableofcontents
 \end{spacing}
 \pagebreak
@@ -74,21 +66,9 @@
 \pagebreak
 \listoftables
 \pagebreak
-\input{01_Introduction.tex}
+\input{01_introduction.tex}
 \pagebreak
-\input{02_Project_Overview.tex}
-\pagebreak
-\input{03_Current_Market_and_Competitions.tex}
-\pagebreak
-\input{04_Budget_and_funding.tex}
-\pagebreak
-\input{05_Project_planning.tex}
-\pagebreak
-\input{06_company_details.tex}
-\pagebreak
-\input{07_conclusion.tex}
-\pagebreak
-\input{08_References.tex}
+
 
 
 \end{document}
