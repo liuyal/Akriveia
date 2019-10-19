@@ -4,29 +4,103 @@
 \section{Hardware Test Plan}
 \bigskip
 
-
+The system consists of two major hardware components, the anchor beacons, and the wearable ID tags. Each beacon contains a DWM1000 ultra-wideband (UWB) transceiver module, a 3.3V 8MHz Arduino pro mini (PM33), and an ESP32 WiFi module, and each ID tag contains a DWM1000 modules and an Arduino pro mini. Hardware components must be tested individually to verify their primary functions.
 
 
 \bigskip
 \bgroup
-\def\arraystretch{1.25}
+\def\arraystretch{1.3}
 \begin{table}[h!]
     \centering
-    \begin{tabular}{|m{0.075\linewidth}|m{0.45\linewidth}|m{0.45\linewidth}|} 
+    \begin{tabular}{|p{0.075\linewidth}|p{0.45\linewidth}|p{0.45\linewidth}|} 
     \hline
-    ID & Test Proceedure & Validation\\ 
+    ID & Test Procedure & Validation\\ 
 
     \hline
     HW-01
-    & A.  
-    & B. \\ 
-    \hline    
+	& DWM1000 UWB to PM33 connections are valid with Serial Peripheral Interface (SPI). Connect Beacon to secondary PC via serial connection.
+	& Reset PM33 by pushing toggling the reset button on beacon. Serial connection should show device initiation message with correct Unique and device ID:
+Device ID: DECA - model: 1, version: 3, revision: 0
+Unique ID: AA:BB:CC:DD:EE:FF:00:0A \\ 
+     
+    \hline  
+    HW-02
+	& Configure 1 beacon and 1 ID tag in ranging mode. Set 2 device 1m apart measured by tape measure. Start ranging and observe results using serial connection from beacon.
+	& Ranging values can be observed from serial connection on beacon device. The values are within 0.5m tolerance.\\
 
-
-
-
+	\hline  
+	HW-03
+	& Multi-Tag detection ability. Configure 1 beacon and at least 2 ID tags in ranging mode. Set 1 id tag 1m apart from beacon and another 2m apart from beacon measured by tape measure. Start ranging and observe results using serial connection from beacon.
+	& Ranging values can be observed from serial connection on beacon device. The values are within 0.5m tolerance. Ranging messages show 1 id tag with 1m range values and the other id tag with 2m range values. Unique tag id is also matched correctly with each range. \\
+	
+	\hline  
+	HW-04
+	& Beacon can be started by sending start command via serial. Configure 1 beacon and 1 ID tag in ranging mode.
+	& Connect to beacon using serial connection.
+	On PC connected to beacon via serial, send command start, the beacon returns \texttt{start\_ack} to acknowledge command and begins receiving range values.\\
+	
+	\hline  
+	HW-05
+	& Beacon can be stopped by sending end command via serial. Configure 1 beacon and 1 ID tag in ranging mode.
+	& Connect to beacon using serial connection.
+	On PC connected to beacon via serial, send command end, the beacon returns \texttt{end\_ack} to acknowledge command and stops receiving range values from ID tag.\\
+	
+	\hline  
+	HW-06
+	& Beacon on/off state is saved in persistent memory. Configure 1 beacon and 1 tag in ranging mode. Start ranging with command start. Power cycle beacon.
+	& Before power cycle beacon outputs correct ranging values, after power cycle beacon initialization messages are shown and continues to output ranging values.\\
 
     \hline
     \end{tabular}
-    \caption{Hardware Test Cases}
+    \caption{Hardware Test Cases - Part 1}
+\end{table}
+
+\pagebreak
+\
+\bgroup
+\def\arraystretch{1.3}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{0.075\linewidth}|p{0.45\linewidth}|p{0.45\linewidth}|} 
+    \hline
+    ID & Test Procedure & Validation\\ 
+
+    \hline  
+    HW-07
+	& ESP32 is configured to connect to WiFi access point and receives IP with pre-specified port. Secondary PC device is also connected to the same network and receives IP. IP on PC is host IP.
+	& Using netcat commands on secondary PC device to send and listen for UDP packets.
+	All packets are sent to ESP32 properly and can be observed via serial connection from ESP32.\newline
+	Listen: nc -ulk 0 \textless PORT \textgreater \newline
+	Send: nc -u \textless IP \textgreater \textless PORT \textgreater \\
+     
+    \hline  
+    HW-08
+	& Hardware serial between PM33 and ESP32 is established by connecting: \newline
+	ESP32 G17 -\textgreater PM33 RXD \newline
+	ESP32 G16 -\textgreater PM33 TXD \newline
+	ESP32 GRD -\textgreater PM33 GRD \newline
+	ESP32 is connected to secondary PC using USB cables.
+	& Hardware serial communication between PM33 and ESP32 verified by resetting PM33 and observing PM33 reboot message on ESP32 side. Using COM port viewer the reboot message PM33 can be seen from ESP32 serial out on secondary PC\\
+
+	\hline  
+	HW-09
+	& Beacon can be pinged by server. Beacon is connected to WiFi access point and web server is configured to connect to the same access point and send ping command.
+	& Server issues ping, beacons receives and sends packet to host IP. Beacon returns packet containing ping acknowledgement and basic device information.
+	Packet should be \texttt{ping\_ack} , \textless EUI \textgreater\\
+	
+	\hline
+	HW-10
+	& Beacon can be rebooted by server. Beacon is connected to WiFi access point and web server is configured to connect to the same access point and send reboot command.
+	& Server issues reboot, beacons receives and sends 2 reboot acknowledgement  packets back to server. Packets are:
+	\texttt{esp\_reboot\_ack}  \newline
+	\texttt{pm33\_reboot\_ack}  \\
+	
+	\hline 
+	HW-11
+	& Beacon ranging delay is less than 5 seconds. Configure 1 beacon and 1 ID tag in ranging mode. Set 2 device 1m apart measured by tape measure. Start ranging and observe results using serial connection from beacon.
+	& Observe ranging values from beacon via serial connection with time stamp option enabled. Time difference between each ranging value must be less than 5 seconds. \\
+	
+    \hline
+    \end{tabular}
+    \caption{Hardware Test Cases - Part 2}
 \end{table}
