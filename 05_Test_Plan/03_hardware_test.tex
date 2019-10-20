@@ -4,7 +4,7 @@
 \section{Hardware Test Plan}
 \bigskip
 
-The system consists of two major hardware components, the anchor beacons, and the wearable ID tags. Each beacon contains a DWM1000 ultra-wideband (UWB) transceiver module, a 3.3V 8MHz Arduino pro mini (PM33), and an ESP32 WiFi module, and each ID tag contains a DWM1000 modules and an Arduino pro mini. Hardware components must be tested individually to verify their primary functions.
+The system consists of two major hardware components, the anchor beacons, and the wearable ID tags. Each beacon contains a DWM1000 Ultra-wideband (UWB) transceiver module, a 3.3V 8MHz Arduino Pro Mini (PM33), and an ESP32 WiFi module, and each ID tag contains a DWM1000 module and an Arduino Pro Mini. Hardware components must be tested individually to verify their primary functions and performance.
 
 
 \bigskip
@@ -45,7 +45,7 @@ The system consists of two major hardware components, the anchor beacons, and th
 	
 	\hline  
 	HW-06
-	& Beacon on/off state is saved in persistent memory. Configure 1 beacon and 1 tag in ranging mode. Start ranging with command start. Power cycle beacon.
+	& Beacon on/off state is saved in non-volatile memory. Configure 1 beacon and 1 tag in ranging mode. Start ranging with command start. Power cycle beacon.
 	& Before power cycle beacon outputs correct ranging values, after power cycle beacon initialization messages are shown and continues to output ranging values.\\
 
     \hline
@@ -98,7 +98,53 @@ The system consists of two major hardware components, the anchor beacons, and th
 	& Beacon ranging delay is less than 5 seconds. Configure 1 beacon and 1 ID tag in ranging mode. Set 2 device 1m apart measured by tape measure. Start ranging and observe results using serial connection from beacon.
 	& Observe ranging values from beacon via serial connection with time stamp option enabled. Time difference between each ranging value must be less than 5 seconds. \\
 	
-    \hline
+	\hline
+	HW-12
+	& Beacon ranging delay is less than 5 seconds. Configure 3 beacons and 1 ID tag in ranging mode. Set each beacon-tag pair 1m apart measured by tape measure. Start ranging and observe results using individual serial connections from each beacon.
+	& Observe ranging values from beacon via serial connection with time stamp option enabled. Time difference between each ranging value must be less than 15 seconds. \\
+	
+	  \hline
     \end{tabular}
     \caption{Hardware Test Cases - Part 2}
 \end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{0.075\linewidth}|p{0.45\linewidth}|p{0.45\linewidth}|} 
+    \hline
+    ID & Test Procedure & Validation\\ 
+	
+	\hline
+ 	HW-13
+    	& Observe the time for the ESP32 to successfully connect to the configured SSID broadcasted by the dedicated WiFi access point and assigned an IP with configured port. Secondary PC device connected to the ESP32 is used to monitor the setup messages output on COM port viewer.
+	& With time stamp option enabled in the COM port viewer, record the time between the appearance of serial messages "Connecting to WiFi" to "UDP port, \textless PORT \textgreater". Expected time is less than 4 seconds. \\
+	
+	\hline
+	HW-14
+	& Default DW1000 PRF config is 16MHz. Analyze ranging improvements by increasing pulse repetition frequencies from 16MHz to 64MHz. Replace \texttt{FREQ\_16MHZ} to \texttt{FREQ\_64MHZ} in the PulseFrequency field	
+	& Set a beacon and a tag 1m apart measured by tape measure. Observe ranging values from beacon via COM port viewer with PRF at 16MHz, then observe ranging values from beacon via COM port viewer with PRF at 64MHz. Compare their ranging values, the latter setup should yield higher accuracy by 0.1m \\
+	
+	\hline
+	HW-15
+	& Observe the time it takes for the PM33 reset and the ESP32 to restart upon issue of the reboot command through serial.
+	& Configure ESP32 to connect to WiFi access point and receive an IP with pre-specified port. Connect a secondary PC to the same SSID and assign it the host IP. Using netcat commands on shown in HW-07, issue the reboot command in ranging mode and observe the \texttt{pm33\_reboot\_ack} and \texttt{esp\_reboot\_ack} appear in chronological order. Record the time taken from the issue of the reboot command to when a ranging value first appears again. \\
+	
+	\hline
+	HW-16
+	& Observe that the DW1000 device configuration chooses one of the recommended preamble codes as a result of increasing pulse frequency to 64MHz from HW-14 and selecting UWB Channel 5. Based on user manual, recommended preamble codes for 64MHz PRF on Channel 5 are 9, 10, 11, 12.
+	& View serial message output from COM port viewer. In the Device mode line of the device initiation message, PRF should be 64MHz, Channel should be \#5 and Preamble code should be 9, 10 ,11 or 12. \\
+	
+	\hline
+	HW-17
+	& Calibrate antennas between beacon-tag pairs by finding optimal AntennaDelay value. To find optimal AntennaDelay value, place a beacon-tag pair 5.01m apart, given that both DW1000 are configured with 64MHz PRF and UWB Channel 5. Beacon acts as the initiator while tag acts as the responder.
+	& Monitor the COM port viewer of the responder, record the AntennaDelay value when its associated range value is within the predefined epsilon value of 5.01m. \\
+	
+    \hline
+    \end{tabular}
+    \caption{Hardware Test Cases - Part 3}
+\end{table}
+
+	
+	
+	
+
