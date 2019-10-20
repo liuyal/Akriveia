@@ -1,11 +1,12 @@
 
 
 \setcounter{section}{3}
+%\begin{document}
 \section{Electrical Test Plan}
 \bigskip
 
 
-As each major component consists of microcontrollers, transceivers and various electrical parts, it is crucial that each component is powered correctly with the proper voltage levels.
+Since beacons and ID tags both consist of microcontrollers, transceivers and various electrical parts, it is crucial that each of these components are powered with the proper voltage. In the case where two components powered by the same battery operate at different voltage and current levels, the system must include regulators that can ensure the proper power is delivered to the components. These regulators must work flawlessly, as an electrical failure in the system could be catastrophic.
 
 
 \bigskip
@@ -19,15 +20,36 @@ As each major component consists of microcontrollers, transceivers and various e
 
     \hline
     EC-01
-    & A.  
-    & B. \\ 
-    \hline    
+    & Measure voltage and current supplied to ESP32 power input pin with digital multimeter (DMM).
+    & Observe measured values on the DMM to verify that input from battery is sufficient to power ESP32 and stable. \\ 
 
+    \hline
+    EC-02
+    & Measure voltage and current supplied to ProMini power input pin with DMM.
+    & Observe measured values on the DMM to verify that input from voltage regulator is between 3.3V and 3.6V to power the ProMini and   stable and that input current is 40mA to each digital IO pin. \\
 
+    \hline
+    EC-02
+    & Measure voltage supplied to DWM1000 power input pin with digital DMM.
+    & Observe measured values on the DMM to verify that power input to the DWM1000 is between 3V and 3.5V. \\
 
+    \hline
+    EC-02
+    & Measure logic voltages supplied by the MOSFET reboot circuit with the DMM.
+    & Observe measured values on the DMM to vefify that the 3.3V logic output supplies 3.3V and the 5V logic output supplies 5V. \\
 
+    \hline
+    EC-02
+    & Measure clock frequencies from ESP32 using an oscilloscope.
+    & Observe waveform output on the oscilloscope, ensure that the oscillator is producing an 8MHz signal with <1% error. \\
+
+    \hline
+    EC-02
+    & Measure clock frequencies from ProMini using an oscilloscope.
+    & Observe waveform output on the oscilloscope, ensure that the oscillator is producing an 8MHz signal with <1% error. \\
 
     \hline
     \end{tabular}
     \caption{Electrical Test Cases}
 \end{table}
+%\end{document}
