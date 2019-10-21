@@ -75,7 +75,27 @@ Some additional automated unit tests are written primarily to test SQL queries f
     SW-09
     & Maps on the User Interface must correctly use the pixel to distance scale to accurately display the tags and beacons on the maps.
     & Create a custom map as an administrator, upload the blueprint image and determine the scale in pixels per meter. Add becons to the map and then verify on the "Map View" page that the beacons and tags are in the right location. \\
+    
+    \hline
+    SW-10
+    & Adminstators must be capable of updating beacon and user information. 
+    & Login as adminstator and create an user and beacon. Edit user and beacon information. The user and beacon information should reflect the proper changes. \\
+    
+    \hline
+    SW-11
+    & Viewing the website should redirect users to see the login page immediately.
+    & Enter the URL for the website. The option to select between admin login and responder login must appear. \\
 
+    \hline
+    SW-12
+    & Website layout must scale properly on all types of devices. UI must be uniform without misplaced icons.
+    & Enter website onto multiple devices browser. Website UI looks uniform and consistent among all devices. \\
+
+    \hline
+    SW-13
+    & Improper admin login credentials must be rejected.
+    & Login using incorrect login credentials. Error message must appear and client cannot login as admin despite multiple tries. \\
+    
     \hline
     \end{tabular}
     \caption{Software Test Cases}
