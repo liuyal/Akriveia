@@ -3,3 +3,6 @@
 \setcounter{section}{1}
 \section{Design Optimizations}
 \bigskip
+
+\subsection{Hardware}
+The Akriveia Beacon system has received major hardware optimizations towards the final prototype. Currently, the system's radio access technology employs Ultra-wideband for its superior accuracy in distance measurements as compared to Bluetooth Low Energy used in the proof-of-concept. As a result, the ESP32s are replaced with DW1000 modules as transceivers across all beacons and ID tags. WiFi communication has also been adopted in place of the wired serial connections between beacons to increase scalability and eliminate wire management issues introduced during installation. In spite of the WiFi optimization requiring beacons to include an additional WiFi enabled chip, a smaller microcontroller, Arduino Pro Mini, is used across all beacons to compensate the space take by the WiFi chip and ID tags to further reduce their form factor for better portability. In addition, each beacon has received a MOSFET-based bi-directional level shifter circuitry to enable a reboot by logic signal functionality. All devices of the system are powered by their individual battery and are equipped with power switches.
