@@ -1,0 +1,67 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper, total={6.5in, 9.5in}]{geometry}
+\usepackage[document]{ragged2e}
+\usepackage[bookmarksopen=true,hidelinks]{hyperref}
+\usepackage{bookmark}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[numbib]{tocbibind}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{cellspace}
+\usepackage{etoolbox}
+\usepackage{longtable}
+\usepackage[table, svgnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\setcounter{secnumdepth}{4}
+\usepackage{fancyhdr}
+\usepackage[noadjust]{cite} 
+\usepackage{pdflscape}
+\usepackage{caption}
+\DeclareCaptionLabelFormat{blank}{}
+\usepackage{everypage}
+\usepackage{eurosym}
+
+\newcommand{\Lpagenumber}{\ifdim\textwidth=\linewidth\else\bgroup
+  \dimendef\margin=0 %use \margin instead of \dimen0
+  \ifodd\value{page}\margin=\oddsidemargin
+  \else\margin=\evensidemargin
+  \fi
+  \raisebox{\dimexpr -\topmargin-\headheight-\headsep-0.5\linewidth}[0pt][0pt]{%
+    \rlap{\hspace{\dimexpr \margin+\textheight+\footskip}%
+    \llap{\rotatebox{90}{\thepage}}}}%
+\egroup\fi}
+\AddEverypageHook{\Lpagenumber}%
+
+\fancypagestyle{logo}{
+    \fancyhf{} % clears header/footer
+    \renewcommand\bottomfraction{0.9}
+    \renewcommand\textfraction{0.1}
+    \fancyhead[C]{\includegraphics[ width=\linewidth, keepaspectratio]{./images/header_white.png}}
+    \fancyfoot[LE,RO]{\thepage}
+}
+\pagestyle{logo}
+
+% Glossary
+\begin{document}
+
+\setboolean{@twoside}{false}
+\includepdf[pages={1}]{./images/title_page_white.pdf}
+
+
+\pagebreak
+\clearpage
+\pagebreak
+\begin{spacing}{1}
+\
+\tableofcontents
+\end{spacing}
+\pagebreak
+
+
+\end{document}
