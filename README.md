@@ -1,2 +1,2 @@
-# Akriveia
-Global Indoor Positioning System for Search and Rescue
+# Akriveia Beacon System
+
