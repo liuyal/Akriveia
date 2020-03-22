@@ -1,0 +1,80 @@
+
+
+\setcounter{section}{2}
+\section{Current Market \& Competitions}
+
+%-----Markets-----$
+\subsection{Markets}
+Currently there are two major markets available for Global Indoor Location (\Gls{GIL}) and Search and Rescue (\Gls{SAR}) equipment. 
+The Global Indoor Location market is worth \$ 3.43 billion in 2015 and is projected to reach \$ 29.4 billion in 2022 \cite{R3-1}. This advent 
+comes from the increasing amount of smartphone users and ineffective Global Position Systems (\Gls{GPS}) for indoor use. On the other hand, SAR market 
+worth is projected to rise from \$ 113.62 billion in 2017 to \$ 125.66 billion by 2022 \cite{R3-2}. Mainly the increased focus on citizen 
+safety and rising terroism/insurgency threats supports the upward trend. Suprisingly, UWB is only utilized for GIL market for commercial use in 
+warehousing, breweries, factories and other various applications. However, none uses UWB for GIL in emergency situations as SAR equipment. 
+Therefore, Triwave Systems uniquely positions itself between two multibillion dollar markets, GIL and SAR, and allowing freedom to compete in both. 
+
+\bigskip
+
+There are multiple Global Indoor Location (GIL) systems available on the market. Each GIL system relies on their own specific technology and has 
+their own benefits and cons. Based on the journal \textit{Localization and Positioning Systems for Emergency Respondiers: A Survey}\cite{R3-3}, 
+there are five categories or attributes on which each GIL are evaluated: Accuracy, Information Accessibility, System Adaptability, System 
+Architecture, System Autonomy and Cost. Of the numerous technologies stated in the journal, only UWB provides the sufficient accuracy and 
+reliability needed for indoor tracking for individuals during emergencies. In fact, UWB if optimized properly can provide the necessary $<$1m 
+accuracy compared to other technologies. UWB operates on the frequency range from 3.5 to 6.5Ghz band which enables higher accuracy, less interference 
+and multipath propagation effect. Bluetooth and Wifi utilize 2.4Ghz which severely reduces its accuracy due to multi-path propagation effect 
+and interference. Although 2.4Ghz frequency GIL sysytems are inexpensive and readily available, the inconsistent nature of RSSI causes Wifi and 
+Bluetooth GIL systems to be inaccurate \cite{R3-4}. UWB although more costly, can provide the necessary location tracking that our emergency 
+tracking system requires. Thus, UWB technology is the most appropriate for our specific scenarios and use cases.
+
+%----Competition-----%
+\subsection{Competition}
+There are a number of competitors in the market that uses the same UWB technology for indoor localization as Triwave Systems. 
+However, the application of their products is mainly associated with tracking equipments and items in warehouse or production facilities, 
+which differs from the scope of search and rescue and does not compete directly with our product. The various companies, infsoft or Pozyx, use 
+UWB for tracking individuals in warehousing. Tracking individuals or items in non-emergency situations do not necessitate the need for high 
+precision localization. As well, use cases where power is out are not considered in the product specifications as vital. UWB applications in non 
+life-threatening situations do not demand such strict regulation or procedures compared to SAR equipment. Triwave Systems' Akriveia also has 
+backup battery power for the beacons in case of emergencies. Since the ID tags are mainly in deep sleep waiting for user input and the beacons 
+emergency broadcast, these ID tags can last several years in deep sleep considering optimal conditions \cite{R3-5}. Another defining feature for 
+Akriveia systems is the integrability of the ID tag with the access card. There will be no need for employees to carry two separate cards but 
+rather one card with both functions. 
+
+%---update the reference numbers --------------------%
+\subsubsection{infsoft}
+infsoft is a competitor that provides indoor tracking solution mainly to industrial environments using UWB sensors. 
+Similar to Triwave Systems, their tracking system consists of two components: locator tags and locator nodes, for which the locator tags 
+can be attached to people or objects and the locator nodes are installed at fixed locations in an infrastructure. Some suggested uses cases 
+for their UWB locating systems are forklift localization, route analysis, asset tracking and tugger train management, which are mainly in 
+warehouse or production facilties \cite{R3-6}. In applications where locator tags are attached to immobile objects such as asset tracking, 
+such a system would be beneficial as it may prevent incorrect inventories. However, in applications where the locator tags are attached to 
+people such as search and rescue, privacy becomes an issue as their navigation within the coverage area of the locator nodes are exposed in 
+real time. Triwave Systems ensures that user privacy is preserved in all non emergency situations by preventing ID tags to broadcast signals 
+which forbids data reception from our beacons. This solution also decreases power consumption of ID tags significantly, hence lengthening 
+their battery life as well. 
+
+\subsubsection{Pozyx}
+Pozyx is another company that provides tracking solutions using UWB technology for production and other industries. With the same system 
+components as of infsoft, the company categorizes its products in two families: Creator and Enterprise. The Creator kit pricing at 
+\EUR{1050} consists of 4 tags and 5 anchors is aimed for hobbyist prototyping purposes, whereas the Enterprise kit pricing at \EUR{3900} 
+consists of 3 tags and 6 anchors is used in large industrial environments \cite{R3-7}. In terms of accessibility, both product families may 
+not be ideal for their dedicated comsumers due to their high price points. Despite difference in use case, Triwave System integrates 
+components that are less costly to build ID tags and beacons in order to maintain a widely accessible yet cost effective system. 
+
+\subsubsection{Articles/Journals}
+Instead of tags and anchors, the wireless sensor invented by the King Abdullah University of Science and Technology is a handheld portable 
+device engineered to detect human body movements such as respiratory chest movements with UWB technology. It is low cost solution with high 
+level of accuracy and the ability to penetrate obstacles due to benefits of UWB technology, which is seemingly ideal for search and rescue 
+\cite{R3-8}. However, problems arise due to the handheld nature of the device in search and rescue. Firstly, the chance of locating victims
+is highly dependent on the coverage area and direction of the search conducted by the device user. This human dependency may pose limitations 
+to its effectiveness on search and rescue since it is difficult to have full coverage on a disaster site. Lastly, having an extra device to 
+carry can also be an extra burden to first responders who carries gears and equipment during a search operation. Triwave Systems solves these 
+problems by having UWB sensors attached to potential victims instead of first responders. Search coverage is also handled by the distribution 
+of our beacons and our data processing unit allows first responders to locate victims more effectively without carrying a device into dangerous 
+environments.
+
+\bigskip
+One article \textit{Indoor localization for evacuation management in emergency scenarios} discusses about using a WiFi system that computes 
+indoor localization to the person’s phones \cite{R3-9}. The sensors that detect smoke would send an alarm to the web server which would in turn 
+send alerts to Rescuer apps and Worker apps. The phone app would guide the person to exits or provide emergency assistance. However, the authors 
+exaggerate the effectiveness and accuracy of RSSI. Thus, the article only provides the concept of an Emergency Indoor Localization system without 
+physically implementing it. 
