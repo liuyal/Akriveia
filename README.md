@@ -1,6 +1,6 @@
 # Akriveia Beacon System
 
-![](/Akriveia/Documents/images/logo_s.png)
+![](./Documents/images/logo_s.png)
 
 ## Background
 
