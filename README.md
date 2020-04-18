@@ -2,8 +2,6 @@
 
 ![](/Akriveia/Documents/Project%20Files/logo/logo_s.png)
 
-<div style="text-align:center"><img src="/Akriveia/Documents/Project%20Files/logo/logo_s.png" /></div>
-
 ## Background
 
 Over the last couple of decades urban centers around the world have faced substantial population
