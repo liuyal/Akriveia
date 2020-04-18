@@ -30,4 +30,4 @@ niques to create a dependable real time indoor location positioning system.
 
 ## References
 
-- [1] Statistics-Canada. (2014, August) Interview on rust, a systems programming language developed by mozilla[online]. [Online]. Available: Availableat:https: //www150.statcan.gc.ca/n1/daily-quotidien/160916/dq160916c-eng.htm[Accessed8June.2019].
+- [1] Statistics-Canada. (2014, August) Interview on rust, a systems programming language developed by mozilla[online]. [Online]. Available: Availableat:https: //www150.statcan.gc.ca/n1/daily-quotidien/160916/dq160916c-eng.htm[Accessed8June.2019]
