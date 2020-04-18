@@ -1,0 +1,321 @@
+%\documentclass[11pt]{article}
+%\usepackage[a4paper, total={6.5in, 9.5in}]{geometry}
+%\usepackage[document]{ragged2e}
+%\usepackage{lipsum}
+%\usepackage{graphicx}
+%\usepackage[noadjust]{cite}  
+%\usepackage{float}
+%\usepackage[numbib]{tocbibind}
+%\usepackage{multirow}
+%\usepackage{array}
+%\usepackage{setspace}
+%\usepackage{cellspace}
+%\usepackage{etoolbox}
+%\usepackage{scrpage2}
+%\usepackage{longtable}
+%\usepackage[table, svgnames]{xcolor} 
+%\usepackage{titlesec}
+%\usepackage{amsmath}
+%\setcounter{secnumdepth}{4}
+%\titleformat{\paragraph}
+%{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+%\titlespacing*{\paragraph}
+%{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+%\ifoot[]{}
+%\cfoot[]{}
+%\ofoot[\pagemark]{\pagemark}
+%\pagestyle{scrplain}
+%\begin{document}
+
+\setcounter{section}{7}
+\section{Appendix}
+
+\subsection{Proof Of Concept(PoC) Acceptance Test Plan}
+\medskip
+% What testing is there supposed to be?
+The PoC Acceptance Test Plan includes all the testing procedures for verifying and validating the requirement specifications under a formal test environment. The goal of the PoC Acceptance Test Plan is to ensure the basic requirements stated in the \textbf{\textit{System Requirements}} section of the document are met.
+
+\medskip
+Three main goals for the PoC testing are as follows:
+
+\begin{enumerate} 
+    \item 2.4 GHz chips are able to receive and transmit data accurately
+    \item Arduino micro-controllers(MCU) receives the transmission data 
+    \item Raspberry Pi receives data serially from Arduino MCU
+\end{enumerate}
+
+%The acceptance test plan will consists of the test below:
+%\begin{enumerate}
+%    \item System(General) Tests
+%    \item Hardware Tests
+%    \item Electrical Tests
+%    \item Software Tests
+%    \item Software - UI Tests
+%    \item Performance Tests
+%    \item Performance - Signal Tests
+%\end{enumerate}
+% Acceptance Test Plan is Long
+
+\subsubsection{Systems (General Testing)}
+
+\begin{table}[h!]
+    \centering
+    
+    \begin{tabular}{|m{0.15\linewidth}|m{0.02\linewidth}|m{0.3\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{4}{|l|}{System (General) Test}  \\ 
+    \hline
+    REQ.ID & \multicolumn{2}{l|}{Testing Criteria} & Expected Output \\ 
+    \hline
+    % Row of req ID, #, Testing Criteria, Expected Output
+    REQ.GE.1-C                  
+    & 1
+    & Ensure all tests conducted are representative of conditions indoor instead of outdoor conditions or all-terrain conditions 
+    & System testing and design are representative of conditions within a building. 
+    System testing does not consider the all-weather conditions nor any unpredictable outdoor conditions.\\ 
+    \hline
+
+    % Row of req ID, #, Testing Criteria, Expected Output
+    \multirow{2}{*}{REQ.GE.2-C} 
+    & 1 
+    & System is able to switch between two modes: idle and emergency modes       
+    & Switching between the idle and emergency modes are to be robust and reliable. 
+    There is significant differences in power consumption, signal communication and content between the two modes. \\ 
+    \cline{2-4}
+    & 2 
+    & Idle mode and emergency modes should show different operations 
+    & MCU serial output should show different data transfer when system is in the different modes \\ 
+    \hline
+
+    % Row of req ID, #, Testing Criteria, Expected Output   
+    \multirow{2}{*}{REQ.GE.3-C} 
+    & 1 
+    & System should determine the location of the ID tag on one floor of a building     
+    & Software algorithms determine the relative location of the ID tag to the beacons. 
+    Clear distances are measured between the beacons themselves or to the ID tag.~\\ 
+    \cline{2-4}
+    & 2 
+    & System to show relative location of the ID tag     
+    & A relative location of the ID tag to the approximate floor space is calculated \\
+    \hline
+    \end{tabular}
+    \caption{PoC System(General) Requirement Test Plans}
+\end{table}
+
+\break
+\subsubsection{Hardware Test Plan}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|m{0.15\linewidth}|m{0.02\linewidth}|m{0.3\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{4}{|l|}{Hardware Tests}           \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    REQ.ID & \multicolumn{2}{l|}{Testing Criteria} & Expected Output         \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+    % Row of req ID, #, Testing Criteria, Expected Output
+    REQ.HW.1-C                  
+    & 1 
+    & Data processing unit should use SBC to be the automated product control
+    & SBC should take all received data and perform calculations   \\ 
+    \hline
+   
+    % Row of req ID, #, Testing Criteria, Expected Output
+    REQ.HW.2-C                  
+    & 1 
+    & Beacons to use the MCU to be the automated product control
+    & MCU should control signal transmission through the 2.4 GHz chips and be fully operational 
+    when used as the automated product control         \\ 
+    \hline
+    
+    % Row of req ID, #, Testing Criteria, Expected Output
+    \multirow{2}{*}{REQ.HW.3-C} 
+    & 1 
+    & ID tags to use the MCU to be the automated product control
+    & MCU should control signal transmission through the 2.4 GHz chips and be fully operational 
+    when used as the automated product control            \\ 
+    \cline{2-4}
+    & 2 
+    & MCU should receive signals from the beacons and transmit signal back through MCU  
+    & Arduino serial output for ID tag should show data received and send proper data output        \\
+    \hline
+    
+    % Row of req ID, #, Testing Criteria, Expected Output
+    REQ.HW.4-C                  
+    & 1 
+    & SPI should be used as the interface with the MCU and transceiver
+    & Arduino serial output for MCU should show proper data transfer through the 2.4 GHz transceiver   \\ 
+    \hline
+    
+    % Row of req ID, #, Testing Criteria, Expected Output
+    \multirow{2}{*}{REQ.HW.5-C} 
+    & 1 
+    & Beacons should use 2.4 GHz radio frequency as the receiver     
+    & Correct data input received from the 2.4 GHz radio module          \\ 
+    \cline{2-4}
+    & 2 
+    & Beacons should use 2.4 GHz radio frequency as the transmitter     
+    & Correct data output transmitted from the 2.4 GHz radio module   \\
+    \hline
+    
+    % Row of req ID, #, Testing Criteria, Expected Output
+    \multirow{2}{*}{REQ.1HW.6-C} 
+    & 1 
+    & ID tags should use 2.4Ghz radio frequency as the receiver     
+    & Correct data input received from the 2.4Ghz radio module          \\ 
+    \cline{2-4}
+    & 2 
+    & ID tags should use 2.4 GHz radio frequency as the transmitter     
+    & Correct data output transmitted from the 2.4 GHz radio module   \\
+    \hline
+    
+    % Row of req ID, #, Testing Criteria, Expected Output
+    \multirow{2}{*}{REQ.HW.7-C} 
+    & 1 
+    & Beacon to data processing unit communication should use USB serial
+    & Beacon and data processing unit communicates and data transfer is functional         \\ 
+    \cline{2-4}
+    & 2 
+    & Correct data should be transmitted through serial USB     
+    & Correct data is transmitted or received through serial USB. Data processing unit or beacons should receive or transmit
+    intended data   \\
+    \hline    
+
+\end{tabular}
+    \caption{PoC Hardware Requirement Test Plans}
+\end{table}
+
+
+
+\break
+\subsubsection{Electrical Test Plan}
+
+\begin{table}[h!]
+    \centering
+    
+    \begin{tabular}{|m{0.15\linewidth}|m{0.02\linewidth}|m{0.3\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{4}{|l|}{Electrical Tests}      \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    REQ.ID   & \multicolumn{2}{l|}{Testing Criteria}     & Expected Output     \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+    % Row of req ID, #, Testing Criteria, Expected Output
+    REQ.EC.1-C                  
+    & 1 
+    & Beacons should be powered through 120 V AC, 60 Hz outlets
+    & Beacons are powered by the AC outlets and is functional   \\ 
+    \hline
+    % Row of req ID, #, Testing Criteria, Expected Output
+    REQ.EC.2-C                  
+    & 1 
+    & ID tags should have it's own 3.3 V battery power source
+    & ID tags are battery powered and is functional  \\ 
+    \hline
+\end{tabular}
+	\caption{PoC Electrical Requirement Test Plans}
+\end{table}
+
+\subsubsection{Software Test Plan}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|m{0.15\linewidth}|m{0.02\linewidth}|m{0.3\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    \multicolumn{4}{|l|}{Software Tests }           \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    REQ.ID      & \multicolumn{2}{l|}{Testing Criteria}      & Expected Output          \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+    % Row of req ID, #, Testing Criteria, Expected Output
+    \multirow{2}{*}{REQ.SC.1-C} & 1 
+    & Data processing unit should receive ToF(Time of Flight) data from the beacons
+    & Input of ToF data is received from the beacons        \\ 
+    \cline{2-4}
+    & 2 
+    & ToF data received from beacons should be accurate  
+    & ToF data is verified to be correct. Data is tested to be true and does not contain errors   \\
+    \hline 
+\end{tabular}
+	\caption{PoC Software Requirement Test Plans}
+\end{table}
+
+%\subsubsection{Software - UI Test Plans}
+%There are no Software - UI requirements in the PoC phase. Test plans will be developed for Prototype and 
+%Final Product phases at a later date.
+
+\subsubsection{Performance Test Plans}
+\begin{table}[h!]
+    \centering
+    
+    \begin{tabular}{|m{0.15\linewidth}|m{0.02\linewidth}|m{0.3\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    % Change this line to match #. (Section) Test
+    \multicolumn{4}{|l|}{Performance Tests    }      \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    REQ.ID      & \multicolumn{2}{l|}{Testing Criteria}      & Expected Output          \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+    % Row of req ID, #, Testing Criteria, Expected Output
+    \multirow{2}{*}{REQ.PE.1-C} & 1 
+    & System should locate users within the building with an accuracy of 1m
+    & Coordinates of the ID tags should be within a radial $\pm$1m of the actual location    \\ 
+    \cline{2-4}
+    & 2 
+    & Approximate locations should be verified to be $\pm$1m of actual 
+    & A set of automated tests is run to check if system calculates correct Coordinates 
+    within $\pm$1m  \\
+    \hline 
+\end{tabular}
+\caption{PoC Performance Requirement Test Plans}
+\end{table}
+
+\break
+\subsubsection{Performance - Signal Test Plans}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|m{0.15\linewidth}|m{0.02\linewidth}|m{0.3\linewidth}|m{0.45\linewidth}|} 
+    \hline
+    % Change this line to match #. (Section) Test
+    \multicolumn{4}{|l|}{Performance - Signal Tests }           \\ 
+    % -----DONT NEED TO CHANGE THIS SECTION -----
+    \hline
+    REQ.ID      & \multicolumn{2}{l|}{Testing Criteria}      & Expected Output          \\ 
+    \hline
+    % ----DONT NEED  TO CHANGE THIS SECTION ----
+    
+    % Row of req ID, #, Testing Criteria, Expected Output
+    REQ.PE.10 - C                 
+    & 1 
+    & 50\% of data transmitted via wireless communication must not be corrupted or lost
+    & Arduino serial output should show data received/transmitted is at least 50\% correct    \\ 
+    \hline    
+    
+    % Row of req ID, #, Testing Criteria, Expected Output
+    \multirow{2}{*}{REQ.PE.11-C} 
+    & 1 
+    & 2.4 GHz wireless communications should be used to transfer data between beacons and ID tag
+    & 2.4 GHz radio module transceiver for both the beacons and ID tag is communicating     \\ 
+    \cline{2-4}
+    & 2 
+    & Beacons and ID tags only communicate to each other and other wifi/bluetooth signals should not interfere
+    & Beacons and ID tags receive data from each other only and do not communicate with other signals \\
+    \hline 
+    
+    % Row of req ID, #, Testing Criteria, Expected Output
+    REQ.PE.12-C                  
+    & 1 
+    & Latency for wireless communication should be less than 100ms
+    & Automated tests show signal transfer is less than 100ms    \\ 
+    \hline    
+\end{tabular}
+\caption{PoC Performance - Signal Requirement Test Plans}
+\end{table}
+
+%\end{document}
