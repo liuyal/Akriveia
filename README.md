@@ -10,13 +10,11 @@ A major concern during disaster search and rescue operations involving large and
 
 Utilizing various hardware, electrical and software components, the engineers at TRIWAVE SYSTEMS is aiming to create a solution that can accurately and reliably to locate and identify trapped victims within complex structures in near real time. By pinpointing the exact coordinates of any trapped victims associated with an ID tag, the search and rescue time for first responders can be minimized, which is critical in any disaster rescue operations. This is achieved by incorporating a combination of advanced Decawave Ultra-wideband radio frequency (RF) modules, Espressif ESP32 microcontroller units (MCU), data processing units (DPU), and reliable trilateration techniques to create a dependable real time indoor location positioning system.
 
-## Tech
+## RF Technologies
 
 ## System Overview
 
 ## UI
-
-##
 
 ## References
 
