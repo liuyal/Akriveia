@@ -1,0 +1,22 @@
+
+
+\setcounter{section}{1}
+\section{Design Optimizations}
+
+\bigskip
+The Akriveia Beacon system has received major design changes and optimizations in terms of hardware, electrical, and software components. These changes were made to ensure the final production ready version cohere to safety standards, regulations  and requirements specified in the design requirements, as well as to ensure a quality and reliable product.
+
+\bigskip
+Previously, Received Signal Strength Indicator (RSSI) with Bluetooth Low Energy (BLE) was used in the proof-of-concept for estimating distance. This yield undesirable ranging results as RSSI is affected by a wide variety of factors such as temperature, humidity, multi-path, and many other environmental factors and uncontrollable RF interference. To ensure ranging accuracy is well within 50 cm as specified in the design requirements, the system's radio technology was changed to time of flight (TOF) associated with ultra-wideband (UWB) for its superior accuracy in distance measurements. Beacon and ID Tag BLE transceivers modules was replaced with DWM1000 modules paired with 3.3V 8MHz Ardunio Mini Pros as the microcontroller unit (MCU). As a result of these changes the ranging capability was improved up to 30m indoors with an accuracy of +/- 25cm. 
+
+\bigskip
+WiFi communication has been adopted in place of wired serial connections between beacons and data processing server (DPS) to increase scalability and to eliminate wire management issues introduced during installation. This was done by introducing the addition of ESP WiFi modules which will establish network connection with DPS through a closed private WiFi network. As a result each beacon was redesigned to accommodate the addition of WiFi modules. The MCU communicate with the WiFi modules via hardware serial to be able to receive and send UDP packets from the DPS.
+
+\bigskip
+Beacon recovery mechanisms was also designed into the core circuit. A MOSFET trigger switch composed of a N-type MOSFET has been added to enable hardware reboot which can be initiated by server commands in-case of beacon failures. However, since the output voltage from MCUs are 3.3V and the MOSFET trigger needs a higher potential of 5.0V, in order to be triggered, a Bi-directional logic converter consists of a 10K and 100K resistor and a N-type MOSFET has been added into the design. 
+
+\bigskip
+Other design changes and optimization aimed for the production ready version include the addition of rechargeable battery packs equipped with power switches to beacons, removal of breadboards by assembly beacon and ID tag components onto perfboards, 3D printed cases designed for housing all hardware and electrical components, which can also be mounted, and important functionality and usability additions to the Akriveia web server.
+
+\bigskip
+Furthermore, there are some design optimizations that are planned but is beyond the scope of the current timeline. In the final production ready version, the beacons components are encased in a 3D printed casing made with PLA which could sustain structural integrity up to 65 degree celsius. Which is fairly low considering building fires could reach a temperature of 600 degree celsius. As a system to be operating under emergency disaster situation, the Akriveia Beacon must meet safety standards of fire safety equipment. The beacon casing must be designed with fire-safe polymers or perhaps coated with fire retardant paint to remain operational under high temperature environments. The internal electrical components could also be insulated with fire-resistant material such as polybenzimidazole fiber - a synthetic fiber which does not exhibit a melting point, or light carbon foam.
