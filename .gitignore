@@ -1,0 +1,14 @@
+**.aux
+**.bbl
+**.blg
+**.glo
+**.ist
+**.lof
+**.log
+**.lot
+**.pdf
+**.toc
+**.tof
+**.xml
+**.bcf
+build/
