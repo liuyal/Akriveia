@@ -1,0 +1,60 @@
+
+
+\setcounter{section}{3}
+%\begin{document}
+\section{Electrical Test Plan}
+\bigskip
+
+
+Since beacons and ID tags both consist of microcontrollers, transceivers and various electrical parts, it is crucial that each of these components are powered by proper power supply. In the case where two components are powered by the same battery operating at different voltage and current levels, the system must include regulators that can ensure the proper power is delivered to the components. These regulators must work flawlessly, as an electrical failure in the system could be catastrophic. Furthermore, the hardware components must be tested against short circuit as it can results in an excessive current flowing through the circuit and therefore damaging electrical components and creating system failures.
+
+
+\bigskip
+\bgroup
+\def\arraystretch{1.25}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{0.07\linewidth}|p{0.45\linewidth}|p{0.40\linewidth}|} 
+    \hline
+    ID & Test Proceedure & Validation\\ 
+
+    \hline
+    EC-01
+    & Measure voltage and current supplied to ESP32 power input pin with digital multimeter (DMM).
+    & Observe measured values on the DMM to verify that input from battery is sufficient to power ESP32 and stable. \\ 
+
+    \hline
+    EC-02
+    & Measure voltage and current supplied to ProMini power input pin with DMM.
+    & Observe measured values on the DMM to verify that input from voltage regulator is between 3.3V and 3.6V to power the ProMini and   stable and that input current is 40mA to each digital IO pin. \\
+
+    \hline
+    EC-03
+    & Measure voltage supplied to DWM1000 power input pin with digital DMM.
+    & Observe measured values on the DMM to verify that power input to the DWM1000 is between 3V and 3.5V. \\
+
+    \hline
+    EC-04
+    & Measure logic voltages supplied by the MOSFET reboot circuit with the DMM.
+    & Observe measured values on the DMM to vefify that the 3.3V logic output supplies 3.3V and the 5V logic output supplies 5V. \\
+
+    \hline
+    EC-05
+    & Measure clock frequencies from ESP32 using an oscilloscope.
+    & Observe waveform output on the oscilloscope, ensure that the oscillator is producing an 8MHz signal. \\
+
+    \hline
+    EC-06
+    & Measure clock frequencies from ProMini using an oscilloscope.
+    & Observe waveform output on the oscilloscope, ensure that the oscillator is producing an 8MHz signal. \\
+
+    \hline
+    EC-07
+    & Test soldered pins on DWM1000 chips to ensure no short circuits.
+    & Apply low voltage across two pins on the PCB. If there is no measured voltage and maximum allowed current across the pins, they are shorted and need to be resoldered. If the voltage is measured and stable, then the pins are safe. \\
+
+    \hline
+    \end{tabular}
+    \caption{Electrical Test Cases}
+\end{table}
+%\end{document}

@@ -1,0 +1,102 @@
+
+
+\setcounter{section}{4}
+\section{Software Test Plan}
+\bigskip
+
+The software components consist primarily of a rust server running on a laptop, desktop, ipad or other single board computers.
+The server communicates with beacons via User Datagram Protocol (UDP).
+The users can view data and perform maintenance operations on the server through a simple web interface via common web browser such as Google Chrome or Firefox.
+Tests on the software side are primarily UI focused, which best emulate the user experience and involve all aspects of the system allowing a smaller set of tests to validate the entire system.
+Some additional automated unit tests are written primarily to test SQL queries for correctness, as they frequently break when the database schema is changed.
+
+\bigskip
+\bgroup
+\def\arraystretch{1.25}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{0.07\linewidth}|p{0.40\linewidth}|p{0.45\linewidth}|}
+    \hline
+    ID & Test Proceedure & Validation\\
+
+    \hline
+    SW-01
+    & Build automated tests using Rusts built in testing framework to verify all Postgres queries are valid.
+    & Execute the tests, verify that all test cases pass. \\
+
+    \hline
+    SW-02
+    & Logging in as responder correctly uses the anonymous credentials.
+    & Login in as responder, and attempt to create new objects or update existing ones, these operations must fail. \\
+
+    \hline
+    SW-03
+    & Logging in as admin correctly uses the administrator credentials.
+    & Login in as administrator, and attempt to create new objects or update existing ones, these operations must succeed. \\
+
+    \hline
+    SW-04
+    & Beacons must be capable of sending location data to the server.
+    & Login as administrator, select the diagnostics page, press the start emergency button and verify that data points start showing up on the page. \\
+
+    \hline
+    SW-05
+    & The DPU must automatically connect with all beacons in the network.
+    & Login as a responder, and automatically be directed to the map view page. Verify that clicking on a valid map name displays the beacons on that floor on the User Interface. Tags must not display on the map until an emergency is initiated. \\
+
+    \hline
+    SW-06
+    & The server must show up to date position information about users.
+    & Login as a responder, and navigate to the status page. In an emergency, the status page must show the "Last Seen" column indicating the freshness of the information displayed. \\
+
+    \hline
+    SW-07
+    & Administrators must be capable of creating and updating users, beacons, and maps as they expand their company.
+    & Login in an administrator, and create a user, a map and a beacon. Then ensure the objects have been created in their respective list pages. \\
+
+    \hline
+    \end{tabular}
+    \caption{Software Test Cases - Part 1}
+\end{table}
+
+\pagebreak
+\bgroup
+\def\arraystretch{1.25}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{0.07\linewidth}|p{0.40\linewidth}|p{0.45\linewidth}|}
+
+    \hline
+    SW-08
+    & The server must handle multiple beacon connections sending data for multiple tags at once.
+    & Setup the system with at least 3 beacons and at least 2 tags, then view the map view or status pages and verify that the 2 beacons are correctly located. \\
+
+    \hline
+    SW-09
+    & Maps on the User Interface must correctly use the pixel to distance scale to accurately display the tags and beacons on the maps.
+    & Create a custom map as an administrator, upload the blueprint image and determine the scale in pixels per meter. Add becons to the map and then verify on the "Map View" page that the beacons and tags are in the right location. \\
+    
+    \hline
+    SW-10
+    & Adminstators must be capable of updating beacon and user information. 
+    & Login as adminstator and create an user and beacon. Edit user and beacon information. The user and beacon information should reflect the proper changes. \\
+    
+    \hline
+    SW-11
+    & Viewing the website should redirect users to see the login page immediately.
+    & Enter the URL for the website. The option to select between admin login and responder login must appear. \\
+
+    \hline
+    SW-12
+    & Website layout must scale properly on all types of devices. UI must be uniform without misplaced icons.
+    & Enter website onto multiple devices browser. Website UI looks uniform and consistent among all devices. \\
+
+    \hline
+    SW-13
+    & Improper admin login credentials must be rejected.
+    & Login using incorrect login credentials. Error message must appear and client cannot login as admin despite multiple tries. \\
+    
+    \hline
+    \end{tabular}
+    \caption{Software Test Cases - Part 2}
+\end{table}
